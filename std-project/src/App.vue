@@ -1,82 +1,78 @@
-<script setup>
-
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-
-      <nav>
-     
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <router-view v-slot="{ Component }">
+    <transition name="fade" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Poppins&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'poppins', sans-serif;
+  text-decoration: none;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
+#app {
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
+  font-family: 'poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 2rem;
+  color: #2c3e50;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+
+/* Scroll bar stylings */
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+/* Track */
+::-webkit-scrollbar-track {
+  background: #c5c5c576;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #5175559a;
 }
 
-nav a:first-of-type {
-  border: 0;
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #55555588;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.relative {
+  position: relative;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+svg {
+  color: #fff;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+svg:hover {
+  cursor: pointer;
+}
 
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
 
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.fade-enter-from,
+.fade-leave-active {
+  opacity: 0.1;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
 }
 </style>
