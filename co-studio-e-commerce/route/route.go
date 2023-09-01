@@ -20,4 +20,6 @@ type IRoute interface {
 // 	db := s.GetDB()
 // 	repository := repo.NewRepo(db)
 //
+// 	// userService := service.NewUser(repository)
+//
 // }
