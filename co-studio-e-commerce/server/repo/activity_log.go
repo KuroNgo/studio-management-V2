@@ -37,3 +37,14 @@ func (r *Repo) UpdateActivityLog(ctx context.Context, log *model.ActivityLog) er
 	}
 	return nil
 }
+
+// lập lịch xóa ( admin không có quyền xóa log của user )
+// Dữ liệu activity log sẽ bị xóa khi user bị xóa
+// Dữ liệu activity log sẽ bị xóa khi > 30 days không đăng nhập
+func (r *Repo) DeleteActivityLog(ctx context.Context, log *model.ActivityLog) error {
+	// DeleteActivityLog là hàm xóa thông tin log của user
+	if err := r.db.Delete(log).Error; err != nil {
+		return err
+	}
+	return nil
+}

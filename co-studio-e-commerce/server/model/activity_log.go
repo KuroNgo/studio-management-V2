@@ -1,13 +1,21 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
+
+// activity_log tự động lấy thông tin hoạt động của người dùng
+// thu thập hoạt động của người dùng
+// thu thập lịch sử hoạt động của người dùng
 
 type ActivityLog struct {
-	log_id        int       `gorm:"primary_key;AUTO_INCREMENT" json:"log_id"`
-	user_id       int       `json:"user_id"`
-	activity_type string    `json:"activity_type"`
-	activity_time time.Time `json:"activity_time"`
-	description   string    `json:"description"`
+	Log_id        int       `gorm:"primary_key;AUTO_INCREMENT" json:"log_id"`
+	User_id       uuid.UUID `json:"user_id"`
+	Activity_type string    `json:"activity_type"`
+	Activity_time time.Time `json:"activity_time"`
+	Description   string    `json:"description"`
 }
 
 func (ActivityLog) TableName() string {
@@ -15,5 +23,5 @@ func (ActivityLog) TableName() string {
 }
 
 func (a *ActivityLog) IsSet() bool {
-	return a.log_id != 0
+	return a.Log_id != 0
 }
