@@ -12,3 +12,7 @@ type User struct {
 
 type IUser interface {
 }
+
+func NewUser(service service.IUser) *User {
+	return &User{service: service}
+}
