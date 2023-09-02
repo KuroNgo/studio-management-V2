@@ -7,6 +7,8 @@ import (
 	"github.com/google/uuid"
 )
 
+// GetUserId là hàm lấy user id từ header
+// Nếu không có user id thì trả về uuid.Nil
 func GetXUserId(ctx *gin.Context) (uuid.UUID, error) {
 	userIdStr := ctx.GetHeader("x-user-id")
 	if strings.Contains(userIdStr, "|") {

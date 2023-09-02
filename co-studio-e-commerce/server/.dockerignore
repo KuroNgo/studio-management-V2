@@ -16,4 +16,4 @@ docker-compose.yml
 
 /.docker
 
-README.md
+EXPLAIN_STRUCTURE.md

@@ -42,4 +42,11 @@ type IRepo interface {
 	CreateActivityLog(ctx context.Context, log *model.ActivityLog) error
 	UpdateActivityLog(ctx context.Context, log *model.ActivityLog) error
 	DeleteActivityLog(ctx context.Context, log *model.ActivityLog) error
+
+	// categories
+	GetCategory(ctx context.Context, category *model.Categories) error
+	GetAllCategory(ctx context.Context, category *[]model.Categories) error
+	CreateCategory(ctx context.Context, category *model.Categories) error
+	UpdateCategory(ctx context.Context, category *model.Categories) error
+	DeleteCategory(ctx context.Context, category *model.Categories) error
 }
