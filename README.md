@@ -14,6 +14,7 @@ Tech Stack:
 - ReactiveX
 - Docker
 - Github CICD
+- Postman API
 
 ## Frontend
 Tech Stack:
