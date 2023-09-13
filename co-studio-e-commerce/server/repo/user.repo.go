@@ -1,12 +1,10 @@
 package repo
 
 import (
-	"context"
-
 	"co-studio-e-commerce/model"
 )
 
-func (r *Repo) GetUser(ctx context.Context, user *model.User) error {
+func (r *Repo) GetUser(user *model.User) error {
 	// GetUser là hàm lấy thông tin user
 	if err := r.db.Where(user).First(user).Error; err != nil {
 		return err
@@ -21,7 +19,6 @@ func (r *Repo) GetAllUser(user model.User) ([]model.User, error) {
 	return users, nil
 }
 
-// Đăng ký tài khoản trên hệ thống
 func (r *Repo) CreateUser(user model.User) (model.User, error) {
 	// CreateUser là hàm tạo mới user
 	r.db.Create(user)
@@ -45,7 +42,7 @@ func (r *Repo) DeleteUser(user model.User) (model.User, error) {
 // thay đổi trạng thái có 2 tác động: admin hoặc tự động
 // admin: thay đổi trạng thái của user
 // tự động: thay đổi trạng thái của user khi hết hạn ( hoặc user bị dính black list)
-func (r *Repo) ChangeUserStatus(ctx context.Context, user *model.User) error {
+func (r *Repo) ChangeUserStatus(user *model.User) error {
 	// ChangeUserStatus là hàm thay đổi trạng thái user
 	if err := r.db.Model(user).Update("status", user.Enable).Error; err != nil {
 		return err
@@ -67,6 +64,13 @@ func (r *Repo) GetUserEmail(email string) (model.User, error) {
 	// GetUserEmail là hàm lấy thông tin user
 	var user model.User
 	r.db.Where("email = ?", email).First(&user)
+	return user, nil
+}
+
+func (r *Repo) GetUserByUsername(username string) (model.User, error) {
+	// GetUserByUsername là hàm lấy thông tin user
+	var user model.User
+	r.db.Where("username = ?", username).First(&user)
 	return user, nil
 }
 

@@ -27,9 +27,19 @@ func (r *Repo) GetAllCategory(ctx context.Context, category *[]model.Categories)
 // Tạo mới category
 func (r *Repo) CreateCategory(ctx context.Context, category *model.Categories) error {
 	// CreateCategory là hàm tạo mới category
+	// kiểm tra context đã bị hủy chưa
+	select {
+	case <-ctx.Done():
+		return ctx.Err() // trả về lỗi context đã bị hủy
+	default:
+	}
+
+	// thực hiện công việc tạo mới category
 	if err := r.db.Create(category).Error; err != nil {
 		return err
 	}
+
+	// nếu thành công thì trả về nil
 	return nil
 }
 

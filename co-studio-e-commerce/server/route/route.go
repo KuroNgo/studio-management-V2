@@ -3,7 +3,7 @@ package route
 import (
 	"co-studio-e-commerce/conf"
 	"co-studio-e-commerce/handler"
-	"co-studio-e-commerce/repo"
+	repo "co-studio-e-commerce/repo"
 	"co-studio-e-commerce/service"
 )
 
@@ -16,31 +16,22 @@ type IRoute interface {
 }
 
 func NewService() *Service {
-	s := &Service{
-		App: conf.NewApp(),
+	s := Service{
+		conf.NewApp(),
 	}
 
 	db := s.GetDB()
 	repository := repo.NewRepo(db)
 
-	// user
-	// userService := service.NewUser(repository)
-	// user := handler.NewUser(userService)
-
-	// admin
-
-	// activity log
-	activityLogService := service.NewActivityLog(repository)
-	activityLog := handler.NewActivityLog(activityLogService)
-
-	// migration
-	// migrate := handler.NewMigration(db)
+	userService := service.NewUser(repository)
+	user := handler.NewUser(userService)
 
 	route := s.Router
 	v1 := route.Group("/api/v1")
 
-	// user
-	v1.GET("/users", activityLog.GetActivityLogs)
-	// route.POST("/migration", migra)
-	return s
+	// auth
+	v1.POST("/login", user.Login)
+	v1.POST("/register", user.Register)
+
+	return &s
 }

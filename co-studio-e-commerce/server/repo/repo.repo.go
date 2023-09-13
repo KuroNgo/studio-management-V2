@@ -1,8 +1,7 @@
 package repo
 
 import (
-	"context"
-
+	"golang.org/x/net/context"
 	"gorm.io/gorm"
 
 	"co-studio-e-commerce/model"
@@ -17,15 +16,16 @@ func NewRepo(db *gorm.DB) *Repo {
 }
 
 type IRepo interface {
-	// user
+	// User
+	GetUser(user *model.User) error
+	GetAllUser(user model.User) ([]model.User, error)
 	CreateUser(user model.User) (model.User, error)
 	UpdateUser(user model.User) (model.User, error)
 	DeleteUser(user model.User) (model.User, error)
-	ChangeUserStatus(ctx context.Context, user *model.User) error
-	GetUser(ctx context.Context, user *model.User) error
-	GetAllUser(user model.User) ([]model.User, error)
+	ChangeUserStatus(user *model.User) error
 	GetUserID(id int) (model.User, error)
 	GetUserEmail(email string) (model.User, error)
+	GetUserByUsername(username string) (model.User, error)
 	GetUserRole(role string) (model.User, error)
 	GetUserAddress(address string) (model.User, error)
 	GetUserCreateUser(create_user string) (model.User, error)
@@ -34,16 +34,8 @@ type IRepo interface {
 	GetUserDeleteUser(delete_user int) (model.User, error)
 	GetUserPhone(phone string) (model.User, error)
 
-	// login session
+	// category
 
-	// activity
-	GetActivityLog(ctx context.Context, log *model.ActivityLog) error
-	ViewHistoryUserActitvity(ctx context.Context, log *[]model.ActivityLog) error
-	CreateActivityLog(ctx context.Context, log *model.ActivityLog) error
-	UpdateActivityLog(ctx context.Context, log *model.ActivityLog) error
-	DeleteActivityLog(ctx context.Context, log *model.ActivityLog) error
-
-	// categories
 	GetCategory(ctx context.Context, category *model.Categories) error
 	GetAllCategory(ctx context.Context, category *[]model.Categories) error
 	CreateCategory(ctx context.Context, category *model.Categories) error

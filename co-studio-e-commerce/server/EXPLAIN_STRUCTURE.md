@@ -61,3 +61,32 @@ nhiều kiến thứ về nó
 Làm cho code dễ đọc
 
 `
+
+## Activity_log
+ - Ghi log sự kiện: Cho phép ứng dụng ghi lại các sự kiện quan trọng,
+ví dụ như đăng nhập, đăng ký, thay đổi mật khẩu,thao tác cơ sở dữ liệu quan trọng,
+hoặc bất kỳ hoạt động nào mà bạn muốn theo dõi.
+
+ - Lọc và truy vấn log: Cung cấp khả năng lọc và truy vấn các sự kiện
+trong log dựa trên các thông tin như thời gian, loại sự kiện, người dùng thực hiện, v.v.
+Điều này giúp trong việc tìm kiếm và xem lại các sự kiện cụ thể.
+
+ - Bảo mật và quản lý quyền truy cập: Xác thực và ủy quyền người dùng cho việc xem và ghi log.
+Có thể có các vai trò khác nhau cho việc quản lý log.
+
+- Báo cáo và theo dõi: Tạo các báo cáo hoặc biểu đồ từ dữ liệu log để theo dõi xu hướng,
+phát hiện sự cố hoặc kiểm tra hiệu suất hệ thống.
+
+ - Dự phòng và sao lưu log: Đảm bảo rằng log được sao lưu định kỳ để đối phó với sự cố hoặc phục hồi dữ liệu.
+
+- Xử lý log trực tiếp hoặc thông qua dịch vụ bên ngoài: Có thể cần tích hợp log với các dịch vụ
+và công cụ bên ngoài như Elasticsearch, Logstash, hoặc Splunk để xử lý và phân tích log một cách hiệu quả.
+
+- Giới thiệu người dùng về sự cố: Ghi log có thể được sử dụng để cảnh báo người dùng hoặc
+quản trị viên về các sự cố quan trọng, ví dụ như lỗi hệ thống hoặc hoạt động bất thường.
+
+ - Quản lý kích thước và thời gian lưu trữ: Xác định cách dữ liệu log được quản lý,
+bao gồm việc định kỳ xoá dữ liệu cũ hoặc lưu trữ dữ liệu trong một khoảng thời gian nhất định.
+
+ - Tích hợp với công cụ giám sát: Tích hợp log với các công cụ giám sát như Prometheus
+hoặc Grafana để theo dõi sức khỏe và hiệu suất hệ thống.
