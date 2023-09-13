@@ -14,6 +14,7 @@ Tech Stack:
 - ReactiveX
 - Docker
 - Github CICD
+- Postman API
 
 ## Frontend
 Tech Stack:
@@ -22,6 +23,10 @@ Tech Stack:
 - Javascript
 - GSAP
 
+## Mobile
+Tech Stack:
+- VueJS Ionic
+  
 ## UI/UX
 - Made by Mai Quang Dinh 
 
