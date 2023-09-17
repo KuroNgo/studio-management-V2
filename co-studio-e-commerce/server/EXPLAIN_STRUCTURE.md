@@ -61,6 +61,10 @@ nhiều kiến thứ về nó
 Làm cho code dễ đọc
 
 `
+- Swagger
+Cách tạo swagger
+Dùng lệnh npm install -g swagger
+
 
 ## Activity_log
  - Ghi log sự kiện: Cho phép ứng dụng ghi lại các sự kiện quan trọng,

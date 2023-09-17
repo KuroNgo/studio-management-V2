@@ -15,5 +15,6 @@ func NewApp() *App {
 }
 
 func (a *App) Run() error {
+
 	return a.Router.Run(":" + cfg.Port)
 }

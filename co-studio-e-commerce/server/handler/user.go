@@ -15,14 +15,16 @@ type User struct {
 	user    model.User
 }
 
-type IUser interface {
-}
-
 func NewUser(service service.IUser) *User {
 	return &User{service: service}
 }
 
-// GetMe là hàm lấy thông tin user hiện tại
+// GetUser godoc
+// @Summary Thực hiện tìm kiếm thông tin người dùng theo ID
+// @Description Nhận thông tin chi tiết của người dùng hiện được xác thực
+// @Accept json
+// @Produce json
+// @Router /api/v1/get/user [get]
 func (u *User) GetMe(ctx *gin.Context) {
 	currentUser := ctx.MustGet("currentUser").(model.User)
 
@@ -40,18 +42,59 @@ func (u *User) GetMe(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"user": userResponse}})
 }
 
-// Đăng nhập
-func (u *User) Login(ctx *gin.Context) {
+// Login godoc
+// @Summary Đăng nhập người dùng
+// @Description Thực hiện chức năng đăng nhập bằng username
+// @Accept json
+// @Produce json
+// @Router /api/v1/login/username [post]
+func (u *User) LoginWithUserName(ctx *gin.Context) {
 	// Lấy thông tin từ request
 	userRequest := model.UserRequest{}
 	if err := ctx.ShouldBindJSON(&userRequest); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": err.Error()})
 		return
 	}
-	return
+
+	data, err := u.service.LoginUserByUsername(userRequest)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
+		return
+	}
+
+	// Trả về thông báo login thành công
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "message": "Login successful", "user": data})
 }
 
-// Đăng ký
+// Login godoc
+// @Summary Đăng nhập người dùng
+// @Description Thực hiện chức năng đăng nhập bằng email
+// @Accept json
+// @Produce json
+// @Router /api/v1/login/email [post]
+func (u *User) LoginWithEmail(ctx *gin.Context) {
+	//  Lấy thông tin từ request
+	userRequest := model.SignInInput{}
+	if err := ctx.ShouldBindJSON(&userRequest); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": err.Error()})
+		return
+	}
+
+	data, err := u.service.LoginUserByEmail(userRequest)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
+		return
+	}
+	// Trả về thông báo login thành công
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "message": "Login successful", "user": data})
+}
+
+// Đăng ký người dùng godoc
+// @Summary Đăng ký người dùng trên trang web
+// @Description Hiển thị form đăng ký cho người dùng điền thông tin
+// @Accept json
+// @Produce json
+// @Router /api/v1/register [post]
 func (u *User) Register(ctx *gin.Context) {
 	var user model.User
 	if err := ctx.ShouldBindJSON(&user); err != nil {
@@ -65,10 +108,11 @@ func (u *User) Register(ctx *gin.Context) {
 	}
 
 	if !util.PhoneValid(user.Password) {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Mật khẩu phải có ít nhất 8 ký tự, bao gồm 1 chữ hoa, 1 chữ thường và 1 số !"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Số điện thoại không đúng chuẩn"})
 		return
 	}
 
+	// Bên phía client sẽ phải so sánh password thêm một lần nữa đã đúng chưa
 	password := user.Password
 	if !util.PasswordStrong(password) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Mật khẩu phải có ít nhất 8 ký tự, có thể bao gồm 1 chữ hoa, hoặc 1 chữ thường hoặc 1 số hoặc bao gồm cả 3 !"})

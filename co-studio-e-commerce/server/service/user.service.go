@@ -21,6 +21,7 @@ func NewUser(repo repo.IRepo) *User {
 	return &User{repo: repo}
 }
 
+// Sai logic
 // Đăng nhập theo email và password
 func (u *User) LoginUserByEmail(UserRequest model.SignInInput) (userResponse model.User, err error) {
 	user, err := u.repo.GetUserEmail(UserRequest.Password)
@@ -49,6 +50,7 @@ func (u *User) LoginUserByUsername(UserRequest model.UserRequest) (UserResponse 
 	return user, nil
 }
 
+// Sai logic
 // Đăng ký tài khoản
 func (u *User) RegisterUser(userRegister model.User) (userResponse model.User, err error) {
 	userRequest := model.User{
