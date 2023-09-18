@@ -23,3 +23,5 @@ func (r *Repo) UpdateAdmin(ctx context.Context, admin *model.Admin) error {
 	}
 	return nil
 }
+
+//

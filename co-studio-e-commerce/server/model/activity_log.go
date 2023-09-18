@@ -1,9 +1,8 @@
 package model
 
 import (
-	"time"
-
 	"github.com/google/uuid"
+	"time"
 )
 
 // activity_log tự động lấy thông tin hoạt động của người dùng
@@ -11,11 +10,12 @@ import (
 // thu thập lịch sử hoạt động của người dùng
 
 type ActivityLog struct {
-	Log_id        int       `gorm:"primary_key;AUTO_INCREMENT" json:"log_id"`
-	User_id       uuid.UUID `json:"user_id"`
+	LogID         int       `gorm:"primary_key;AUTO_INCREMENT" json:"logid"`
+	UserID        uuid.UUID `json:"user_id" `
 	Activity_type string    `json:"activity_type"`
 	Activity_time time.Time `json:"activity_time"`
 	Description   string    `json:"description"`
+	User          User      `gorm:"foreignKey:UserID"`
 }
 
 func (ActivityLog) TableName() string {
@@ -23,5 +23,5 @@ func (ActivityLog) TableName() string {
 }
 
 func (a *ActivityLog) IsSet() bool {
-	return a.Log_id != 0
+	return a.LogID != 0
 }

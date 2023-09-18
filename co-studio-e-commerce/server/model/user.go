@@ -1,23 +1,23 @@
 package model
 
 import (
-	"time"
-
 	"github.com/google/uuid"
+	"time"
 )
 
 type User struct {
-	ID        uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primary_key"`
-	Name      string    `gorm:"type:varchar(255);not null"`
-	Email     string    `gorm:"uniqueIndex;not null"`
-	Password  string    `gorm:"not null"`
-	Role      string    `gorm:"type:varchar(255);not null"`
-	Provider  string    `gorm:"not null"`
-	Photo     string    `gorm:"not null"`
-	Verified  bool      `gorm:"not null"`
-	CreatedAt time.Time `gorm:"not null"`
-	UpdatedAt time.Time `gorm:"not null"`
-	Enable    int       `gorm:"not null"`
+	UserID    uuid.UUID `gorm:"type:uuid;primary_key;tableName:user" json:"id"  `
+	Name      string    `gorm:"type:varchar(255);not null" json:"name"`
+	Email     string    `gorm:"uniqueIndex;not null" json:"email"`
+	Password  string    `gorm:"not null" json:"password"`
+	Phone     string    `gorm:"not null" json:"phone"`
+	Role      string    `gorm:"type:varchar(255);not null" json:"role"`
+	Provider  string    `gorm:"not null" json:"provider"`
+	Photo     string    `gorm:"not null" json:"photo"`
+	Verified  bool      `gorm:"not null" json:"verified"`
+	CreatedAt time.Time `gorm:"not null" json:"createdAt"`
+	UpdatedAt time.Time `gorm:"not null" json:"updatedAt"`
+	Enable    int       `gorm:"not null" json:"enable"`
 }
 
 type UserRequest struct {

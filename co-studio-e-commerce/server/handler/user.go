@@ -19,6 +19,15 @@ func NewUser(service service.IUser) *User {
 	return &User{service: service}
 }
 
+func (u *User) GetAllUser(ctx *gin.Context) {
+	users, err := u.service.GetAllUser(u.user)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"users": users}})
+}
+
 // GetUser godoc
 // @Summary Thực hiện tìm kiếm thông tin người dùng theo ID
 // @Description Nhận thông tin chi tiết của người dùng hiện được xác thực
@@ -29,7 +38,7 @@ func (u *User) GetMe(ctx *gin.Context) {
 	currentUser := ctx.MustGet("currentUser").(model.User)
 
 	userResponse := &model.UserResponse{
-		ID:        currentUser.ID,
+		ID:        currentUser.UserID,
 		Name:      currentUser.Name,
 		Email:     currentUser.Email,
 		Photo:     currentUser.Photo,
@@ -107,7 +116,7 @@ func (u *User) Register(ctx *gin.Context) {
 		return
 	}
 
-	if !util.PhoneValid(user.Password) {
+	if !util.PhoneValid(user.Phone) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Số điện thoại không đúng chuẩn"})
 		return
 	}

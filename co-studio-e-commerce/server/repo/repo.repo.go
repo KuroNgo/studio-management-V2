@@ -16,6 +16,26 @@ func NewRepo(db *gorm.DB) *Repo {
 }
 
 type IRepo interface {
+	// activity_log
+	GetActivityLog(ctx context.Context, log *model.ActivityLog) error
+	ViewHistoryUserActitvity(ctx context.Context, log *[]model.ActivityLog) error
+	CreateActivityLog(ctx context.Context, log *model.ActivityLog) error
+	UpdateActivityLog(ctx context.Context, log *model.ActivityLog) error
+	DeleteActivityLog(ctx context.Context, log *model.ActivityLog) error
+
+	// admin
+	GetAdmin(ctx context.Context, admin *model.Admin) error
+	UpdateAdmin(ctx context.Context, admin *model.Admin) error
+
+	// order
+	GetOrder(ctx context.Context, order *model.Order) error
+	GetAllOrder(ctx context.Context, order *[]model.Order) error
+	CreateOrder(ctx context.Context, order *model.Order) error
+	UpdateOrder(ctx context.Context, order *model.Order) error
+	DeleteOrder(ctx context.Context, order *model.Order) error
+	RemoveOrder(ctx context.Context, order *model.Order) error
+
+	//
 	// User
 	GetUser(user *model.User) error
 	GetAllUser(user model.User) ([]model.User, error)
@@ -35,7 +55,6 @@ type IRepo interface {
 	GetUserPhone(phone string) (model.User, error)
 
 	// category
-
 	GetCategory(ctx context.Context, category *model.Categories) error
 	GetAllCategory(ctx context.Context, category *[]model.Categories) error
 	CreateCategory(ctx context.Context, category *model.Categories) error

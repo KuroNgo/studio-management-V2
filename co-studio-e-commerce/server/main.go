@@ -1,13 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
 	"co-studio-e-commerce/conf"
-	"co-studio-e-commerce/model"
 	"co-studio-e-commerce/route"
 )
 
@@ -56,22 +54,4 @@ func main() {
 		ginSwagger.DeepLinking(true),
 		ginSwagger.PersistAuthorization(true),
 	)
-	conf.DbDefault.Exec("CREATE EXTENSION IF NOT EXISTS \\\"uuid-ossp\\\"")
-	conf.DbDefault.AutoMigrate(
-		&model.User{},
-		&model.Product{},
-		&model.Categories{},
-		&model.Order{},
-		&model.OrderDetail{},
-		&model.Admin{},
-		&model.ActivityLog{},
-		&model.Login_Session{},
-		&model.PaymentInformation{},
-		&model.Post{},
-		&model.Server{},
-		&model.ShoppingCart{},
-		&model.Reviews{},
-	)
-
-	fmt.Print("Migrate database success")
 }

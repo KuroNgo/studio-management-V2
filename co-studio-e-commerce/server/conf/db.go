@@ -1,6 +1,7 @@
 package conf
 
 import (
+	"co-studio-e-commerce/model"
 	"fmt"
 	"log"
 
@@ -31,5 +32,21 @@ func (a *App) initDB() *gorm.DB {
 	if err != nil {
 		log.Fatalf("Failed to connect to PostgreSQL: %v", err)
 	}
+	db.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
+	db.AutoMigrate(
+		&model.User{},
+		&model.Product{},
+		&model.Categories{},
+		&model.Order{},
+		&model.OrderDetail{},
+		&model.Admin{},
+		&model.ActivityLog{},
+		&model.Login_Session{},
+		&model.PaymentInformation{},
+		//&model.Post{},
+		&model.Server{},
+		&model.ShoppingCart{},
+		&model.Reviews{},
+	)
 	return db
 }

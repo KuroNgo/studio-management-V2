@@ -2,7 +2,15 @@ package repo
 
 import (
 	"co-studio-e-commerce/model"
+	"github.com/gin-gonic/gin"
 )
+
+func (r *Repo) CreateTableUser(ctx *gin.Context) {
+	if err := r.db.Table("user").Create(&model.User{}).Error; err != nil {
+		ctx.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+}
 
 func (r *Repo) GetUser(user *model.User) error {
 	// GetUser là hàm lấy thông tin user
