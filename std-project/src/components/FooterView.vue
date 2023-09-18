@@ -20,20 +20,17 @@
                     <div class="line"></div>
                     <div class="icon">
                         <a href="https://www.facebook.com/ngothanhtam.photodalat" target="_blank">
-                            <font-awesome-icon icon="fa-brands fa-facebook"
-                                style="font-size: 20px; margin-top: 10px; --fa-animation-duration: 2s; --fa-animation-iteration-count: 5" />
+                           
                         </a>
                         <a href="https://www.youtube.com/@quayphimdalat102" target="_blank">
-                            <font-awesome-icon icon="fa-brands fa-youtube" 
-                                style=" font-size: 20px; margin-top: 10px; margin-left: 10px; --fa-animation-duration: 2s; --fa-animation-iteration-count: 5" />
+                           
 
                         </a>
                         <a href="https://www.tiktok.com/@ngothanhtam.dalat" target="_blank">
-                            <font-awesome-icon icon="fa-brands fa-tiktok" 
-                                style=" font-size: 20px; margin-top: 10px; margin-left: 10px; --fa-animation-duration: 2s; --fa-animation-iteration-count: 5" />
+                          
                         </a>
                         <a href="https://tamproduction.com/" target="_blank">
-                            <font-awesome-icon icon="earth-americas"  style=" font-size: 20px; margin-top: 5px; margin-left: 10px; --fa-animation-duration: 2s; --fa-animation-iteration-count: 5" />
+                           
                         </a>
                     </div>
 

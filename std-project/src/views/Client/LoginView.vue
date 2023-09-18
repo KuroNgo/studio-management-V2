@@ -16,8 +16,7 @@
                         <label for="">Mật khẩu</label>
                     </div>
                     <div class="forget">
-                        <label for=""><input type="checkbox">Nhớ mật khẩu | <a href="#">Quên mật khẩu</a></label>
-                      
+                        <label for=""><input type="checkbox">Nhớ mật khẩu | <a href="#">Quên mật khẩu</a></label>                    
                     </div>
                     <button>Đăng nhập</button>
                     <div class="register">

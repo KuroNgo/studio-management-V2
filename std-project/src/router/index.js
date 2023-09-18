@@ -3,23 +3,13 @@ import * as vueRouter from 'vue-router';
 const routes = [
   {
     path: '/',
-    name:'Cỏ Studio',
-    component: HomeViewVue,
-  },
-
-  // User
-  {
-    path: '/home',
     name: 'Trang chủ | Cỏ Studio',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import ('@/views/User/HomeView.vue'),
+    component: HomeViewVue,
   },
 
   {
     path: '/about',
-    name: 'Về chúng tôi | Cỏ Studio',
+    name: 'Giới thiệu | Cỏ Studio',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -47,7 +37,7 @@ const routes = [
 
   {
     path: '/product',
-    name: 'Sản phẩm | Cỏ Studio',
+    name: 'Thư viện | Cỏ Studio',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -175,10 +165,23 @@ const routes = [
 const router = vueRouter.createRouter({
   history: vueRouter.createWebHistory(),
   routes: routes,
+
+  // Cuộn lên đầu trang khi chuyển Route
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      // Nếu route đích có anchor (ví dụ: #section1)
+      return { el: to.hash, behavior: 'smooth' };
+    } else if (savedPosition) {
+      // Nếu đã lưu vị trí cuộn trước đó
+      return savedPosition;
+    } else {
+      // Mặc định, kéo lên đầu trang
+      return { top: 0 };
+    }
+  },
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
   document.title=` ${ to.name } `
   next()
 })

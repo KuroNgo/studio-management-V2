@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+    font-family: 'Lexend Deca', sans-serif;
+}
+@layer components {
+    .Heading1 {
+        font-weight: 600;
+        font-size: 6rem;
+        line-height: 1;
+      }
+      .Heading2 {
+        font-weight: 300;
+        font-size: 3.75rem;
+        line-height: normal;
+      }
+      .Heading3 {
+        font-weight: 600;
+        font-size: 3rem;
+        line-height: normal;
+      }
+      .Heading4 {
+        font-weight: 400;
+        font-size: 2.125rem;
+        line-height: normal;
+      }
+      .Heading5 {
+        font-weight: 400;
+        font-size: 1.5rem;
+        line-height: normal;
+      }
+      .Heading6 {
+        font-weight: bold;
+        font-size: 1.25rem;
+        line-height: normal;
+      }
+      .Subtitle1 {
+        font-weight: 500;
+        font-size: 1.25rem;
+        line-height: normal;
+      }
+      .Subtitle2 {
+        font-weight: 500;
+        font-size: 1rem;
+        line-height: normal;
+      }
+      .Body1 {
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: normal;
+      }
+      .Body2 {
+        font-weight: 400;
+        font-size: 0.875rem;
+        line-height: normal;
+      }
+      .Button{
+        font-weight: bold;
+        font-size: 0.875rem;
+        line-height: normal;
+      }
+      .Caption{
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: normal;
+      }
+      .Overline{
+        font-weight: 300;
+        font-size: 0.625rem;
+        line-height: normal;
+      }
+}
+
+
