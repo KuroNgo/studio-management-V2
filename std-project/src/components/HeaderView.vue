@@ -1,6 +1,6 @@
 <template>
-    <main>
-        <div class=" px-36 py-2 h-16 sticky bg-slate-400 flex justify-between items-center">
+    <main class="sticky top-0">
+        <div class=" px-36 py-2 h-16  bg-slate-400 flex justify-between items-center">
             <div class="flex items-center gap-8">
                 <form action="" :class="{ 'border-form': showBorder }"
                     class="flex items-center bg-white py-2 px-5 gap-2 w-72" onsubmit="return false"
@@ -21,17 +21,16 @@
                     <li @click="ClickShowNav" class=" dropDownMenu cursor-pointer Subtitle2 relative">Dịch vụ
                         <div class="subMenu">
                             <ul :class="{ 'hidden': showSubNav }" class="absolute w-52 bg-slate-300" data-toggle="popover">
-                                <li class="sub-nav py-3 px-2">Chụp ảnh sự kiện</li>
-                                <li class="sub-nav py-3 px-2">Quay phim ngày cưới</li>
-                                <li class="sub-nav py-3 px-2">Quay phim chụp ảnh cưới</li>
-                                <li class="sub-nav py-3 px-2">Quay phim TVC, phim giới thiệu doanh nghiệp</li>
-                                <li class="sub-nav py-3 px-2">Cho thuê flycam</li>
-                                <li class="sub-nav py-3 px-2">Livestream</li>
+                                <RouterLink to="/services/eventservices"><li class="sub-nav py-3 px-2">Chụp ảnh sự kiện</li></RouterLink>
+                                <RouterLink to="/services/weddingservices"><li class="sub-nav py-3 px-2">Quay phim chụp ảnh cưới</li></RouterLink>
+                                <RouterLink to="/services/comercialservice"><li class="sub-nav py-3 px-2">Quay phim TVC, phim giới thiệu doanh nghiệp</li></RouterLink>
+                                <RouterLink to="/services/flycamservice"><li class="sub-nav py-3 px-2">Cho thuê flycam</li></RouterLink>
+                                <RouterLink to="/services/livestream"><li class="sub-nav py-3 px-2">Livestream</li></RouterLink>
                             </ul>
                         </div>
                     </li>
 
-                    <RouterLink to="/product">
+                    <RouterLink to="/collection">
                         <li class=" Subtitle2">Thư viện</li>
                     </RouterLink>
                     <RouterLink to="/about">
@@ -42,19 +41,21 @@
                     </RouterLink>
                 </ul>
             </div>
-            <button class=" bg-white px-6 py-1 rounded-xl">Đăng nhập</button>
+            <RouterLink to="/login"><button class=" bg-white px-6 py-1 rounded-xl">Đăng nhập</button></RouterLink>
         </div>
     </main>
 </template>
 
 <script>
+import { RouterLink } from 'vue-router';
+
 
 export default {
     data() {
         return {
             showBorder: false,
             showSubNav: false,
-        }
+        };
     },
     methods: {
         ClickShowNav() {
@@ -63,7 +64,8 @@ export default {
                 this.showSubNav = false;
             }, 10);
         }
-    }
+    },
+    components: { RouterLink }
 }
 
 </script>

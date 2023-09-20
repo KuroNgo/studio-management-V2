@@ -21,7 +21,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url("./img/p404.png"),#1a5b34e0;
+    background: url("../../../public/assets/images/p404.png"),#1a5b34e0;
     box-shadow: 0 15px 30px rgba(0,0,0,0.5);
 }
 #container .content

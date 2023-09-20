@@ -1,6 +1,7 @@
 <template>
     <div class="about">
-        About page
+        <!-- dsd page -->
+        <router-view></router-view>
     </div>
 </template>
 
