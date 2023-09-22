@@ -1,29 +1,57 @@
-# std-project
 
-This template should help get you started developing with Vue 3 in Vite.
+# Giải thích cấu trúc file
+## Util
+Nơi thực hiện lưu hằng số
 
-## Recommended IDE Setup
+Nơi thực hiện lưu các hàm hỗ trợ
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Model
+Lưu trữ struct
 
-## Customize configuration
+## Config
+Khởi tạo app
+Connect DB
+Config ENV
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Route
+Định hướng URL tới function đích
 
-## Project Setup
+## Handler
+Xử lý request | response
+`
+Cách nhận biết: Có ctx *gin.Context là handler
+ctx *gin.Context là một kiểu dữ liệu đại diện cho context của một request
+Nó chứa các phương thức và thuốc tính cho phpes thao tác với request và response dễ dàng hơn
+`
 
-```sh
-npm install
-```
 
-### Compile and Hot-Reload for Development
+## Middleware
+Bước trung gian giữa route và handler
+VD: Check xem user có đủ quyền dùng app đó không
 
-```sh
-npm run dev
-```
+## Service
+Xử lý logic chính
 
-### Compile and Minify for Production
+## Repository
+Tương tác với database
 
-```sh
-npm run build
-```
+## DB
+Lưu trữ các file migration
+
+# Giải thích (lý do và hướng chạy) các gói đã tạo trong dự án
+### github.com/gin-gonic/gin
+`
+Gin được xây dựng dựa trên httprouter, một router nhanh và nhẹ được viết bằng Go.
+Gin cung cấp một cách đơn giản để tạo các ứng dụng web hiệu suất cao và có thể mở rộng.
+`
+
+### gorm.io/gorm
+`
+GORM là một ORM (Object Relational Mapping) cho Golang.
+`
+
+### golang.org/x/crypto/bcrypt
+`
+Package bcrypt cung cấp hàm băm bcrypt cho Go (cách băm này khác
+với MD5 ở chỗ .
+`
