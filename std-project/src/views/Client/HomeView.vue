@@ -9,6 +9,22 @@
     </div>
 </template>
 
-<script></script>
+<script>
+import LoginView from '@/views/Client/Account/LoginView.vue';
+
+export default {
+  
+  components: {
+    LoginView,
+  },
+  
+  methods: {
+  togglePopup() {
+    this.$refs.loginPopup.togglePopup();
+  },
+},
+
+};
+</script>
 
 <style scoped></style>
