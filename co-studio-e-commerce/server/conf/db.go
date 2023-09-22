@@ -3,11 +3,10 @@ package conf
 import (
 	"co-studio-e-commerce/model"
 	"fmt"
-	"log"
-
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"log"
 )
 
 var DbDefault *gorm.DB
@@ -48,5 +47,6 @@ func (a *App) initDB() *gorm.DB {
 		&model.ShoppingCart{},
 		&model.Reviews{},
 	)
+
 	return db
 }

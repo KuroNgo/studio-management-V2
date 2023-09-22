@@ -38,7 +38,7 @@ type IRepo interface {
 	//
 	// User
 	GetUser(user *model.User) error
-	GetAllUser(user model.User) ([]model.User, error)
+	GetAllUser() ([]model.User, error)
 	CreateUser(user model.User) (model.User, error)
 	UpdateUser(user model.User) (model.User, error)
 	DeleteUser(user model.User) (model.User, error)

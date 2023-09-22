@@ -1,10 +1,10 @@
 package service
 
 import (
-	"errors"
-
 	"co-studio-e-commerce/model"
 	"co-studio-e-commerce/repo"
+	"co-studio-e-commerce/util"
+	"errors"
 )
 
 type User struct {
@@ -12,7 +12,7 @@ type User struct {
 }
 
 type IUser interface {
-	GetAllUser(user model.User) ([]model.User, error)
+	GetAllUser() ([]model.User, error)
 	GetUser(user *model.User) error
 	LoginUserByUsername(UserRequest model.UserRequest) (userResponse model.User, err error)
 	LoginUserByEmail(UserRequest model.SignInInput) (userResponse model.User, err error)
@@ -31,16 +31,15 @@ func (u *User) GetUser(user *model.User) error {
 	return nil
 }
 
-func (u *User) GetAllUser(user model.User) ([]model.User, error) {
+func (u *User) GetAllUser() ([]model.User, error) {
 	// GetAllUser là hàm lấy thông tin tất cả user
-	users, err := u.repo.GetAllUser(user)
+	users, err := u.repo.GetAllUser()
 	if err != nil {
-		return []model.User{}, err
+		return nil, err // Trả về nil và lỗi nếu có lỗi
 	}
-	return users, nil
+	return users, nil // Trả về danh sách người dùng và không có lỗi nếu thành công
 }
 
-// Sai logic
 // Đăng nhập theo email và password
 func (u *User) LoginUserByEmail(UserRequest model.SignInInput) (userResponse model.User, err error) {
 	user, err := u.repo.GetUserEmail(UserRequest.Email)
@@ -48,10 +47,11 @@ func (u *User) LoginUserByEmail(UserRequest model.SignInInput) (userResponse mod
 		return model.User{}, err
 	}
 
-	// Kiểm tra xem mật khẩu  có đúng so với mật khẩu trong database không
-	if user.Password != UserRequest.Password {
+	// Kiểm tra xem mật khẩu đã nhập có đúng với mật khẩu đã hash trong cơ sở dữ liệu không
+	if err := util.VerifyPassword(user.Password, UserRequest.Password); err != nil {
 		return model.User{}, errors.New("Tài khoản hoặc mật khẩu không đúng !")
 	}
+
 	return user, nil
 }
 
@@ -62,8 +62,8 @@ func (u *User) LoginUserByUsername(UserRequest model.UserRequest) (UserResponse 
 		return model.User{}, err
 	}
 
-	// Kiểm tra xem mật khẩu  có đúng không
-	if user.Password != UserRequest.Password {
+	// Kiểm tra xem mật khẩu đã nhập có đúng với mật khẩu đã hash trong cơ sở dữ liệu không
+	if err := util.VerifyPassword(user.Password, UserRequest.Password); err != nil {
 		return model.User{}, errors.New("Tài khoản hoặc mật khẩu không đúng !")
 	}
 	return user, nil
@@ -73,7 +73,8 @@ func (u *User) LoginUserByUsername(UserRequest model.UserRequest) (UserResponse 
 // Đăng ký tài khoản
 func (u *User) RegisterUser(userRegister model.User) (userResponse model.User, err error) {
 	userRequest := model.User{
-		Name:      userRegister.Name,
+		//UserID:    userRegister.UserID,
+		Username:  userRegister.Username,
 		Email:     userRegister.Email,
 		Password:  userRegister.Password,
 		Phone:     userRegister.Phone,

@@ -6,17 +6,18 @@ import (
 )
 
 type User struct {
-	UserID    uuid.UUID `gorm:"type:uuid;primary_key;tableName:user" json:"id"  `
-	Name      string    `gorm:"type:varchar(255);not null" json:"name"`
-	Email     string    `gorm:"uniqueIndex;not null" json:"email"`
-	Password  string    `gorm:"not null" json:"password"`
+	UserID    uuid.UUID `gorm:"type:uuid;primary_key;default:gen_random_uuid()" json:"id"`
+	FullName  string    `gorm:"type:varchar(255);column:full_name" json:"fullName"`
+	Username  string    `gorm:"type:varchar(255);not null;column:name" json:"username"`
+	Email     string    `gorm:"uniqueIndex;not null;unique;column:email" json:"email"`
+	Password  string    `gorm:"not null;column:password" json:"password"`
 	Phone     string    `gorm:"not null" json:"phone"`
-	Role      string    `gorm:"type:varchar(255);not null" json:"role"`
+	Role      string    `gorm:"type:varchar(255);not null;default:user" json:"role"`
 	Provider  string    `gorm:"not null" json:"provider"`
 	Photo     string    `gorm:"not null" json:"photo"`
 	Verified  bool      `gorm:"not null" json:"verified"`
-	CreatedAt time.Time `gorm:"not null" json:"createdAt"`
-	UpdatedAt time.Time `gorm:"not null" json:"updatedAt"`
+	CreatedAt time.Time `gorm:"not null;autoCreateTime;default:CURRENT_TIMESTAMP" json:"createdAt"`
+	UpdatedAt time.Time `gorm:"not null;autoUpdateTime;default:CURRENT_TIMESTAMP" json:"updatedAt"`
 	Enable    int       `gorm:"not null" json:"enable"`
 }
 

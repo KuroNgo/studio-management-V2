@@ -2,15 +2,7 @@ package repo
 
 import (
 	"co-studio-e-commerce/model"
-	"github.com/gin-gonic/gin"
 )
-
-func (r *Repo) CreateTableUser(ctx *gin.Context) {
-	if err := r.db.Table("user").Create(&model.User{}).Error; err != nil {
-		ctx.JSON(500, gin.H{"error": err.Error()})
-		return
-	}
-}
 
 func (r *Repo) GetUser(user *model.User) error {
 	// GetUser là hàm lấy thông tin user
@@ -20,17 +12,28 @@ func (r *Repo) GetUser(user *model.User) error {
 	return nil
 }
 
-func (r *Repo) GetAllUser(user model.User) ([]model.User, error) {
+// Done
+func (r *Repo) GetAllUser() ([]model.User, error) {
 	// GetAllUser là hàm lấy thông tin tất cả user
 	var users []model.User
-	r.db.Find(user)
-	return users, nil
+
+	// Thực hiện truy vấn hoặc lấy thông tin tất cả người dùng từ nguồn dữ liệu của bạn
+	if err := r.db.Find(&users).Error; err != nil {
+		return nil, err // Trả về nil và lỗi nếu có lỗi
+	}
+
+	return users, nil // Trả về danh sách người dùng và không có lỗi nếu thành công
 }
 
 func (r *Repo) CreateUser(user model.User) (model.User, error) {
 	// CreateUser là hàm tạo mới user
-	r.db.Create(user)
-	return user, nil
+
+	// Thực hiện tạo mới user trong cơ sở dữ liệu
+	if err := r.db.Create(&user).Error; err != nil {
+		return model.User{}, err // Trả về lỗi nếu có lỗi
+	}
+
+	return user, nil // Trả về thông tin người dùng và không có lỗi nếu thành công
 }
 
 func (r *Repo) UpdateUser(user model.User) (model.User, error) {
@@ -67,6 +70,7 @@ func (r *Repo) GetUserID(id int) (model.User, error) {
 	return user, nil
 }
 
+// done
 // get email
 func (r *Repo) GetUserEmail(email string) (model.User, error) {
 	// GetUserEmail là hàm lấy thông tin user
@@ -75,6 +79,8 @@ func (r *Repo) GetUserEmail(email string) (model.User, error) {
 	return user, nil
 }
 
+// done
+// get username
 func (r *Repo) GetUserByUsername(username string) (model.User, error) {
 	// GetUserByUsername là hàm lấy thông tin user
 	var user model.User

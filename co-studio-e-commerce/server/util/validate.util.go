@@ -5,7 +5,7 @@ import (
 	"regexp"
 )
 
-// Done
+// Không trả về json
 func EmailValid(email string) bool {
 	_, err := mail.ParseAddress(email)
 	return err == nil
@@ -19,6 +19,7 @@ func PhoneValid(phone string) bool {
 	return regex.MatchString(phone)
 }
 
+// Không trả về Json
 func PasswordStrong(password string) bool {
 	switch {
 	case regexp.MustCompile(`^.{8,}$`).MatchString(password):

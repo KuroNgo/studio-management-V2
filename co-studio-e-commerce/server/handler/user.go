@@ -20,7 +20,7 @@ func NewUser(service service.IUser) *User {
 }
 
 func (u *User) GetAllUser(ctx *gin.Context) {
-	users, err := u.service.GetAllUser(u.user)
+	users, err := u.service.GetAllUser()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
 		return
@@ -39,7 +39,7 @@ func (u *User) GetMe(ctx *gin.Context) {
 
 	userResponse := &model.UserResponse{
 		ID:        currentUser.UserID,
-		Name:      currentUser.Name,
+		Name:      currentUser.Username,
 		Email:     currentUser.Email,
 		Photo:     currentUser.Photo,
 		Role:      currentUser.Role,
@@ -123,7 +123,7 @@ func (u *User) Register(ctx *gin.Context) {
 
 	// Bên phía client sẽ phải so sánh password thêm một lần nữa đã đúng chưa
 	password := user.Password
-	if !util.PasswordStrong(password) {
+	if util.PasswordStrong(password) == false {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Mật khẩu phải có ít nhất 8 ký tự, có thể bao gồm 1 chữ hoa, hoặc 1 chữ thường hoặc 1 số hoặc bao gồm cả 3 !"})
 		return
 	}

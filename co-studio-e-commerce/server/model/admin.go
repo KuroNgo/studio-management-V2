@@ -3,7 +3,7 @@ package model
 import "github.com/google/uuid"
 
 type Admin struct {
-	AdminID    uuid.UUID `gorm:"primary_key;AUTO_INCREMENT" json:"adminID"`
+	AdminID    uuid.UUID `gorm:"type:uuid;primary_key;default:gen_random_uuid()" json:"adminID"`
 	Username   string    `json:"username"`
 	Password   string    `json:"password"`
 	First_name string    `json:"first_name"`

@@ -37,9 +37,6 @@ func NewService() *Service {
 		ctx.Redirect(http.StatusFound, "/swagger/index.html")
 	})
 
-	// create table
-	//route.GET("/", repository.CreateTableUser)
-
 	v1 := route.Group("/api/v1")
 
 	// auth
