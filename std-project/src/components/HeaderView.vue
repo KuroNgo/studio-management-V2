@@ -1,5 +1,5 @@
 <template>
-    <main class="sticky top-0">
+    <main class="sticky top-0 z-50">
         <div class=" px-36 py-2 h-16  bg-slate-400 flex justify-between items-center">
             <div class="flex items-center gap-8">
                 <form action="" :class="{ 'border-form': showBorder }"

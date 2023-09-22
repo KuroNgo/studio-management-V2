@@ -1,13 +1,11 @@
 <template>
     <main>
-        <div class="mb-28" style="height: 90vh;">
-            <div class="flex justify-center items-center">
-                <img style="max-height: 90vh;" class="object-cover" src="../../../public/assets/images/BusLogin.png" alt="">
-            </div>
+        <div class="mb-28">
+            <SlideHomeView />
         </div>
         <div class=" px-36">
             <h4 class="Heading4 mb-10">Đăng ký dịch vụ tại Cỏ Studio như thế nào ?</h4>
-            <div class="flex flex-wrap justify-center items-center gap-4 lg:flex-nowrap">
+            <div class="flex flex-wrap justify-center gap-4 lg:flex-nowrap">
                 <div class=" w-96 ">
                     <div class="" style="height: 500px;">
                         <img class="w-full h-full object-cover" src="../../../public/assets/images/BusLogin.png" alt="">
@@ -17,7 +15,7 @@
                 </div>
                 <div class=" w-96 ">
                     <div class="" style="height: 500px;">
-                        <img class="w-full h-full object-cover" src="../../../public/assets/images/BusLogin.png" alt="">
+                        <img class="w-full h-full object-cover" src="../../../public/assets/images/viewinbus.png" alt="">
                     </div>
                     <h5 class="text-center Heading5 mb-3">Bước 2</h5>
                     <p>Đến trực tiếp studio để được tư vấn và xem trực tiếp các sản phẩm của studio thực hiện, ký hợp đồng
@@ -62,6 +60,13 @@
     </main>
 </template>
 
-<script></script>
+<script>
+import SlideHomeView from '../../components/Slides/SlidesHomePage/SlideHomeView.vue';
+export default{
+    components:{
+        SlideHomeView
+    }
+}
+</script>
 
 <style scoped></style>
