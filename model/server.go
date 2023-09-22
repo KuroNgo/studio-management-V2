@@ -24,14 +24,7 @@ import (
 )
 
 type Server struct {
-	limiter *limiter.Limiter
-
-	// gin.Engine là một router mạnh mẽ và linh hoạt được viết bằng Go
-	// nó cung cấp các tính năng:
-	// - Routing sử dụng trie-based radix tree
-	// - Middleware
-	// - JSON validation
-	// - Rendering
+	limiter    *limiter.Limiter
 	router     *gin.Engine
 	httpServer *http.Server
 }

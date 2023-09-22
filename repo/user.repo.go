@@ -1,12 +1,10 @@
 package repo
 
 import (
-	"context"
-
 	"co-studio-e-commerce/model"
 )
 
-func (r *Repo) GetUser(ctx context.Context, user *model.User) error {
+func (r *Repo) GetUser(user *model.User) error {
 	// GetUser là hàm lấy thông tin user
 	if err := r.db.Where(user).First(user).Error; err != nil {
 		return err
@@ -14,18 +12,28 @@ func (r *Repo) GetUser(ctx context.Context, user *model.User) error {
 	return nil
 }
 
-func (r *Repo) GetAllUser(user model.User) ([]model.User, error) {
+// Done
+func (r *Repo) GetAllUser() ([]model.User, error) {
 	// GetAllUser là hàm lấy thông tin tất cả user
 	var users []model.User
-	r.db.Find(user)
-	return users, nil
+
+	// Thực hiện truy vấn hoặc lấy thông tin tất cả người dùng từ nguồn dữ liệu của bạn
+	if err := r.db.Find(&users).Error; err != nil {
+		return nil, err // Trả về nil và lỗi nếu có lỗi
+	}
+
+	return users, nil // Trả về danh sách người dùng và không có lỗi nếu thành công
 }
 
-// Đăng ký tài khoản trên hệ thống
 func (r *Repo) CreateUser(user model.User) (model.User, error) {
 	// CreateUser là hàm tạo mới user
-	r.db.Create(user)
-	return user, nil
+
+	// Thực hiện tạo mới user trong cơ sở dữ liệu
+	if err := r.db.Create(&user).Error; err != nil {
+		return model.User{}, err // Trả về lỗi nếu có lỗi
+	}
+
+	return user, nil // Trả về thông tin người dùng và không có lỗi nếu thành công
 }
 
 func (r *Repo) UpdateUser(user model.User) (model.User, error) {
@@ -45,7 +53,7 @@ func (r *Repo) DeleteUser(user model.User) (model.User, error) {
 // thay đổi trạng thái có 2 tác động: admin hoặc tự động
 // admin: thay đổi trạng thái của user
 // tự động: thay đổi trạng thái của user khi hết hạn ( hoặc user bị dính black list)
-func (r *Repo) ChangeUserStatus(ctx context.Context, user *model.User) error {
+func (r *Repo) ChangeUserStatus(user *model.User) error {
 	// ChangeUserStatus là hàm thay đổi trạng thái user
 	if err := r.db.Model(user).Update("status", user.Enable).Error; err != nil {
 		return err
@@ -62,11 +70,21 @@ func (r *Repo) GetUserID(id int) (model.User, error) {
 	return user, nil
 }
 
+// done
 // get email
 func (r *Repo) GetUserEmail(email string) (model.User, error) {
 	// GetUserEmail là hàm lấy thông tin user
 	var user model.User
 	r.db.Where("email = ?", email).First(&user)
+	return user, nil
+}
+
+// done
+// get username
+func (r *Repo) GetUserByUsername(username string) (model.User, error) {
+	// GetUserByUsername là hàm lấy thông tin user
+	var user model.User
+	r.db.Where("username = ?", username).First(&user)
 	return user, nil
 }
 

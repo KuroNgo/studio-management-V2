@@ -2,7 +2,7 @@ package model
 
 type OrderDetail struct {
 	OrderDetailID int     `gorm:"primary_key;AUTO_INCREMENT" json:"order_detail_id"`
-	OrderID       int     `json:"order_id"`
+	OrderID       int     `json:"order_id" gorm:"type:int"`
 	ProductID     int     `json:"product_id"`
 	Quantity      int     `json:"quantity"`
 	Subtotal      float64 `json:"subtotal"`
@@ -11,6 +11,7 @@ type OrderDetail struct {
 	Who_Update    string  `json:"who_update"`
 	Update_Date   string  `json:"update_date"`
 	Is_Delete     int     `json:"is_delete"`
+	Order         Order   `gorm:"foreignKey:OrderID"`
 }
 
 func (OrderDetail) TableName() string {
