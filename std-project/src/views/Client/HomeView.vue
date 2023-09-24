@@ -8,14 +8,14 @@
             <div class="flex flex-wrap justify-center gap-4 lg:flex-nowrap">
                 <div class=" w-96 ">
                     <div class="" style="height: 500px;">
-                        <img class="w-full h-full object-cover" src="../../../public/assets/images/BusLogin.png" alt="">
+                        <img class="w-full h-full object-cover" src="../../../public/assets/images/Homepage/magnet-me-8vPico29onA-unsplash.png" loading="lazy" alt="">
                     </div>
                     <h5 class="text-center Heading5 mb-3">Bước 1</h5>
                     <p>Đăng ký dịch vụ của studio thông qua form đăng ký.</p>
                 </div>
                 <div class=" w-96 ">
                     <div class="" style="height: 500px;">
-                        <img class="w-full h-full object-cover" src="../../../public/assets/images/viewinbus.png" alt="">
+                        <img class="w-full block h-full object-cover" src="../../../public/assets/images/Homepage/emmanuel-acua-f3P6xfrj2P8-unsplash.png" loading="lazy" alt="">
                     </div>
                     <h5 class="text-center Heading5 mb-3">Bước 2</h5>
                     <p>Đến trực tiếp studio để được tư vấn và xem trực tiếp các sản phẩm của studio thực hiện, ký hợp đồng
@@ -23,14 +23,14 @@
                 </div>
                 <div class=" w-96 ">
                     <div class="" style="height: 500px;">
-                        <img class="w-full h-full object-cover" src="../../../public/assets/images/BusLogin.png" alt="">
+                        <img class="w-full block h-full object-cover" src="../../../public/assets/images/Homepage/redd-f-0eo4e1eh13I-unsplash.png" loading="lazy" alt="">
                     </div>
                     <h5 class="text-center Heading5 mb-3">Bước 3</h5>
                     <p>Quay, chụp ảnh chọn ảnh sau khi chụp.</p>
                 </div>
                 <div class=" w-96 ">
                     <div class="" style="height: 500px;">
-                        <img class="w-full h-full object-cover" src="../../../public/assets/images/BusLogin.png" alt="">
+                        <img class="w-full block h-full object-cover" src="../../../public/assets/images/Homepage/icons8-team-FcLyt7lW5wg-unsplash.png" loading="lazy" alt="">
                     </div>
                     <h5 class="text-center Heading5 mb-3">Bước 4</h5>
                     <p>Nhận file đã chỉnh sửa & duyệt in album để nhận sản phẩm cuối cùng.</p>

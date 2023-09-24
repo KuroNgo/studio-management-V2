@@ -1,9 +1,9 @@
 <template>
-    <main class="sticky top-0 z-50">
-        <div class=" px-36 py-2 h-16  bg-slate-400 flex justify-between items-center">
+    <main class="sticky top-0 z-50 bg-DomlantColor">
+        <div class=" px-36 py-2 h-16 flex justify-between items-center">
             <div class="flex items-center gap-8">
-                <form action="" :class="{ 'border-form': showBorder }"
-                    class="flex items-center bg-white py-2 px-5 gap-2 w-72" onsubmit="return false"
+                <form action="" :class="showBorder ? 'border-form':'border-default-form'"
+                    class="flex items-center  bg-white py-2 px-5 gap-2 w-72" onsubmit="return false"
                     style="border-radius: 20px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
                         <path
@@ -41,7 +41,7 @@
                     </RouterLink>
                 </ul>
             </div>
-            <RouterLink to="/login"><button class=" bg-white px-6 py-1 rounded-xl">Đăng nhập</button></RouterLink>
+            <RouterLink to="/login"><button class=" bg-SecondColor text-white px-6 py-1 rounded-xl">Đăng nhập</button></RouterLink>
         </div>
     </main>
 </template>
@@ -74,14 +74,16 @@ export default {
 .border-form {
     outline: 2px solid #000000;
 }
-
+.border-default-form{
+    outline: 1px solid #ccc;
+}
 .sub-nav:hover {
     background-color: red;
     user-select: none;
 }
 
 .dropDownMenu:hover .subMenu {
-    display: block;
+    display: block ;
 }
 
 .subMenu {

@@ -15,7 +15,7 @@ import ImageHome from './ImageHome.vue'
 export default {
     data() {
         return {
-            dataImage : ['../../../../public/assets/images/BusLogin.png','../../../../public/assets/images/viewinbus.png']
+            dataImage : ['../../../../public/assets/images/Homepage/ImageSlider.png','../../../../public/assets/images/Homepage/ImageSlider.png']
         }
     },
     mounted() {
@@ -72,6 +72,7 @@ export default {
     /* overflow-x: auto; */
     scroll-snap-type: x mandatory;
     scrollbar-width: 0;
+    height: 90vh;
 }
 
 .dragging {
