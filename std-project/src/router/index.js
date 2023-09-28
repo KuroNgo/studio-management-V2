@@ -139,12 +139,20 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/RegisterView.vue')
   },
+  {
+    path: '/success',
+    name: 'Success | Cỏ Studio',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/SuccessView.vue')
+  },
   //********************************************************CLIENT/ACCOUNT********************************************** */
 
   //********************************************************CLIENT/ACCOUNT/ACCOUNT-RECOVERY********************************************** */
   {
     path: '/forgetpassword',
-    name: 'Account Recovery | Cỏ Studio',
+    name: 'Account Recovery 4 | Cỏ Studio',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -152,7 +160,7 @@ const routes = [
   },
   {
     path: '/recoverpassword',
-    name: 'Account Recovery | Cỏ Studio',
+    name: 'Account Recovery 3 | Cỏ Studio',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -160,7 +168,7 @@ const routes = [
   },
   {
     path: '/resetpassword',
-    name: 'Account Recovery | Cỏ Studio',
+    name: 'Account Recovery 2 | Cỏ Studio',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.

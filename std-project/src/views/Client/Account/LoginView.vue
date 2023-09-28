@@ -85,7 +85,7 @@
             <label class="radio-label">
       <input type="radio" class="custom-radio" name="radio-group">
       <span class="label-text">Nhớ mật khẩu</span>
-      <a c href="#" class="my-link">Quên mật khẩu ?</a>
+      <a href="#" class="my-link">Quên mật khẩu ?</a>
     </label>
           </div>
           <button type="submit" class="mx-auto">Đăng nhập</button>
