@@ -4,7 +4,7 @@
             <SlideHomeView />
         </div>
         <div class=" px-36">
-            <h4 class="Heading4 mb-10">Đăng ký dịch vụ tại Cỏ Studio như thế nào ?</h4>
+            <h4 class="Heading4 mb-10 text-AccentColor">Đăng ký dịch vụ tại Cỏ Studio như thế nào ?</h4>
             <div class="flex flex-wrap justify-center gap-4 lg:flex-nowrap">
                 <div class=" w-96 ">
                     <div class="" style="height: 500px;">
@@ -39,23 +39,33 @@
         </div>
         <div class=" px-36 mb-10">
             <div class="flex justify-between mb-10">
-                <h4>Chụp Ảnh Cưới</h4>
-                <a class="Button underline" href="">Xem thêm</a>
+                <h4 class="text-AccentColor">Chụp Ảnh Cưới</h4>
+                <a class="Button underline text-AccentColor" href="">Xem thêm</a>
+            </div>
+            <div class="">
+                <ContainerImagesView :data-images="dataImage1" />
             </div>
         </div>
 
         <div class=" px-36 mb-10">
             <div class="flex justify-between mb-10">
-                <h4>Quay Video Cưới</h4>
-                <a class="Button underline" href="">Xem thêm</a>
+                <h4 class="text-AccentColor">Quay Video Cưới</h4>
+                <a class="Button underline text-AccentColor" href="">Xem thêm</a>
+            </div>
+            <div class="">
+                <ContainerImagesView :data-images="dataImage2" />
             </div>
         </div>
 
         <div class=" px-36 mb-10">
             <div class="flex justify-between mb-10">
-                <h4>Quay Video</h4>
-                <a class="Button underline" href="">Xem thêm</a>
+                <h4 class="text-AccentColor">Quay Video</h4>
+                <a class="Button underline text-AccentColor" href="">Xem thêm</a>
             </div>
+            <div class="">
+                <ContainerImagesView :data-images="dataImage3" />
+            </div>
+            
         </div>
     </main>
 </template>
@@ -64,14 +74,24 @@
 
 import SlideHomeView from '../../components/Slides/SlidesHomePage/SlideHomeView.vue';
 import LoginView from '@/views/Client/Account/LoginView.vue';
+import ContainerImagesView from '../../components/ContainerImages/ContainerImagesView.vue';
 export default{
     components:{
-        SlideHomeView,LoginView,
+        SlideHomeView,LoginView,ContainerImagesView
+    },
+    data(){
+        return{
+            dataImage1 : ['../../../../public/assets/images/Homepage/anhcuoi1.png','../../../../public/assets/images/Homepage/anhcuoi2.jpg','../../../../public/assets/images/Homepage/anhcuoi3.jpg'],
+            dataImage2 : ['../../../../public/assets/images/Homepage/quayvideo1.jpg','../../../../public/assets/images/Homepage/quayvideo2.jpg','../../../../public/assets/images/Homepage/quayvideo3.jpg'],
+            dataImage3 : ['../../../../public/assets/images/Homepage/anhchupdangoai1.jpg','../../../../public/assets/images/Homepage/anhchupdangoai2.jpg','../../../../public/assets/images/Homepage/anhchupdangoai3.jpg']
+            
+        }
     },
     methods: {
-  togglePopup() {
-    this.$refs.loginPopup.togglePopup();
-  },
+        togglePopup() {
+        this.$refs.loginPopup.togglePopup();
+        },
+    }
 }
 
 </script>
