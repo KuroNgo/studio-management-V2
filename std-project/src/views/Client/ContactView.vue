@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main class=" mb-96">
         <div class="slides ">
             <SlideHomeView />
             <div class="contact-form bg-SecondColor flex w-3/5 items-center">
@@ -87,6 +87,7 @@ export default {
     right: 50%;
     left: 50%;
     transform: translate(-50%);
+    box-shadow: 0px 20px 20px #00000029;
 }
 
 </style>

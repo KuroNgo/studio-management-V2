@@ -1,9 +1,9 @@
 <template>
-    <main>
+    <main class=" mb-36">
         <div class="mb-28">
             <SlideHomeView />
         </div>
-        <div class=" px-36">
+        <div class=" px-36 mb-28">
             <h4 class="Heading4 mb-10 text-AccentColor">Đăng ký dịch vụ tại Cỏ Studio như thế nào ?</h4>
             <div class="flex flex-wrap justify-center gap-4 lg:flex-nowrap">
                 <div class=" w-96 ">
@@ -38,9 +38,9 @@
             </div>
         </div>
         <div class=" px-36 mb-10">
-            <div class="flex justify-between mb-10">
-                <h4 class="text-AccentColor">Chụp Ảnh Cưới</h4>
-                <a class="Button underline text-AccentColor" href="">Xem thêm</a>
+            <div class="flex justify-between mb-10 items-center">
+                <h4 class="text-AccentColor Heading4">Chụp Ảnh Cưới</h4>
+                <RouterLink to="services/weddingservices" class="Button underline text-AccentColor" href="">Xem thêm</RouterLink>
             </div>
             <div class="">
                 <ContainerImagesView :data-images="dataImage1" />
@@ -48,9 +48,9 @@
         </div>
 
         <div class=" px-36 mb-10">
-            <div class="flex justify-between mb-10">
-                <h4 class="text-AccentColor">Quay Video Cưới</h4>
-                <a class="Button underline text-AccentColor" href="">Xem thêm</a>
+            <div class="flex justify-between mb-10 items-center">
+                <h4 class="text-AccentColor Heading4">Quay Video</h4>
+                <RouterLink to="services/comercialservice" class="Button underline text-AccentColor" href="">Xem thêm</RouterLink>
             </div>
             <div class="">
                 <ContainerImagesView :data-images="dataImage2" />
@@ -58,9 +58,9 @@
         </div>
 
         <div class=" px-36 mb-10">
-            <div class="flex justify-between mb-10">
-                <h4 class="text-AccentColor">Quay Video</h4>
-                <a class="Button underline text-AccentColor" href="">Xem thêm</a>
+            <div class="flex justify-between mb-10 items-center">
+                <h4 class="text-AccentColor Heading4">Chụp Ảnh Sự Kiện</h4>
+                <RouterLink to="services/eventservices" class="Button underline text-AccentColor" href="">Xem thêm</RouterLink>
             </div>
             <div class="">
                 <ContainerImagesView :data-images="dataImage3" />

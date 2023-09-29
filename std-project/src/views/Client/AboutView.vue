@@ -5,7 +5,7 @@
                 <h2 class="block Heading2 text-SecondColor">Bạn có tin tưởng chúng tôi</h2>
                 <h2 class="block Heading2 text-SecondColor">trên hành trình của mình</h2>
             </div>
-            <div class="flex flex-wrap gap-3 md:flex-nowrap">
+            <div class=" grid grid-cols-2 grid-flow-row gap-5 justify-center">
                 <div class="object-cover"><img class="w-full" src="../../../public/assets/images/Homepage/redd-f-0eo4e1eh13I-unsplash.png"
                         alt="">
                 </div>

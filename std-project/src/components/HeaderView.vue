@@ -1,8 +1,8 @@
 <template>
-    <main class="sticky top-0 z-50 bg-DomlantColor">
+    <main class="sticky top-0 z-50 bg-DomlantColor shadow-sm shadow-black">
         <div class=" px-36 py-2 h-16 flex justify-between items-center">
             <div class="flex items-center gap-8">
-                <form action="" :class="showBorder ? 'border-form':'border-default-form'"
+                <form action="" :class="showBorder ? 'border-form' : 'border-default-form'"
                     class="flex items-center  bg-white py-2 px-5 gap-2 w-72" onsubmit="return false"
                     style="border-radius: 20px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
@@ -13,19 +13,43 @@
                     <input type="text" @focus="showBorder = true" @blur="showBorder = false" class="  outline-none w-full"
                         placeholder="Tìm kiếm">
                 </form>
-                <ul class="flex gap-8">
+                <ul class=" grid grid-cols-5 grid-flow-row gap-4">
                     <RouterLink to="/">
                         <li class=" Subtitle2">Trang chủ</li>
                     </RouterLink>
 
-                    <li @click="ClickShowNav" class=" dropDownMenu cursor-pointer Subtitle2 relative">Dịch vụ
+                    <li @click="ClickShowNav"  class=" dropDownMenu cursor-pointer Subtitle2 relative">
+
+                        <div class=" flex items-center gap-x-1">
+                            <h1>Dịch vụ</h1>
+                            <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                viewBox="0 0 21.301 13.153">
+                                <path id="Icon_material-keyboard-arrow-up" data-name="Icon material-keyboard-arrow-up"
+                                    d="M11.5,12l8.147,8.13L27.8,12l2.5,2.5L19.65,25.153,9,14.5Z"
+                                    transform="translate(-9 -12)" />
+                            </svg>
+                            
+
+                        </div>
+
+
                         <div class="subMenu">
-                            <ul :class="{ 'hidden': showSubNav }" class="absolute w-52 bg-slate-300" data-toggle="popover">
-                                <RouterLink to="/services/eventservices"><li class="sub-nav py-3 px-2">Chụp ảnh sự kiện</li></RouterLink>
-                                <RouterLink to="/services/weddingservices"><li class="sub-nav py-3 px-2">Quay phim chụp ảnh cưới</li></RouterLink>
-                                <RouterLink to="/services/comercialservice"><li class="sub-nav py-3 px-2">Quay phim TVC, phim giới thiệu doanh nghiệp</li></RouterLink>
-                                <RouterLink to="/services/flycamservice"><li class="sub-nav py-3 px-2">Cho thuê flycam</li></RouterLink>
-                                <RouterLink to="/services/livestream"><li class="sub-nav py-3 px-2">Livestream</li></RouterLink>
+                            <ul :class="{ 'hidden': showSubNav }" class=" pt-2 absolute w-52 bg-DomlantColor " data-toggle="popover">
+                                <RouterLink to="/services/eventservices">
+                                    <li class="sub-nav border-b-2 border-gray-300 hover:bg-AccentColor hover:text-DomlantColor py-3 px-2">Chụp ảnh sự kiện</li>
+                                </RouterLink>
+                                <RouterLink to="/services/weddingservices">
+                                    <li class="sub-nav border-b-2 border-gray-300 hover:bg-AccentColor hover:text-DomlantColor py-3 px-2">Quay phim chụp ảnh cưới</li>
+                                </RouterLink>
+                                <RouterLink to="/services/comercialservice">
+                                    <li class="sub-nav border-b-2 border-gray-300 hover:bg-AccentColor hover:text-DomlantColor py-3 px-2">Quay phim TVC, phim giới thiệu doanh nghiệp</li>
+                                </RouterLink>
+                                <RouterLink to="/services/flycamservice">
+                                    <li class="sub-nav border-b-2 border-gray-300 hover:bg-AccentColor hover:text-DomlantColor py-3 px-2">Cho thuê flycam</li>
+                                </RouterLink>
+                                <RouterLink to="/services/livestream">
+                                    <li class="sub-nav hover:bg-AccentColor hover:text-DomlantColor py-3 px-2">Livestream</li>
+                                </RouterLink>
                             </ul>
                         </div>
                     </li>
@@ -42,9 +66,9 @@
                 </ul>
             </div>
             <button class=" bg-white px-6 py-1 rounded-xl" @click="togglePopup">Đăng nhập</button>
-          
-    <LoginView ref="loginPopup" />
-        </div>   
+
+            <LoginView ref="loginPopup" />
+        </div>
     </main>
 </template>
 
@@ -59,14 +83,15 @@ export default {
         return {
             showBorder: false,
             showSubNav: false,
+            arrow:true
         };
     },
-    
-  
+
+
     methods: {
         togglePopup() {
-    this.$refs.loginPopup.togglePopup();
-  },
+            this.$refs.loginPopup.togglePopup();
+        },
         ClickShowNav() {
             this.showSubNav = true;
             setTimeout(() => {
@@ -74,8 +99,8 @@ export default {
             }, 10);
         }
     },
-    
-    components: { RouterLink, LoginView },LoginView,
+
+    components: { RouterLink, LoginView }, LoginView,
 }
 
 </script>
@@ -84,19 +109,22 @@ export default {
 .border-form {
     outline: 2px solid #000000;
 }
-.border-default-form{
+
+.border-default-form {
     outline: 1px solid #ccc;
 }
+
 .sub-nav:hover {
-    background-color: red;
     user-select: none;
 }
 
 .dropDownMenu:hover .subMenu {
-    display: block ;
+    display: block;
+}
+.dropDownMenu:hover .arrow {
+    transform: rotate(180deg);
 }
 
 .subMenu {
     display: none;
-}
-</style>
+}</style>
