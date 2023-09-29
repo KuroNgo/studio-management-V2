@@ -41,13 +41,17 @@
                     </RouterLink>
                 </ul>
             </div>
-            <RouterLink to="/login"><button class=" bg-SecondColor text-white px-6 py-1 rounded-xl">Đăng nhập</button></RouterLink>
-        </div>
+            <button class=" bg-white px-6 py-1 rounded-xl" @click="togglePopup">Đăng nhập</button>
+          
+    <LoginView ref="loginPopup" />
+        </div>   
     </main>
 </template>
 
 <script>
 import { RouterLink } from 'vue-router';
+
+import LoginView from '../views/Client/Account/LoginView.vue';
 
 
 export default {
@@ -57,7 +61,12 @@ export default {
             showSubNav: false,
         };
     },
+    
+  
     methods: {
+        togglePopup() {
+    this.$refs.loginPopup.togglePopup();
+  },
         ClickShowNav() {
             this.showSubNav = true;
             setTimeout(() => {
@@ -65,7 +74,8 @@ export default {
             }, 10);
         }
     },
-    components: { RouterLink }
+    
+    components: { RouterLink, LoginView },LoginView,
 }
 
 </script>

@@ -61,12 +61,19 @@
 </template>
 
 <script>
+
 import SlideHomeView from '../../components/Slides/SlidesHomePage/SlideHomeView.vue';
+import LoginView from '@/views/Client/Account/LoginView.vue';
 export default{
     components:{
-        SlideHomeView
-    }
+        SlideHomeView,LoginView,
+    },
+    methods: {
+  togglePopup() {
+    this.$refs.loginPopup.togglePopup();
+  },
 }
+
 </script>
 
 <style scoped></style>
