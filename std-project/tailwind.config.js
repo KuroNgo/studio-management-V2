@@ -6,6 +6,22 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        //Primary Color
+        BlackColor :'#0F0402',
+        AccentColor: '#35665B',
+        SecondColor: '#5A8D80',
+        SupportColor1: '#81B5A8',
+        SupportColor2: '#AADFD1',
+        DomlantColor: '#FEFEFE',
+        //Neutral Color
+        IntroColor: '#5BA4FC',
+        DangerColor: '#FC3D39',
+        WarningColor: '#FC9C30',
+        SuccessColor: '#049F67',
+        DisableColor: '#F8F8F8',
+
+      },
       typography: {
         DEFAULT: {
           '.Heading1': {

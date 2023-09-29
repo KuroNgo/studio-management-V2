@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div class="centered-image">
@@ -120,3 +121,4 @@ label{
   margin-right:375px ;
 }
 </style>
+
