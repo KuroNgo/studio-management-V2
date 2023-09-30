@@ -1,8 +1,8 @@
 <template>
-    <main class=" mx-36 mt-20">
+    <main class=" mx-36 mt-20 mb-40">
         <div class="">
             <ul class="grid grid-cols-3 grid-flow-row gap-4">
-                <div class="" v-for="x in dataImage">
+                <div class="" v-for="x,i in dataImage">
                     <div class=" h-96 rounded-3xl mb-5 relative" :style="{ background: 'url(' + x + ') center/cover no-repeat' }">
                         <svg class=" absolute right-3 bottom-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24.004" viewBox="0 0 24 24.004">
                             <path id="Icon_awesome-search" data-name="Icon awesome-search"
@@ -10,7 +10,7 @@
                         </svg>
                     </div>
                     <div class=" whitespace-normal text-center">
-                        <h1 class=" text-gray-400 Heading5">Hoàng & Phong</h1>
+                        <h1 class=" text-gray-400 Heading5">{{name[i]}}</h1>
                         <p class=" text-gray-300">22/12/2020</p>
                     </div>
                 </div>
@@ -30,8 +30,8 @@ export default {
     },
     data() {
         return {
-            dataImage: ['../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/ImageSlider.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/anhcuoi1.png',]
-
+            dataImage: ['../../../../public/assets/images/Homepage/anhcuoi1.png', '../../../../public/assets/images/Homepage/ImageSlider.png', '../../../../public/assets/images/Homepage/anhcuoi2.jpg','../../../../public/assets/images/Homepage/anhcuoi3.jpg','../../../../public/assets/images/Homepage/anhchupdangoai1.jpg','../../../../public/assets/images/Homepage/anhchupdangoai2.jpg','../../../../public/assets/images/Homepage/anhchupdangoai3.jpg','../../../../public/assets/images/Homepage/quayvideo1.jpg','../../../../public/assets/images/Homepage/quayvideo2.jpg',],
+            name:['Hoàng & Dinh','Phong & Linh','Hong\'s Family','Dinh & Vy','Duc & Alexa','Quynh & Dinh','Son & Thai','Trang & Quan','Trang & Quan']
         }
     }
 }

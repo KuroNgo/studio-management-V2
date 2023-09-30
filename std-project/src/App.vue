@@ -32,6 +32,7 @@ export default {
 .banner {
   width: 100%;
   height: 200px;
+  border-bottom: 2px solid #ccc;
   background: url(../public/assets/images/banner.jpg) no-repeat center/cover;
 }
 </style>

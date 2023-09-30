@@ -21,7 +21,7 @@
             placeholder="New password much match your new password "
           />
         </div>
-        <button >Confirm</button>
+        <RouterLink to="/"><button >Confirm</button></RouterLink> 
         <button onclick="backToLogin()" class="white-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
