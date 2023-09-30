@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div class="centered-image">
@@ -14,7 +15,7 @@
             placeholder="Enter your email here "
           />
         </div>
-        <button >Submit</button>
+        <RouterLink to="sentcode"><button >Submit</button></RouterLink>
         <button onclick="backToLogin()" class="white-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -120,3 +121,4 @@ label{
   margin-right:375px ;
 }
 </style>
+

@@ -16,7 +16,7 @@
             placeholder="Enter reset code "
           />
         </div>
-        <button >Confirm</button>
+        <RouterLink to="resetpassword"><button >Confirm</button></RouterLink> 
         <button onclick="backToLogin()" class="white-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
