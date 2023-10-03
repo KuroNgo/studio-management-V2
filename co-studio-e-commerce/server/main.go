@@ -1,16 +1,11 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
-
 	"co-studio-e-commerce/conf"
 	"co-studio-e-commerce/route"
-)
-
-var (
-	server *gin.Engine
+	"fmt"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // @title   Cỏ Studio API
@@ -41,10 +36,11 @@ var (
 func init() {
 	conf.SetEnv()
 	app := route.NewService()
-
+	fmt.Println("Đường dẫn liên kết đến Swagger: " + "http://localhost:8000")
 	if err := app.Run(); err != nil {
 		panic(err)
 	}
+
 }
 
 func main() {

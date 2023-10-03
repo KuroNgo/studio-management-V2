@@ -75,6 +75,19 @@ const docTemplate = `{
                 "summary": "Đăng ký người dùng trên trang web",
                 "responses": {}
             }
+        },
+        "/api/v1/update/user": {
+            "put": {
+                "description": "Cập nhật thông tin người dùng",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Cập nhật thông tin người dùng",
+                "responses": {}
+            }
         }
     },
     "securityDefinitions": {

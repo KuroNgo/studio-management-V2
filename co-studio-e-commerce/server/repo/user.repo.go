@@ -1,14 +1,22 @@
 package repo
 
 import (
+	"co-studio-e-commerce/middleware"
 	"co-studio-e-commerce/model"
+	"errors"
+	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
-func (r *Repo) GetUser(user *model.User) error {
+func (r *Repo) GetUser(user model.User) error {
 	// GetUser là hàm lấy thông tin user
 	if err := r.db.Where(user).First(user).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return errors.New("Người dùng không tồn tại")
+		}
 		return err
 	}
+
 	return nil
 }
 
@@ -25,6 +33,7 @@ func (r *Repo) GetAllUser() ([]model.User, error) {
 	return users, nil // Trả về danh sách người dùng và không có lỗi nếu thành công
 }
 
+// Done
 func (r *Repo) CreateUser(user model.User) (model.User, error) {
 	// CreateUser là hàm tạo mới user
 
@@ -36,37 +45,69 @@ func (r *Repo) CreateUser(user model.User) (model.User, error) {
 	return user, nil // Trả về thông tin người dùng và không có lỗi nếu thành công
 }
 
-func (r *Repo) UpdateUser(user model.User) (model.User, error) {
+// cập nhật user, nếu user chưa có sẽ thực hiện thêm
+func (r *Repo) UpdateUserORInsert(user *model.User) (model.User, error) {
+	if err := r.db.Save(user).Error; err != nil {
+		return model.User{}, err
+	}
+	// Trả về thông tin người dùng sau khi cập nhật
+	return *user, nil
+}
+
+// cập nhật người dùng
+func (r *Repo) UpdateUser(currentUser model.User, user *model.User) (model.User, error) {
 	// UpdateUser là hàm cập nhật thông tin user
-	r.db.Save(user)
-	return user, nil
+	if err := r.db.Model(&currentUser).Updates(user).Omit("ID", "email").Order("user ASC").Error; err != nil {
+		return model.User{}, err
+	}
+
+	// Trả về thông tin user đã được cập nhật
+	return *user, nil
 }
 
-// lập lịch xóa ( admin không có quyền xóa user )
-func (r *Repo) DeleteUser(user model.User) (model.User, error) {
-	// DeleteUser là hàm xóa thông tin user
-	r.db.Delete(user)
-	return user, nil
-}
+func (r *Repo) DeactivateUser(userID uuid.UUID, currentUser model.User) error {
+	// Kiểm tra xem người thực hiện thao tác này có quyền (admin) hay không
+	if !middleware.CurrentUserIsAdmin(currentUser) {
+		return errors.New("Bạn không có quyền xóa người dùng.")
+	}
 
-// thay đổi trạng thái user
-// thay đổi trạng thái có 2 tác động: admin hoặc tự động
-// admin: thay đổi trạng thái của user
-// tự động: thay đổi trạng thái của user khi hết hạn ( hoặc user bị dính black list)
-func (r *Repo) ChangeUserStatus(user *model.User) error {
-	// ChangeUserStatus là hàm thay đổi trạng thái user
-	if err := r.db.Model(user).Update("status", user.Enable).Error; err != nil {
+	// Đánh dấu người dùng có ID là userID là "bị vô hiệu hóa" trong cơ sở dữ liệu
+	if err := r.db.Model(&model.User{}).Where("user_id = ?", userID).Update("enable", 0).Error; err != nil {
 		return err
 	}
+
 	return nil
 }
 
+// TODO: thay đổi trạng thái user
+// thay đổi trạng thái có 2 tác động: admin hoặc tự động
+// admin: thay đổi trạng thái của user
+// tự động: thay đổi trạng thái của user khi hết hạn ( hoặc user bị dính black list)
+//func (r *Repo) ChangeUserStatus(user *model.User, changeByAdmin bool) error {
+//	// ChangeUserStatus là hàm thay đổi trạng thái user
+//	if changeByAdmin {
+//		// Trạng thái được thay đổi bởi admin
+//		if err := r.db.Model(user).Update("status", user.Enable).Error; err != nil {
+//			return err
+//		}
+//	} else {
+//		// Trạng thái tự động thay đổi (ví dụ: khi hết hạn hoặc bị đưa vào blacklist)
+//		// Thêm xử lý tương ứng ở đây
+//	}
+//
+//	return nil
+//}
+
 // get id user
 // login
-func (r *Repo) GetUserID(id int) (model.User, error) {
-	// GetUserID là hàm lấy thông tin user
+func (r *Repo) GetUserID(userID uuid.UUID) (model.User, error) {
 	var user model.User
-	r.db.Where("id = ?", id).First(&user)
+	if err := r.db.Where("user_id = ?", userID.String()).First(&user).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return model.User{}, errors.New("User not found")
+		}
+		return model.User{}, err
+	}
 	return user, nil
 }
 
@@ -92,7 +133,7 @@ func (r *Repo) GetUserByUsername(username string) (model.User, error) {
 func (r *Repo) GetUserRole(role string) (model.User, error) {
 	// GetUserRole là hàm lấy thông tin user
 	var user model.User
-	r.db.Where("role = ?", role).First(&user)
+	r.db.Where("role = ?", role).Find(&user)
 	return user, nil
 }
 
@@ -100,7 +141,7 @@ func (r *Repo) GetUserRole(role string) (model.User, error) {
 func (r *Repo) GetUserAddress(address string) (model.User, error) {
 	// GetUserAddress là hàm lấy thông tin user
 	var user model.User
-	r.db.Where("address = ?", address).First(&user)
+	r.db.Where("address = ?", address).Find(&user)
 	return user, nil
 }
 

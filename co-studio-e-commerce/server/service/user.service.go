@@ -9,26 +9,19 @@ import (
 
 type User struct {
 	repo repo.IRepo
+	user model.User
 }
 
 type IUser interface {
 	GetAllUser() ([]model.User, error)
-	GetUser(user *model.User) error
 	LoginUserByUsername(UserRequest model.UserRequest) (userResponse model.User, err error)
 	LoginUserByEmail(UserRequest model.SignInInput) (userResponse model.User, err error)
-	RegisterUser(request model.User) (userResponse model.User, err error)
+	UpdateUser(currentUser model.User, user model.User) (model.User, error)
+	RegisterUser(userRegister model.User) (userResponse model.User, err error)
 }
 
 func NewUser(repo repo.IRepo) *User {
 	return &User{repo: repo}
-}
-
-func (u *User) GetUser(user *model.User) error {
-	// GetUser là hàm lấy thông tin user
-	if err := u.repo.GetUser(user); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (u *User) GetAllUser() ([]model.User, error) {
@@ -69,22 +62,29 @@ func (u *User) LoginUserByUsername(UserRequest model.UserRequest) (UserResponse 
 	return user, nil
 }
 
-// Sai logic
+func (u *User) UpdateUser(currentUser model.User, userRequest model.User) (model.User, error) {
+	// UpdateUser là hàm cập nhật thông tin user
+	user, err := u.repo.UpdateUser(currentUser, &userRequest)
+	if err != nil {
+		return model.User{}, err
+	}
+	// Trả về thông tin người dùng sau khi cập nhật
+	return user, nil
+}
+
 // Đăng ký tài khoản
 func (u *User) RegisterUser(userRegister model.User) (userResponse model.User, err error) {
 	userRequest := model.User{
-		//UserID:    userRegister.UserID,
-		Username:  userRegister.Username,
-		Email:     userRegister.Email,
-		Password:  userRegister.Password,
-		Phone:     userRegister.Phone,
-		Role:      userRegister.Role,
-		Provider:  userRegister.Provider,
-		Photo:     userRegister.Photo,
-		Verified:  userRegister.Verified,
-		CreatedAt: userRegister.CreatedAt,
-		UpdatedAt: userRegister.UpdatedAt,
-		Enable:    userRegister.Enable,
+		FullName:   userRegister.FullName,
+		Username:   userRegister.Username,
+		Email:      userRegister.Email,
+		Password:   userRegister.Password,
+		Phone:      userRegister.Phone,
+		Role:       userRegister.Role,
+		Provider:   userRegister.Provider,
+		AvatarUser: userRegister.AvatarUser,
+		Photo:      userRegister.Photo,
+		Enable:     userRegister.Enable,
 	}
 	user, err := u.repo.CreateUser(userRequest)
 	if err != nil {
@@ -92,3 +92,5 @@ func (u *User) RegisterUser(userRegister model.User) (userResponse model.User, e
 	}
 	return user, nil
 }
+
+// hook

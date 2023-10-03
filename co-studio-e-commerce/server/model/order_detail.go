@@ -12,6 +12,7 @@ type OrderDetail struct {
 	Update_Date   string  `json:"update_date"`
 	Is_Delete     int     `json:"is_delete"`
 	Order         Order   `gorm:"foreignKey:OrderID"`
+	Product       Product `gorm:"foreignKey:ProductID"`
 }
 
 func (OrderDetail) TableName() string {

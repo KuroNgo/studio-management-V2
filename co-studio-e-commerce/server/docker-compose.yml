@@ -26,3 +26,13 @@ services:
         POSTGRES_DB: postgres
     ports:
         - "5432:5432"
+  data-copy:
+    image: databox
+    volumes:
+      - mydata:/data
+    command: sh -c "cp -r /path/to/data /data"
+
+volumes:
+  mydata:
+
+

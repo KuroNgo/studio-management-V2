@@ -1,8 +1,13 @@
 package model
 
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
+
 type Product struct {
-	ProductID   int        `gorm:"primary_key;AUTO_INCREMENT" json:"product_id"`
-	ProductName string     `json:"product_name"`
+	ID          uuid.UUID  `gorm:"type:uuid;primary_key;default:gen_random_uuid()" json:"product_id"`
+	ProductName string     `gorm:"unique" json:"product_name"`
 	CategoryID  int        `json:"category_id" gorm:"type:int"`
 	Price       int        `json:"price"`
 	Description string     `json:"description"`
@@ -15,10 +20,13 @@ type Product struct {
 	Categories  Categories `gorm:"foreignKey:CategoryID"`
 }
 
-func (Product) TableName() string {
-	return "product"
+type Image struct {
+	gorm.Model
+	Name        string
+	Description string
+	Data        []byte
 }
 
-func (a *Product) IsSet() bool {
-	return a.ProductID != 0
+func (Product) TableName() string {
+	return "product"
 }
