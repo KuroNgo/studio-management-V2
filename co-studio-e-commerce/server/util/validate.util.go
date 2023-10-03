@@ -1,14 +1,15 @@
 package util
 
 import (
-	"net/mail"
 	"regexp"
+	"unicode"
 )
 
 // Không trả về json
 func EmailValid(email string) bool {
-	_, err := mail.ParseAddress(email)
-	return err == nil
+	// Biểu thức chính quy kiểm tra địa chỉ email theo định dạng thông thường
+	emailRegex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
+	return regexp.MustCompile(emailRegex).MatchString(email)
 }
 
 func PhoneValid(phone string) bool {
@@ -21,14 +22,24 @@ func PhoneValid(phone string) bool {
 
 // Không trả về Json
 func PasswordStrong(password string) bool {
-	switch {
-	case regexp.MustCompile(`^.{8,}$`).MatchString(password):
-		return true
-	case regexp.MustCompile(`^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$`).MatchString(password):
-		return true
-	case regexp.MustCompile(`^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$`).MatchString(password):
-		return true
-	default:
+	if len(password) < 8 {
 		return false
 	}
+
+	hasLower := false
+	hasUpper := false
+	hasDigit := false
+
+	for _, char := range password {
+		switch {
+		case unicode.IsLower(char):
+			hasLower = true
+		case unicode.IsUpper(char):
+			hasUpper = true
+		case unicode.IsDigit(char):
+			hasDigit = true
+		}
+	}
+
+	return hasLower && hasUpper && hasDigit
 }

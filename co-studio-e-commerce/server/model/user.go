@@ -6,19 +6,21 @@ import (
 )
 
 type User struct {
-	UserID    uuid.UUID `gorm:"type:uuid;primary_key;default:gen_random_uuid()" json:"id"`
-	FullName  string    `gorm:"type:varchar(255);column:full_name" json:"fullName"`
-	Username  string    `gorm:"type:varchar(255);not null;column:name" json:"username"`
-	Email     string    `gorm:"uniqueIndex;not null;unique;column:email" json:"email"`
-	Password  string    `gorm:"not null;column:password" json:"password"`
-	Phone     string    `gorm:"not null" json:"phone"`
-	Role      string    `gorm:"type:varchar(255);not null;default:user" json:"role"`
-	Provider  string    `gorm:"not null" json:"provider"`
-	Photo     string    `gorm:"not null" json:"photo"`
-	Verified  bool      `gorm:"not null" json:"verified"`
-	CreatedAt time.Time `gorm:"not null;autoCreateTime;default:CURRENT_TIMESTAMP" json:"createdAt"`
-	UpdatedAt time.Time `gorm:"not null;autoUpdateTime;default:CURRENT_TIMESTAMP" json:"updatedAt"`
-	Enable    int       `gorm:"not null" json:"enable"`
+	// Tên thuộc tính được đặt trong golang phải là ID nếu kiểu dữ liệu là uuid.UUID
+	ID         uuid.UUID `gorm:"type:uuid;primary_key;default:gen_random_uuid();column:userID" json:"id"`
+	FullName   string    `gorm:"type:varchar(255);column:fullname" json:"fullName"`
+	Username   string    `gorm:"type:varchar(255);column:username" json:"username"`
+	Email      string    `gorm:"unique;column:email" json:"email"`
+	Password   string    `gorm:"not null;column:password" json:"password"`
+	Phone      string    `gorm:"column:phone" json:"phone"`
+	Role       string    `gorm:"type:varchar(255);not null;default:user" json:"role"`
+	Provider   string    `gorm:"not null" json:"provider"`
+	AvatarUser []byte    `json:"avatarUser"`
+	Photo      []byte    `gorm:"column:photo; null" json:"photo"`
+	Verified   bool      `gorm:"not null;default:false" json:"verified"`
+	CreatedAt  time.Time `gorm:"not null;autoCreateTime;default:CURRENT_TIMESTAMP" json:"createdAt"`
+	UpdatedAt  time.Time `gorm:"not null;autoUpdateTime;default:CURRENT_TIMESTAMP" json:"updatedAt"`
+	Enable     int       `gorm:"not null;default:1" json:"enable"`
 }
 
 type UserRequest struct {
@@ -31,7 +33,7 @@ type SignUpInput struct {
 	Email           string `json:"email" binding:"required"`
 	Password        string `json:"password" binding:"required,min=8"`
 	PasswordConfirm string `json:"passwordConfirm" binding:"required"`
-	Photo           string `json:"photo" binding:"required"`
+	Photo           []byte `json:"photo" binding:"required"`
 }
 
 type SignInInput struct {
@@ -44,7 +46,7 @@ type UserResponse struct {
 	Name      string    `json:"name,omitempty"`
 	Email     string    `json:"email,omitempty"`
 	Role      string    `json:"role,omitempty"`
-	Photo     string    `json:"photo,omitempty"`
+	Photo     []byte    `json:"photo,omitempty"`
 	Provider  string    `json:"provider"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`

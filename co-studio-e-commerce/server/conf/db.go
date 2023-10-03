@@ -23,7 +23,7 @@ func (a *App) GetDB() *gorm.DB {
 
 func (a *App) initDB() *gorm.DB {
 	//  Tạo chuỗi kết nối đến PostgreSQL
-	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s ", cfg.DBHost, cfg.DBPort, cfg.DBUser, cfg.DBPassword, cfg.DBName)
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s ", cfg.DBHost, cfg.Port, cfg.DBUser, cfg.DBPassword, cfg.DBName)
 	// Mở kết nối đến PostgreSQL
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
@@ -31,10 +31,14 @@ func (a *App) initDB() *gorm.DB {
 	if err != nil {
 		log.Fatalf("Failed to connect to PostgreSQL: %v", err)
 	}
+
+	db.Exec("CREATE SCHEMA IF NOT EXISTS public")
 	db.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
-	db.AutoMigrate(
+
+	err = db.AutoMigrate(
 		&model.User{},
 		&model.Product{},
+		&model.Image{},
 		&model.Categories{},
 		&model.Order{},
 		&model.OrderDetail{},
@@ -42,11 +46,13 @@ func (a *App) initDB() *gorm.DB {
 		&model.ActivityLog{},
 		&model.Login_Session{},
 		&model.PaymentInformation{},
-		//&model.Post{},
-		&model.Server{},
+		&model.Post{},
 		&model.ShoppingCart{},
 		&model.Reviews{},
 	)
 
+	if err != nil {
+		log.Fatalf("Failed to migrate database: %v", err)
+	}
 	return db
 }

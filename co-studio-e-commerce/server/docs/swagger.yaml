@@ -56,6 +56,15 @@ paths:
       - application/json
       responses: {}
       summary: Đăng ký người dùng trên trang web
+  /api/v1/update/user:
+    put:
+      consumes:
+      - application/json
+      description: Cập nhật thông tin người dùng
+      produces:
+      - application/json
+      responses: {}
+      summary: Cập nhật thông tin người dùng
 securityDefinitions:
   BasicAuth:
     type: basic

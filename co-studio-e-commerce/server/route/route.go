@@ -4,6 +4,7 @@ import (
 	"co-studio-e-commerce/conf"
 	"co-studio-e-commerce/docs"
 	"co-studio-e-commerce/handler"
+	"co-studio-e-commerce/middleware"
 	repo "co-studio-e-commerce/repo"
 	"co-studio-e-commerce/service"
 	"github.com/gin-gonic/gin"
@@ -27,6 +28,9 @@ func NewService() *Service {
 	userService := service.NewUser(repository)
 	user := handler.NewUser(userService)
 
+	//categoryService := service.NewCategoryService(repository)
+	//category := handler.NewCategory(categoryService)
+
 	route := s.Router
 	docs.SwaggerInfo.BasePath = "api/v1"
 	route.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
@@ -37,14 +41,20 @@ func NewService() *Service {
 		ctx.Redirect(http.StatusFound, "/swagger/index.html")
 	})
 
-	v1 := route.Group("/api/v1")
+	v1User := route.Group("/user/v1")
 
 	// auth
-	v1.POST("/login/username", user.LoginWithUserName)
-	v1.POST("/login/email", user.LoginWithEmail)
-	v1.POST("/register", user.Register)
-	v1.GET("/get/user", user.GetMe)
-	v1.GET("/get/alluser", user.GetAllUser)
+	v1User.POST("/login/username", user.LoginWithUserName)
+	v1User.POST("/login/email", func(ctx *gin.Context) {
+		user.LoginWithEmail(ctx, &conf.Config{})
+	})
+	v1User.GET("/get-all-user", user.GetAllUser)
+	v1User.POST("/register", user.Register)
+	v1User.GET("/get/user", user.GetMe)
+	v1User.GET("/logout", middleware.DeserializeUser(), user.LogoutUser)
+	//v1User.PUT("/update/user", user.UpdateUser)
+
+	// category
 
 	return &s
 }

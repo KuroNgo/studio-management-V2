@@ -3,8 +3,10 @@ package repo
 import (
 	"golang.org/x/net/context"
 	"gorm.io/gorm"
+	"time"
 
 	"co-studio-e-commerce/model"
+	"github.com/google/uuid"
 )
 
 type Repo struct {
@@ -35,17 +37,16 @@ type IRepo interface {
 	DeleteOrder(ctx context.Context, order *model.Order) error
 	RemoveOrder(ctx context.Context, order *model.Order) error
 
-	//
 	// User
-	GetUser(user *model.User) error
-	GetAllUser() ([]model.User, error)
-	CreateUser(user model.User) (model.User, error)
-	UpdateUser(user model.User) (model.User, error)
-	DeleteUser(user model.User) (model.User, error)
-	ChangeUserStatus(user *model.User) error
-	GetUserID(id int) (model.User, error)
-	GetUserEmail(email string) (model.User, error)
-	GetUserByUsername(username string) (model.User, error)
+	GetUser(user model.User) error
+	GetAllUser() ([]model.User, error)              // used
+	CreateUser(user model.User) (model.User, error) // used
+	UpdateUserORInsert(user *model.User) (model.User, error)
+	UpdateUser(currentUser model.User, user *model.User) (model.User, error) // used
+	DeactivateUser(userID uuid.UUID, currentUser model.User) error           // unused
+	GetUserID(userID uuid.UUID) (model.User, error)                          // unused
+	GetUserEmail(email string) (model.User, error)                           // used
+	GetUserByUsername(username string) (model.User, error)                   // used
 	GetUserRole(role string) (model.User, error)
 	GetUserAddress(address string) (model.User, error)
 	GetUserCreateUser(create_user string) (model.User, error)
@@ -55,9 +56,15 @@ type IRepo interface {
 	GetUserPhone(phone string) (model.User, error)
 
 	// category
-	GetCategory(ctx context.Context, category *model.Categories) error
-	GetAllCategory(ctx context.Context, category *[]model.Categories) error
-	CreateCategory(ctx context.Context, category *model.Categories) error
-	UpdateCategory(ctx context.Context, category *model.Categories) error
-	DeleteCategory(ctx context.Context, category *model.Categories) error
+	GetCategoryByID(uuid uuid.UUID) (model.Categories, error)
+	GetCategoryByName(name string) (model.Categories, error)
+	GetCategoryByEnable(enable int) ([]model.Categories, error)
+	GetCategoryCreatedByUpdateDate(date time.Time) ([]model.Categories, error)
+	GetCategory(category *model.Categories) error
+	GetAllCategory() ([]model.Categories, error)
+	CreateCategory(category model.Categories) (model.Categories, error)
+	UpdateCategory(category *model.Categories) (model.Categories, error)
+	EnableCategory(category *model.Categories) error
+	DisableCategory(category *model.Categories) error
+	DeleteCategory(category *model.Categories) error
 }

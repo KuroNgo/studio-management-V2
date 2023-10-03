@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"co-studio-e-commerce/conf"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -38,7 +39,7 @@ func (u *User) GetMe(ctx *gin.Context) {
 	currentUser := ctx.MustGet("currentUser").(model.User)
 
 	userResponse := &model.UserResponse{
-		ID:        currentUser.UserID,
+		ID:        currentUser.ID,
 		Name:      currentUser.Username,
 		Email:     currentUser.Email,
 		Photo:     currentUser.Photo,
@@ -81,7 +82,7 @@ func (u *User) LoginWithUserName(ctx *gin.Context) {
 // @Accept json
 // @Produce json
 // @Router /api/v1/login/email [post]
-func (u *User) LoginWithEmail(ctx *gin.Context) {
+func (u *User) LoginWithEmail(ctx *gin.Context, cfg *conf.Config) {
 	//  Lấy thông tin từ request
 	userRequest := model.SignInInput{}
 	if err := ctx.ShouldBindJSON(&userRequest); err != nil {
@@ -94,9 +95,36 @@ func (u *User) LoginWithEmail(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
 		return
 	}
+
+	// Generate token
+	access_token, err := util.CreateToken(cfg.AccessTokenExpiresIn, u.user.ID, cfg.AccessTokenPrivateKey)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
+		return
+	}
+
+	refresh_token, err := util.CreateToken(cfg.RefreshTokenExpiresIn, u.user.ID, cfg.RefreshTokenPrivateKey)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
+		return
+	}
+
+	ctx.SetCookie("access_token", access_token, cfg.AccessTokenMaxAge*60, "/", "localhost", false, true)
+	ctx.SetCookie("refresh_token", refresh_token, cfg.RefreshTokenMaxAge*60, "/", "localhost", false, true)
+	ctx.SetCookie("logged_in", "true", cfg.AccessTokenMaxAge*60, "/", "localhost", false, false)
+
 	// Trả về thông báo login thành công
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "message": "Login successful", "user": data})
 }
+
+//func (u *User) UpdateUser(ctx *gin.Context) {
+//	var user model.User
+//	if err := ctx.ShouldBindJSON(&user); err != nil {
+//		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": err.Error()})
+//	}
+//
+//	userResponse, err := u.service.UpdateUser(user)
+//}
 
 // Đăng ký người dùng godoc
 // @Summary Đăng ký người dùng trên trang web
@@ -122,9 +150,8 @@ func (u *User) Register(ctx *gin.Context) {
 	}
 
 	// Bên phía client sẽ phải so sánh password thêm một lần nữa đã đúng chưa
-	password := user.Password
-	if util.PasswordStrong(password) == false {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Mật khẩu phải có ít nhất 8 ký tự, có thể bao gồm 1 chữ hoa, hoặc 1 chữ thường hoặc 1 số hoặc bao gồm cả 3 !"})
+	if !util.PasswordStrong(user.Password) {
+		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số !"})
 		return
 	}
 
@@ -145,4 +172,40 @@ func (u *User) Register(ctx *gin.Context) {
 
 	// Trả về phản hồi thành công
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"user": userResponse}})
+}
+
+func (u *User) RefreshAccessToken(ctx *gin.Context, cfg conf.Config) {
+	message := "could not fresh access token"
+
+	cookie, err := ctx.Cookie("refresh_token")
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": message})
+		return
+	}
+
+	_, err = util.ValidateToken(cookie, cfg.RefreshTokenPublicKey)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": err.Error()})
+		return
+	}
+	access_token, err := util.CreateToken(cfg.AccessTokenExpiresIn, u.user.ID, cfg.AccessTokenPrivateKey)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": err.Error()})
+		return
+	}
+
+	ctx.SetCookie("access_token", access_token, cfg.AccessTokenMaxAge*60, "/", "localhost", false, true)
+	ctx.SetCookie("logged_in", "true", cfg.AccessTokenMaxAge*60, "/", "localhost", false, false)
+
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "access_token": access_token})
+}
+
+func (u *User) LogoutUser(ctx *gin.Context) {
+	ctx.SetCookie("access_token", "", -1, "/", "localhost", false, true)
+	ctx.SetCookie("refresh_token", "", -1, "/", "localhost", false, true)
+	ctx.SetCookie("logged_in", "", -1, "/", "localhost", false, false)
+
+	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
+
 }
