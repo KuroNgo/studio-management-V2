@@ -3,6 +3,7 @@ package repo
 import (
 	"errors"
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 	"time"
 
 	"co-studio-e-commerce/model"
@@ -11,8 +12,12 @@ import (
 // Hiển thị thông tin sản phẩm
 func (r *Repo) GetProductsByCategory(categoryID uuid.UUID) ([]model.Product, error) {
 	var products []model.Product
-	if err := r.db.Where("category_id = ?", categoryID.String()).Find(&products).Error; err != nil {
-		return nil, err
+	if err := r.db.
+		Where("category_id = ?", categoryID.String()).
+		Find(&products).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return []model.Product{}, errors.New("Product not found!")
+		}
 	}
 	return products, nil
 }
@@ -20,17 +25,24 @@ func (r *Repo) GetProductsByCategory(categoryID uuid.UUID) ([]model.Product, err
 // Hiển thị sản phẩm theo tên
 func (r *Repo) GetProductByName(name string) ([]model.Product, error) {
 	var products []model.Product
-	if err := r.db.Where("product_name = ?", name).Find(&products); err != nil {
-		return nil, err.Error
+	if err := r.db.
+		Where("product_name = ?", name).
+		Find(&products).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return []model.Product{}, errors.New("Product not found!")
+		}
 	}
 	return products, nil
 }
 
-// Hển t
 func (r *Repo) GetProductByPrice(minPrice int32, maxPrice int32) ([]model.Product, error) {
 	var products []model.Product
-	if err := r.db.Where("price >= ? and price <= ?", minPrice, maxPrice).Find(&products); err != nil {
-		return nil, errors.New("Find not Found")
+	if err := r.db.
+		Where("price >= ? and price <= ?", minPrice, maxPrice).
+		Find(&products).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return []model.Product{}, errors.New("Product not found!")
+		}
 	}
 	return products, nil
 }
@@ -38,16 +50,19 @@ func (r *Repo) GetProductByPrice(minPrice int32, maxPrice int32) ([]model.Produc
 func (r *Repo) GetProductByWho_Update(person string) ([]model.Product, error) {
 	var products []model.Product
 	if err := r.db.Where("who_update = ?", person).Find(&products).Error; err != nil {
-		return []model.Product{}, err
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return []model.Product{}, errors.New("Product not found!")
+		}
 	}
 	return products, nil
-
 }
 
 func (r *Repo) GetProductBy_UpdateDate(date time.Time) ([]model.Product, error) {
 	var products []model.Product
 	if err := r.db.Where("update_date = ?", date).Find(&products).Error; err != nil {
-		return []model.Product{}, err
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return []model.Product{}, errors.New("Product not found!")
+		}
 	}
 	return products, nil
 }
@@ -55,7 +70,9 @@ func (r *Repo) GetProductBy_UpdateDate(date time.Time) ([]model.Product, error) 
 func (r *Repo) GetAllProduct() ([]model.Product, error) {
 	var products []model.Product
 	if err := r.db.Find(&products).Error; err != nil {
-		return []model.Product{}, err
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return []model.Product{}, errors.New("No product created!")
+		}
 	}
 	return products, nil
 }
@@ -89,7 +106,7 @@ func (r *Repo) UpdateEnable(enable int) error {
 
 func (r *Repo) Disable() error {
 	var product *model.Product
-	if err := r.db.Model(product).Update("enable = ? and is_delete = 0 ", 0).Error; err != nil {
+	if err := r.db.Model(product).Update("enable = ? and is_delete = 1 ", 0).Error; err != nil {
 		return err
 	}
 	return nil
@@ -97,7 +114,7 @@ func (r *Repo) Disable() error {
 
 func (r *Repo) Enable() error {
 	var product *model.Product
-	if err := r.db.Model(product).Update("enable = ?", 1).Error; err != nil {
+	if err := r.db.Model(product).Update("enable = ? and is_delete = 0", 1).Error; err != nil {
 		return err
 	}
 	return nil

@@ -4,6 +4,7 @@ import (
 	"co-studio-e-commerce/conf"
 	"co-studio-e-commerce/route"
 	"fmt"
+
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -51,3 +52,6 @@ func main() {
 		ginSwagger.PersistAuthorization(true),
 	)
 }
+
+//docker run -d -e POSTGRES_HOST=localhost -e POSTGRES_DB=kurodev -e POSTGRES_PASSWORD=01012002Phong.
+//-e POSTGRES_PORT=8000 -e POSTGRES_USER=kurodev -p 5432:5432 --name co-studio-api postgres:latest

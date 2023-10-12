@@ -25,24 +25,37 @@ func DeserializeUser() gin.HandlerFunc {
 		}
 
 		if access_token == "" {
-			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"status": "fail", "message": "You are not logged!"})
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"status": "fail", "message": "You are not logged in"})
 			return
 		}
 
-		sub, err := util.ValidateToken(access_token, conf.Config{}.AccessTokenPublicKey)
+		config, _ := conf.LoadConfig(".")
+		sub, err := util.ValidateToken(access_token, config.AccessTokenPublicKey)
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"status": "fail", "message": err.Error()})
 			return
 		}
 
-		var user model.User
-		result := conf.DbDefault.First(&user, "id = ?", fmt.Sprint(sub))
+		var user *model.User
+		result := conf.DbDefault.First(&user, "userid = ?", fmt.Sprint(sub))
 		if result.Error != nil {
-			ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": err.Error()})
+			ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": "the user belonging to this token no logger exists"})
 			return
 		}
 
 		ctx.Set("currentUser", user)
 		ctx.Next()
+	}
+}
+func ProtectedCurrentUser() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		currentUser, exist := ctx.Get("currentUser")
+		if !exist {
+			ctx.JSON(http.StatusInternalServerError, gin.H{"status": "fail", "message": "User not found in context"})
+			return
+		}
+
+		user := currentUser.(model.User)
+		ctx.JSON(http.StatusOK, gin.H{"status": "success", "message": "protected resouce accessed by user", "user_id": user.ID})
 	}
 }

@@ -23,11 +23,13 @@ func (a *App) GetDB() *gorm.DB {
 
 func (a *App) initDB() *gorm.DB {
 	//  Tạo chuỗi kết nối đến PostgreSQL
-	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s ", cfg.DBHost, cfg.Port, cfg.DBUser, cfg.DBPassword, cfg.DBName)
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", Cfg.DBHost, Cfg.Port, Cfg.DBUser, Cfg.DBPassword, Cfg.DBName)
+
 	// Mở kết nối đến PostgreSQL
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
+
 	if err != nil {
 		log.Fatalf("Failed to connect to PostgreSQL: %v", err)
 	}

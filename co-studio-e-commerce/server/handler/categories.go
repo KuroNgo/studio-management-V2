@@ -17,12 +17,12 @@ func NewCategory(service service.ICategoryService) *Categorry {
 }
 
 func (c *Categorry) GetAllCategories(ctx *gin.Context) {
-	categorys, err := c.service.GetAllCategories()
+	categories, err := c.service.GetAllCategories()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"category": categorys}})
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"category": categories}})
 }
 
 func (c *Categorry) GetCategory(category model.Categories) {

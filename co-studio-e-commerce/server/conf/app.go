@@ -15,5 +15,5 @@ func NewApp() *App {
 }
 
 func (a *App) Run() error {
-	return a.Router.Run(":" + cfg.DBPort)
+	return a.Router.Run(":" + Cfg.DBPort)
 }

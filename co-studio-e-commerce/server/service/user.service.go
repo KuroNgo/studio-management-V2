@@ -5,6 +5,8 @@ import (
 	"co-studio-e-commerce/repo"
 	"co-studio-e-commerce/util"
 	"errors"
+	"github.com/google/uuid"
+	"strings"
 )
 
 type User struct {
@@ -18,6 +20,7 @@ type IUser interface {
 	LoginUserByEmail(UserRequest model.SignInInput) (userResponse model.User, err error)
 	UpdateUser(currentUser model.User, user model.User) (model.User, error)
 	RegisterUser(userRegister model.User) (userResponse model.User, err error)
+	FindUserByID(uuid string) (*model.User, error)
 }
 
 func NewUser(repo repo.IRepo) *User {
@@ -31,6 +34,63 @@ func (u *User) GetAllUser() ([]model.User, error) {
 		return nil, err // Trả về nil và lỗi nếu có lỗi
 	}
 	return users, nil // Trả về danh sách người dùng và không có lỗi nếu thành công
+}
+
+func (u *User) FindUserByID(uuid string) (*model.User, error) {
+	user, err := u.repo.FindUserByID(uuid)
+	if err != nil {
+		return &model.User{}, err
+	}
+	return user, nil
+}
+
+func (u *User) GetUserByID(uuid uuid.UUID) (model.User, error) {
+
+	user, err := u.repo.GetUserID(uuid)
+	if err != nil {
+		return model.User{}, err
+	}
+	return user, nil
+}
+
+func (u *User) GetUserByEmail(email string) (model.User, error) {
+	user, err := u.repo.GetUserEmail(email)
+	if err != nil {
+		return model.User{}, err
+	}
+	return user, nil
+}
+
+func (u *User) GetUserByUsername(username string) (model.User, error) {
+	user, err := u.repo.GetUserByUsername(username)
+	if err != nil {
+		return model.User{}, nil
+	}
+	return user, nil
+}
+
+func (u *User) GetUserByRole(role string) ([]model.User, error) {
+	user, err := u.repo.GetUserRole(role)
+	if err != nil {
+		return []model.User{}, nil
+	}
+	return user, nil
+}
+
+func (u *User) GetUserByAddress(address string) ([]model.User, error) {
+	user, err := u.repo.GetUserAddress(address)
+	if err != nil {
+		return []model.User{}, nil
+	}
+	return user, nil
+}
+
+func (u *User) GetUserCreateUser(create_user string) ([]model.User, error) {
+	user, err := u.repo.GetUserCreateUser(create_user)
+	if err != nil {
+		return []model.User{}, nil
+	}
+	return user, nil
 }
 
 // Đăng nhập theo email và password
@@ -77,7 +137,7 @@ func (u *User) RegisterUser(userRegister model.User) (userResponse model.User, e
 	userRequest := model.User{
 		FullName:   userRegister.FullName,
 		Username:   userRegister.Username,
-		Email:      userRegister.Email,
+		Email:      strings.ToLower(userRegister.Email),
 		Password:   userRegister.Password,
 		Phone:      userRegister.Phone,
 		Role:       userRegister.Role,

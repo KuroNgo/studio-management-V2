@@ -1,38 +1,47 @@
-version: "3.9"
-
 services:
   app:
     image: co-studio-api
 
     ports:
-      - "8080:8080"
+      - "8000:8000"
     environment:
-      DB_HOST: postgres
-      DB_NAME: postgres
-      DB_PASSWORD: mysecretpassword
-      DB_PORT: 5432
-      DB_USER: postgres
-      PORT: 8000
+      DB_HOST: db
+      DB_NAME: kurodev
+      DB_PASSWORD: 01012002Phong.
+      DB_PORT: 8000
+      DB_USER: kurodev
+      PORT: 5432
       SSLMODE: disable
 
-    restart:
-      unless-stopped
+    depends_on:
+      - db
+
+    restart: on-failure
+
+
+#  vite_docker:
+#    image: node:alpine
+#    container_name: vite_docker
+#    entrypoint: /bin/sh
+#    ports:
+#      - 8080:8080
+#    working_dir: /srv/app
+#    volumes:
+#      - type: bind
+#        source: ./
+#        target: /srv/app
+#    tty: true
 
   db:
     image: postgres:latest
     environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: mysecretpassword
-        POSTGRES_DB: postgres
+        POSTGRES_HOST: localhost
+        POSTGRES_USER: kurodev
+        POSTGRES_PASSWORD: 01012002Phong.
+        POSTGRES_DB: kurodev
     ports:
         - "5432:5432"
-  data-copy:
-    image: databox
-    volumes:
-      - mydata:/data
-    command: sh -c "cp -r /path/to/data /data"
 
-volumes:
-  mydata:
+
 
 

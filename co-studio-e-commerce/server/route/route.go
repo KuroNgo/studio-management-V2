@@ -7,10 +7,12 @@ import (
 	"co-studio-e-commerce/middleware"
 	repo "co-studio-e-commerce/repo"
 	"co-studio-e-commerce/service"
+	"co-studio-e-commerce/util"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"net/http"
 )
 
 type Service struct {
@@ -32,6 +34,8 @@ func NewService() *Service {
 	//category := handler.NewCategory(categoryService)
 
 	route := s.Router
+	route.MaxMultipartMemory = 25 << 20 // 8 MiB
+
 	docs.SwaggerInfo.BasePath = "api/v1"
 	route.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
@@ -40,19 +44,28 @@ func NewService() *Service {
 	route.GET("/", func(ctx *gin.Context) {
 		ctx.Redirect(http.StatusFound, "/swagger/index.html")
 	})
-
 	v1User := route.Group("/user/v1")
+	{
 
-	// auth
-	v1User.POST("/login/username", user.LoginWithUserName)
-	v1User.POST("/login/email", func(ctx *gin.Context) {
-		user.LoginWithEmail(ctx, &conf.Config{})
-	})
-	v1User.GET("/get-all-user", user.GetAllUser)
-	v1User.POST("/register", user.Register)
-	v1User.GET("/get/user", user.GetMe)
-	v1User.GET("/logout", middleware.DeserializeUser(), user.LogoutUser)
-	//v1User.PUT("/update/user", user.UpdateUser)
+		v1User.Use(middleware.CORSForDev())
+
+		// auth
+		v1User.POST("/login/username", user.LoginWithUserName)
+		v1User.POST("/login/email", user.LoginWithEmail)
+		v1User.GET("/get-all-user", user.GetAllUser)
+		v1User.POST("/register", user.Register)
+		v1User.GET("/get/user", middleware.DeserializeUser(), middleware.ProtectedCurrentUser(), user.GetMe)
+		v1User.GET("/logout", middleware.DeserializeUser(), user.LogoutUser)
+		v1User.GET("/refresh", user.RefreshAccessToken)
+		//v1User.PUT("/update/user", user.UpdateUser)
+
+		// image
+		v1User.GET("image/get", util.GetUploadedFile)
+		v1User.POST("/image/upload", util.UploadAFile)
+		v1User.PUT("/images/uploads", util.UpdateFile)
+		v1User.DELETE("/image/delete", util.DeleteFile)
+		v1User.POST("/image/", util.UploadMultiFile)
+	}
 
 	// category
 

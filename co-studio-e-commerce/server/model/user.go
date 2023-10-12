@@ -7,7 +7,7 @@ import (
 
 type User struct {
 	// Tên thuộc tính được đặt trong golang phải là ID nếu kiểu dữ liệu là uuid.UUID
-	ID         uuid.UUID `gorm:"type:uuid;primary_key;default:gen_random_uuid();column:userID" json:"id"`
+	ID         uuid.UUID `gorm:"type:uuid;primary_key;default:gen_random_uuid();column:userid" json:"id"`
 	FullName   string    `gorm:"type:varchar(255);column:fullname" json:"fullName"`
 	Username   string    `gorm:"type:varchar(255);column:username" json:"username"`
 	Email      string    `gorm:"unique;column:email" json:"email"`
@@ -18,6 +18,7 @@ type User struct {
 	AvatarUser []byte    `json:"avatarUser"`
 	Photo      []byte    `gorm:"column:photo; null" json:"photo"`
 	Verified   bool      `gorm:"not null;default:false" json:"verified"`
+	WhoUpdates string    `gorm:"not null;default:user" json:"who_updates"`
 	CreatedAt  time.Time `gorm:"not null;autoCreateTime;default:CURRENT_TIMESTAMP" json:"createdAt"`
 	UpdatedAt  time.Time `gorm:"not null;autoUpdateTime;default:CURRENT_TIMESTAMP" json:"updatedAt"`
 	Enable     int       `gorm:"not null;default:1" json:"enable"`
