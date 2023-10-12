@@ -13,7 +13,7 @@ Tech Stack:
 - Golang ( framework Gin, GORM)
 - PostgreSQL
 - ReactiveX (RxGo)
-- Cloudinary
+- Cloudinary - 2 năm hết hạn bắt đầu từ lúc deploy
 - Docker
 - Github CICD
 - Postman API
