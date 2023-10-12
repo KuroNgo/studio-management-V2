@@ -8,6 +8,7 @@
 
 ## Backend
 Member BE: Ngo Hoai Phong (kuro)
+
 Tech Stack:
 - Golang ( framework Gin, GORM)
 - PostgreSQL
@@ -21,6 +22,7 @@ Tech Stack:
 Member FE: 
 - Doan Dinh Hoang 
 - Nguyen Ngoc Son
+  
 Tech Stack:
 - VueJS 
 - Tailwind CSS
