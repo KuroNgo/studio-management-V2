@@ -57,7 +57,7 @@ func (r *Repo) UpdateUserORInsert(user *model.User) (model.User, error) {
 // cập nhật người dùng
 func (r *Repo) UpdateUser(currentUser model.User, user *model.User) (model.User, error) {
 	// UpdateUser là hàm cập nhật thông tin user
-	if err := r.db.Model(&currentUser).Where("userID = ?", currentUser.ID.String()).Updates(user).Omit("ID", "email").Error; err != nil {
+	if err := r.db.Model(&currentUser).Where("userid = ?", currentUser.ID.String()).Updates(user).Omit("ID", "email").Error; err != nil {
 		return model.User{}, err
 	}
 
@@ -72,7 +72,7 @@ func (r *Repo) DeactivateUser(userID uuid.UUID, currentUser model.User) error {
 	}
 
 	// Đánh dấu người dùng có ID là userID là "bị vô hiệu hóa" trong cơ sở dữ liệu
-	if err := r.db.Model(&model.User{}).Where("userID = ?", userID).Update("enable", 0).Error; err != nil {
+	if err := r.db.Model(&model.User{}).Where("userid = ?", userID).Update("enable", 0).Error; err != nil {
 		return err
 	}
 
@@ -109,7 +109,7 @@ func (r *Repo) DeleteUser(user *model.User) error {
 // login
 func (r *Repo) GetUserID(userID uuid.UUID) (model.User, error) {
 	var user model.User
-	if err := r.db.Where("userID = ?", userID.String()).First(&user).Error; err != nil {
+	if err := r.db.Where("userid = ?", userID.String()).First(&user).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return model.User{}, errors.New("User not found")
 		}

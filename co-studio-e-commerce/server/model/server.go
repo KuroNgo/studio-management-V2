@@ -24,7 +24,7 @@ import (
 )
 
 type Server struct {
-	limiter    *limiter.Limiter
-	router     *gin.Engine
-	httpServer *http.Server
+	Limiter    *limiter.Limiter
+	Router     *gin.Engine
+	HttpServer *http.Server
 }

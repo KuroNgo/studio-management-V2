@@ -61,6 +61,47 @@ func (u *User) GetMe(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"user": userResponse}})
 }
 
+func (u *User) GetMeV2(ctx *gin.Context) {
+	message := "could not access token"
+
+	cookie, err := ctx.Cookie("access_token")
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": message})
+		return
+	}
+
+	cfg, _ := conf.LoadConfig(".")
+
+	sub, err := util.ValidateToken(cookie, cfg.AccessTokenPublicKey)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": err.Error()})
+		return
+	}
+
+	result, err := u.service.FindUserByID(fmt.Sprint(sub))
+	resultString, err := json.Marshal(result)
+	userResponse := &model.UserResponse{
+		ID:        result.ID,
+		Name:      result.Username,
+		Email:     result.Email,
+		Photo:     result.Photo,
+		Role:      result.Role,
+		Provider:  result.Provider,
+		CreatedAt: result.CreatedAt,
+		UpdatedAt: result.UpdatedAt,
+	}
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": string(resultString) + "the user belonging to this token no logger exists"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"user":   userResponse,
+	})
+}
+
 // Login godoc
 // @Summary Đăng nhập người dùng
 // @Description Thực hiện chức năng đăng nhập bằng username

@@ -8,11 +8,10 @@ import (
 	repo "co-studio-e-commerce/repo"
 	"co-studio-e-commerce/service"
 	"co-studio-e-commerce/util"
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"net/http"
 )
 
 type Service struct {
@@ -47,7 +46,7 @@ func NewService() *Service {
 	v1User := route.Group("/user/v1")
 	{
 
-		v1User.Use(middleware.CORSForDev())
+		v1User.Use(middleware.CORSForDev(), middleware.RateLimiter())
 
 		// auth
 		v1User.POST("/login/username", user.LoginWithUserName)
@@ -55,6 +54,7 @@ func NewService() *Service {
 		v1User.GET("/get-all-user", user.GetAllUser)
 		v1User.POST("/register", user.Register)
 		v1User.GET("/get/user", middleware.DeserializeUser(), middleware.ProtectedCurrentUser(), user.GetMe)
+		v1User.GET("/get/userv2", user.GetMeV2)
 		v1User.GET("/logout", middleware.DeserializeUser(), user.LogoutUser)
 		v1User.GET("/refresh", user.RefreshAccessToken)
 		//v1User.PUT("/update/user", user.UpdateUser)

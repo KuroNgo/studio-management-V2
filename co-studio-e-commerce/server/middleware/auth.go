@@ -6,6 +6,7 @@ import (
 	"co-studio-e-commerce/util"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 	"net/http"
 	"strings"
 )
@@ -37,7 +38,9 @@ func DeserializeUser() gin.HandlerFunc {
 		}
 
 		var user *model.User
-		result := conf.DbDefault.First(&user, "userid = ?", fmt.Sprint(sub))
+		var db *gorm.DB
+
+		result := db.First(&user, "userid = ?", fmt.Sprint(sub))
 		if result.Error != nil {
 			ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": "the user belonging to this token no logger exists"})
 			return
@@ -47,6 +50,7 @@ func DeserializeUser() gin.HandlerFunc {
 		ctx.Next()
 	}
 }
+
 func ProtectedCurrentUser() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		currentUser, exist := ctx.Get("currentUser")
