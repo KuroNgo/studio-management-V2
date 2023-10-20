@@ -10,12 +10,12 @@ import (
 // thu thập lịch sử hoạt động của người dùng
 
 type ActivityLog struct {
-	LogID         int       `gorm:"primary_key;AUTO_INCREMENT" json:"logid"`
-	UserID        uuid.UUID `json:"user_id" `
-	Activity_type string    `json:"activity_type"`
-	Activity_time time.Time `json:"activity_time"`
-	Description   string    `json:"description"`
-	User          User      `gorm:"foreignKey:UserID"`
+	LogID        int       `gorm:"primary_key;AUTO_INCREMENT" json:"logid"`
+	UserID       uuid.UUID `json:"user_id" `
+	ActivityType string    `json:"activity_type"`
+	ActivityTime time.Time `json:"activity_time"`
+	Description  string    `json:"description"`
+	User         User      `gorm:"foreignKey:UserID"`
 }
 
 func (ActivityLog) TableName() string {

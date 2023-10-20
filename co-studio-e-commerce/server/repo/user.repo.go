@@ -6,13 +6,14 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
+	"time"
 )
 
 // done
 func (r *Repo) GetUserProfile(email string) (model.User, error) {
 	// GetUser là hàm lấy thông tin user
 	var user model.User
-	if err := r.db.Where("email = ?", email).First(&user).Error; err != nil {
+	if err := r.db.Where("email = ?", email).First(&user).Order("created_at ASC").Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return model.User{}, errors.New("Người dùng không tồn tại")
 		}
@@ -55,14 +56,14 @@ func (r *Repo) UpdateUserORInsert(user *model.User) (model.User, error) {
 }
 
 // cập nhật người dùng
-func (r *Repo) UpdateUser(currentUser model.User, user *model.User) (model.User, error) {
+func (r *Repo) UpdateUser(currentUser *model.User) (*model.User, error) {
 	// UpdateUser là hàm cập nhật thông tin user
-	if err := r.db.Model(&currentUser).Where("userid = ?", currentUser.ID.String()).Updates(user).Omit("ID", "email").Error; err != nil {
-		return model.User{}, err
+	if err := r.db.Model(&currentUser).Where("userid = ?", currentUser.ID.String()).Updates(&currentUser).Omit("email").Error; err != nil {
+		return &model.User{}, err
 	}
 
 	// Trả về thông tin user đã được cập nhật
-	return *user, nil
+	return currentUser, nil
 }
 
 func (r *Repo) DeactivateUser(userID uuid.UUID, currentUser model.User) error {
@@ -107,15 +108,15 @@ func (r *Repo) DeleteUser(user *model.User) error {
 
 // get id user
 // login
-func (r *Repo) GetUserID(userID uuid.UUID) (model.User, error) {
+func (r *Repo) GetUserID(userID uuid.UUID) (*model.User, error) {
 	var user model.User
 	if err := r.db.Where("userid = ?", userID.String()).First(&user).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return model.User{}, errors.New("User not found")
+			return &model.User{}, errors.New("User not found")
 		}
-		return model.User{}, err
+		return &model.User{}, err
 	}
-	return user, nil
+	return &user, nil
 }
 
 func (r *Repo) FindUserByID(uuid string) (*model.User, error) {
@@ -128,71 +129,93 @@ func (r *Repo) FindUserByID(uuid string) (*model.User, error) {
 
 // done
 // get email
-func (r *Repo) GetUserEmail(email string) (model.User, error) {
+func (r *Repo) GetUserEmail(email string) (*model.User, error) {
 	// GetUserEmail là hàm lấy thông tin user
 	var user model.User
 	if err := r.db.Where("email = ?", email).First(&user).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return model.User{}, errors.New("Email not found!")
+			return &model.User{}, errors.New("Email not found!")
 		}
 	}
-	return user, nil
+	return &user, nil
 }
 
 // done
 // get username
-func (r *Repo) GetUserByUsername(username string) (model.User, error) {
+func (r *Repo) GetUserByUsername(username string) (*model.User, error) {
 	// GetUserByUsername là hàm lấy thông tin user
 	var user model.User
-	r.db.Where("username = ?", username).First(&user)
-	return user, nil
+	if err := r.db.Where("username = ?", username).First(&user).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return &model.User{}, errors.New("Username not found!")
+		}
+	}
+	return &user, nil
 }
 
 // get role
-func (r *Repo) GetUserRole(role string) ([]model.User, error) {
+func (r *Repo) GetUserRole(role string) (*[]model.User, error) {
 	// GetUserRole là hàm lấy thông tin user
 	var user []model.User
-	r.db.Where("role = ?", role).Find(&user)
-	return user, nil
+	if err := r.db.Where("role = ?", role).Find(&user).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return &[]model.User{}, errors.New("role not found!")
+		}
+	}
+	return &user, nil
 }
 
 // get address
-func (r *Repo) GetUserAddress(address string) ([]model.User, error) {
+func (r *Repo) GetUserAddress(address string) (*[]model.User, error) {
 	// GetUserAddress là hàm lấy thông tin user
 	var user []model.User
-	r.db.Where("address = ?", address).Find(&user)
-	return user, nil
+	if err := r.db.Where("address = ?", address).Find(&user).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
 }
 
 // get create user
-func (r *Repo) GetUserCreateUser(create_user string) ([]model.User, error) {
+func (r *Repo) GetUserCreatedAt(created_at time.Time) (*[]model.User, error) {
 	// GetUserCreateUser là hàm lấy thông tin user
 	var user []model.User
-	r.db.Where("create_user = ?", create_user).First(&user)
-	return user, nil
+	if err := r.db.Where("created_at = ?", created_at).Find(&user).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+func (r *Repo) GetUserCraetedAtAboutTime(createdAt time.Time) (*[]model.User, error) {
+	var user []model.User
+	if err := r.db.Where("created_at > ?", createdAt).First(&user).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+func (r *Repo) GetUserCreatedAtAboutTime2(lastWeek time.Time, today time.Time) (*[]model.User, error) {
+	var user []model.User
+	if err := r.db.Where("created_at BETWEEN ? AND ?", lastWeek, today).Find(&user).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
 }
 
 // get update user
-func (r *Repo) GetUserUpdateUser(update_user string) (model.User, error) {
+func (r *Repo) GetUserUpdateUser(lastWeek time.Time, today time.Time) (*[]model.User, error) {
 	// GetUserUpdateUser là hàm lấy thông tin user
-	var user model.User
-	r.db.Where("update_user = ?", update_user).First(&user)
-	return user, nil
-}
-
-// get create time
-func (r *Repo) GetUserCreateTime(create_time string) (model.User, error) {
-	// GetUserCreateTime là hàm lấy thông tin user
-	var user model.User
-	r.db.Where("created_at = ?", create_time).First(&user)
-	return user, nil
+	var user []model.User
+	if err := r.db.Where("updated_at BETWEEN ? AND ?", lastWeek, today).Find(&user).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
 }
 
 // get delete user
 func (r *Repo) GetUserDeleteUser(delete_user int) (model.User, error) {
 	// GetUserDeleteUser là hàm lấy thông tin user
 	var user model.User
-	r.db.Where("delete_user = ?", delete_user).First(&user)
+	r.db.Where("deleted_at = ?", delete_user).First(&user)
 	return user, nil
 }
 

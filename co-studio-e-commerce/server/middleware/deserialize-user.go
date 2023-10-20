@@ -2,11 +2,9 @@ package middleware
 
 import (
 	"co-studio-e-commerce/conf"
-	"co-studio-e-commerce/model"
 	"co-studio-e-commerce/util"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 	"net/http"
 	"strings"
 )
@@ -15,6 +13,13 @@ func DeserializeUser() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var access_token string
 		cookie, err := ctx.Cookie("access_token")
+
+		//if err != nil {
+		//	ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{
+		//		"status": "fail",
+		//		"message":""
+		//	})
+		//}
 
 		authorizationHeader := ctx.Request.Header.Get("Authorization")
 		fields := strings.Fields(authorizationHeader)
@@ -32,34 +37,22 @@ func DeserializeUser() gin.HandlerFunc {
 
 		config, _ := conf.LoadConfig(".")
 		sub, err := util.ValidateToken(access_token, config.AccessTokenPublicKey)
+
 		if err != nil {
+			fmt.Println("The err is: ", err)
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"status": "fail", "message": err.Error()})
 			return
 		}
 
-		var user *model.User
-		var db *gorm.DB
+		//var user model.User
+		//
+		//result := conf.DbDefault.First(&user, "userid = ?", fmt.Sprint(sub))
+		//if result.Error != nil {
+		//	ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": "the user belonging to this token no logger exists"})
+		//	return
+		//}
 
-		result := db.First(&user, "userid = ?", fmt.Sprint(sub))
-		if result.Error != nil {
-			ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": "the user belonging to this token no logger exists"})
-			return
-		}
-
-		ctx.Set("currentUser", user)
+		ctx.Set("currentUser", sub)
 		ctx.Next()
-	}
-}
-
-func ProtectedCurrentUser() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		currentUser, exist := ctx.Get("currentUser")
-		if !exist {
-			ctx.JSON(http.StatusInternalServerError, gin.H{"status": "fail", "message": "User not found in context"})
-			return
-		}
-
-		user := currentUser.(model.User)
-		ctx.JSON(http.StatusOK, gin.H{"status": "success", "message": "protected resouce accessed by user", "user_id": user.ID})
 	}
 }

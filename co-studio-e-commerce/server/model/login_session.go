@@ -5,19 +5,19 @@ import (
 	"time"
 )
 
-type Login_Session struct {
-	SessionID   int       `gorm:"primary_key;AUTO_INCREMENT" json:"session_id"`
-	UserID      uuid.UUID `json:"user_id"`
-	Username    string    `json:"username"`
-	Login_Time  time.Time `json:"login_time"`
-	Logout_Time time.Time `json:"logout_time"`
-	User        User      `gorm:"foreignKey:UserID"`
+type LoginSession struct {
+	SessionID  int       `gorm:"primary_key;AUTO_INCREMENT" json:"session_id"`
+	UserID     uuid.UUID `json:"user_id"`
+	Username   string    `json:"username"`
+	LoginTime  time.Time `json:"login_time"`
+	LogoutTime time.Time `json:"logout_time"`
+	User       User      `gorm:"foreignKey:UserID"`
 }
 
-func (Login_Session) TableName() string {
+func (LoginSession) TableName() string {
 	return "login_session"
 }
 
-func (a *Login_Session) IsSet() bool {
+func (a *LoginSession) IsSet() bool {
 	return a.SessionID != 0
 }

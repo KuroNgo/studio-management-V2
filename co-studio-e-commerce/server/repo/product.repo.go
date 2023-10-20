@@ -95,10 +95,10 @@ func (r *Repo) UpdateProduct(product *model.Product) error {
 
 func (r *Repo) UpdateEnable(enable int) error {
 	var product *model.Product
-	if err := r.db.Model(product).Update("enable = ?", enable).Error; err != nil {
+	if err := r.db.Where("product_id = ?", product.ID).Update("enable = ?", enable).Error; err != nil {
 		return err
 	}
-	if _enable := r.db.Model(product).Where("enable = 0").Update("is_delete = ?", 1).Error; _enable != nil {
+	if _enable := r.db.Where("enable = 0").Update("is_delete = ?", 1).Error; _enable != nil {
 		return _enable
 	}
 	return nil
@@ -106,7 +106,7 @@ func (r *Repo) UpdateEnable(enable int) error {
 
 func (r *Repo) Disable() error {
 	var product *model.Product
-	if err := r.db.Model(product).Update("enable = ? and is_delete = 1 ", 0).Error; err != nil {
+	if err := r.db.Where("product_id = ?", product.ID).Update("enable = ? and is_delete = 1 ", 0).Error; err != nil {
 		return err
 	}
 	return nil
@@ -114,7 +114,7 @@ func (r *Repo) Disable() error {
 
 func (r *Repo) Enable() error {
 	var product *model.Product
-	if err := r.db.Model(product).Update("enable = ? and is_delete = 0", 1).Error; err != nil {
+	if err := r.db.Where("product_id = ?", product.ID).Update("enable = ? and is_delete = 0", 1).Error; err != nil {
 		return err
 	}
 	return nil

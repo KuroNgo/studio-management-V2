@@ -3,20 +3,21 @@ package model
 import (
 	"github.com/google/uuid"
 	"gorm.io/gorm"
+	"time"
 )
 
 type Product struct {
-	ID          uuid.UUID  `gorm:"type:uuid;primary_key;default:gen_random_uuid()" json:"product_id"`
+	ID          uuid.UUID  `gorm:"type:uuid;primary_key;default:gen_random_uuid();column:product_id" json:"product_id"`
 	ProductName string     `gorm:"unique" json:"product_name"`
-	CategoryID  int        `json:"category_id" gorm:"type:int"`
 	Price       int        `json:"price"`
 	Description string     `json:"description"`
-	Image_URL   string     `json:"image_url"`
+	ImageURL    string     `json:"image_url"`
 	Enable      int        `json:"enable"`
-	Is_Update   int        `json:"is_update"`
-	Who_Update  string     `json:"who_update"`
-	Update_Date string     `json:"update_date"`
-	Is_Delete   int        `json:"is_delete"`
+	IsUpdate    int        `json:"is_update"`
+	WhoUpdate   string     `json:"who_update"`
+	UpdateDate  time.Time  `json:"update_date"`
+	IsDelete    int        `json:"is_delete"`
+	CategoryID  uuid.UUID  `json:"category_id" gorm:"type:uuid"`
 	Categories  Categories `gorm:"foreignKey:CategoryID"`
 }
 

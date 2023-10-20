@@ -29,10 +29,12 @@ func NewService() *Service {
 	userService := service.NewUser(repository)
 	user := handler.NewUser(userService)
 
-	//categoryService := service.NewCategoryService(repository)
-	//category := handler.NewCategory(categoryService)
+	categoryService := service.NewCategoryService(repository)
+	category := handler.NewCategory(categoryService)
 
 	route := s.Router
+	route.Use(middleware.CORSMiddleware())
+
 	route.MaxMultipartMemory = 25 << 20 // 8 MiB
 
 	docs.SwaggerInfo.BasePath = "api/v1"
@@ -43,31 +45,64 @@ func NewService() *Service {
 	route.GET("/", func(ctx *gin.Context) {
 		ctx.Redirect(http.StatusFound, "/swagger/index.html")
 	})
-	v1User := route.Group("/user/v1")
+
+	// option method to fix preflight request
+	route.OPTIONS("/*path", middleware.OptionMessage)
+
+	v1User := route.Group("api/user/v1")
 	{
 
-		v1User.Use(middleware.CORSForDev(), middleware.RateLimiter())
+		v1User.Use(
+			middleware.CORSForDev(),
+			middleware.RateLimiter(),
+		)
 
 		// auth
-		v1User.POST("/login/username", user.LoginWithUserName)
-		v1User.POST("/login/email", user.LoginWithEmail)
-		v1User.GET("/get-all-user", user.GetAllUser)
-		v1User.POST("/register", user.Register)
-		v1User.GET("/get/user", middleware.DeserializeUser(), middleware.ProtectedCurrentUser(), user.GetMe)
-		v1User.GET("/get/userv2", user.GetMeV2)
-		v1User.GET("/logout", middleware.DeserializeUser(), user.LogoutUser)
-		v1User.GET("/refresh", user.RefreshAccessToken)
-		//v1User.PUT("/update/user", user.UpdateUser)
 
-		// image
-		v1User.GET("image/get", util.GetUploadedFile)
-		v1User.POST("/image/upload", util.UploadAFile)
-		v1User.PUT("/images/uploads", util.UpdateFile)
-		v1User.DELETE("/image/delete", util.DeleteFile)
-		v1User.POST("/image/", util.UploadMultiFile)
 	}
 
-	// category
+	clientV1 := route.Group("api/client/v1")
+	{
+		clientV1.Use(middleware.CORSMiddleware())
+		clientV1.Use(middleware.RateLimiter())
+
+		// auth
+		clientV1.POST("/login/username", user.LoginWithUserName)
+		clientV1.POST("/login/email", user.LoginWithEmail)
+		clientV1.POST("/register", user.Register)
+		clientV1.GET("/get-user", user.GetMeV2)
+		clientV1.GET("/refresh", user.RefreshAccessToken)
+		clientV1.GET("/logout", middleware.DeserializeUser(), user.LogoutUser)
+		clientV1.PUT("/update", user.UpdateUser)
+
+		// category
+
+		// image
+		clientV1.GET("/image/get", util.GetUploadedFile)
+		clientV1.POST("/image/upload", util.UploadAFile)
+		clientV1.PUT("/images/uploads", util.UpdateFile)
+		clientV1.DELETE("/image/delete", util.DeleteFile)
+		clientV1.POST("/image/", util.UploadMultiFile)
+	}
+
+	// Đối với admin thì không cần phải rate limit
+	// Nhưng đối với nhân viên thì khác
+	// Cơ chế rate limit sẽ giới hạn đối với nhân viên
+	// Nhưng số lần gửi request giới hạn sẽ được tăng lên so với người dùng user
+	adminV1 := route.Group("api/admin/v1")
+	{
+		adminV1.Use(
+			middleware.CORSForDev(),
+			middleware.DeserializeUser(),
+		)
+
+		// user
+		adminV1.GET("/get-all-user", user.GetAllUser)
+		adminV1.GET("/get-role", user.GetUserByRole)
+
+		// category
+		adminV1.POST("/category/post", category.CreateCategory)
+	}
 
 	return &s
 }

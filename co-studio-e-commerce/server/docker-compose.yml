@@ -20,17 +20,9 @@ services:
 
 
 #  vite_docker:
-#    image: node:alpine
-#    container_name: vite_docker
-#    entrypoint: /bin/sh
+#    image: co-studio-fe
 #    ports:
-#      - 8080:8080
-#    working_dir: /srv/app
-#    volumes:
-#      - type: bind
-#        source: ./
-#        target: /srv/app
-#    tty: true
+#      - "3000:3000"
 
   db:
     image: postgres:latest

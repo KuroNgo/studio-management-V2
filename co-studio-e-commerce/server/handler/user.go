@@ -2,16 +2,15 @@ package handler
 
 import (
 	"co-studio-e-commerce/conf"
-	"encoding/json"
-	"fmt"
-	"net/http"
-	"strings"
-
-	"github.com/gin-gonic/gin"
-
 	"co-studio-e-commerce/model"
 	"co-studio-e-commerce/service"
 	"co-studio-e-commerce/util"
+	"encoding/json"
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"strings"
+	"time"
 )
 
 type User struct {
@@ -34,40 +33,30 @@ func (u *User) GetAllUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"users": users}})
 }
 
-func (u *User) GetUserByID(ctx *gin.Context) {
+func (u *User) GetUserByRole(ctx *gin.Context) {
+	var role string
+	data, err := u.service.GetUserByRole(role)
 
-}
-
-// GetUser godoc
-// @Summary Thực hiện tìm kiếm thông tin người dùng theo ID
-// @Description Nhận thông tin chi tiết của người dùng hiện được xác thực
-// @Accept json
-// @Produce json
-// @Router /api/v1/get/user [get]
-func (u *User) GetMe(ctx *gin.Context) {
-	currentUser := ctx.MustGet("currentUser").(model.User)
-
-	userResponse := &model.UserResponse{
-		ID:        currentUser.ID,
-		Name:      currentUser.Username,
-		Email:     currentUser.Email,
-		Photo:     currentUser.Photo,
-		Role:      currentUser.Role,
-		Provider:  currentUser.Provider,
-		CreatedAt: currentUser.CreatedAt,
-		UpdatedAt: currentUser.UpdatedAt,
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"message": err.Error(),
+			"status":  "fail",
+		})
+		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"user": userResponse}})
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   data,
+	})
+
 }
 
 func (u *User) GetMeV2(ctx *gin.Context) {
-	message := "could not access token"
-
 	cookie, err := ctx.Cookie("access_token")
 
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": message})
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": "You are not login!"})
 		return
 	}
 
@@ -87,10 +76,12 @@ func (u *User) GetMeV2(ctx *gin.Context) {
 		Email:     result.Email,
 		Photo:     result.Photo,
 		Role:      result.Role,
+		Enable:    result.Enable,
 		Provider:  result.Provider,
 		CreatedAt: result.CreatedAt,
 		UpdatedAt: result.UpdatedAt,
 	}
+
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": string(resultString) + "the user belonging to this token no logger exists"})
 		return
@@ -99,6 +90,50 @@ func (u *User) GetMeV2(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"status": "success",
 		"user":   userResponse,
+	})
+}
+
+func (u *User) UpdateUser(ctx *gin.Context) {
+	cookie, err := ctx.Cookie("access_token")
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": "You are not login!"})
+		return
+	}
+
+	cfg, _ := conf.LoadConfig(".")
+
+	sub, err := util.ValidateToken(cookie, cfg.AccessTokenPublicKey)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": err.Error()})
+		return
+	}
+
+	result, err := u.service.FindUserByID(fmt.Sprint(sub))
+	resultString, err := json.Marshal(result)
+	userResponse := model.User{
+		FullName:  result.FullName,
+		Username:  result.Username,
+		Email:     result.Email,
+		Photo:     result.Photo,
+		Phone:     result.Phone,
+		Password:  result.Password,
+		Role:      result.Role,
+		Enable:    result.Enable,
+		Provider:  result.Provider,
+		UpdatedAt: result.UpdatedAt,
+	}
+
+	userResponse.Password, err = util.HashPassword(userResponse.Password)
+	result2, err := u.service.UpdateUser(userResponse)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": string(resultString) + "the user belonging to this token no logger exists"})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Updated",
+		"user":    result2,
 	})
 }
 
@@ -188,7 +223,7 @@ func (u *User) LoginWithEmail(ctx *gin.Context) {
 	ctx.SetCookie("logged_in", "true", cfg.AccessTokenMaxAge*60, "/", "localhost", false, false)
 
 	// Trả về thông báo login thành công
-	ctx.JSON(http.StatusOK, gin.H{"status": "success", "message": "Login successful", "user": data})
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "access_token": access_token})
 }
 
 // Đăng ký người dùng godoc
@@ -200,7 +235,10 @@ func (u *User) LoginWithEmail(ctx *gin.Context) {
 func (u *User) Register(ctx *gin.Context) {
 	var user model.User
 	if err := ctx.ShouldBindJSON(&user); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": err.Error()},
+		)
 		return
 	}
 
@@ -213,11 +251,6 @@ func (u *User) Register(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Số điện thoại không đúng chuẩn"})
 		return
 	}
-
-	user.Password = util.Santize(user.Password)
-	user.Username = util.Santize(user.Username)
-	user.Email = util.Santize(user.Email)
-	user.Email = strings.ToLower(user.Email)
 
 	// Bên phía client sẽ phải so sánh password thêm một lần nữa đã đúng chưa
 	if !util.PasswordStrong(user.Password) {
@@ -233,6 +266,12 @@ func (u *User) Register(ctx *gin.Context) {
 	}
 
 	user.Password = hashedPassword
+	user.Password = util.Santize(user.Password)
+	user.Username = util.Santize(user.Username)
+	user.Email = util.Santize(user.Email)
+	user.Email = strings.ToLower(user.Email)
+	user.UpdatedAt = time.Now()
+	user.CreatedAt = time.Now()
 
 	// thực hiện đăng ký người dùng
 	userResponse, err := u.service.RegisterUser(user)
@@ -265,16 +304,7 @@ func (u *User) RefreshAccessToken(ctx *gin.Context) {
 
 	result, err := u.service.FindUserByID(fmt.Sprint(sub))
 	resultString, err := json.Marshal(result)
-	userResponse := &model.UserResponse{
-		ID:        result.ID,
-		Name:      result.Username,
-		Email:     result.Email,
-		Photo:     result.Photo,
-		Role:      result.Role,
-		Provider:  result.Provider,
-		CreatedAt: result.CreatedAt,
-		UpdatedAt: result.UpdatedAt,
-	}
+
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": string(resultString) + "the user belonging to this token no logger exists"})
 		return
@@ -292,7 +322,6 @@ func (u *User) RefreshAccessToken(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"status":       "success",
 		"access_token": access_token,
-		"user":         userResponse,
 	})
 }
 

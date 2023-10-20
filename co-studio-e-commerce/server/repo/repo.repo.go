@@ -44,21 +44,23 @@ type IRepo interface {
 	RemoveOrder(order *model.Order) error
 
 	// User
+	GetUserProfile(email string) (model.User, error)
 	GetAllUser() ([]model.User, error)
 	CreateUser(user model.User) (model.User, error)
 	UpdateUserORInsert(user *model.User) (model.User, error)
-	UpdateUser(currentUser model.User, user *model.User) (model.User, error)
+	UpdateUser(currentUser *model.User) (*model.User, error)
 	DeactivateUser(userID uuid.UUID, currentUser model.User) error
 	DeleteUser(user *model.User) error
-	GetUserID(userID uuid.UUID) (model.User, error)
-	GetUserEmail(email string) (model.User, error)
-	GetUserByUsername(username string) (model.User, error)
-	GetUserRole(role string) ([]model.User, error)
-	GetUserAddress(address string) ([]model.User, error)
+	GetUserID(userID uuid.UUID) (*model.User, error)
 	FindUserByID(uuid string) (*model.User, error)
-	GetUserCreateUser(create_user string) ([]model.User, error)
-	GetUserUpdateUser(update_user string) (model.User, error)
-	GetUserCreateTime(create_time string) (model.User, error)
+	GetUserEmail(email string) (*model.User, error)
+	GetUserByUsername(username string) (*model.User, error)
+	GetUserRole(role string) (*[]model.User, error)
+	GetUserAddress(address string) (*[]model.User, error)
+	GetUserCreatedAt(created_at time.Time) (*[]model.User, error)
+	GetUserCraetedAtAboutTime(createdAt time.Time) (*[]model.User, error)
+	GetUserCreatedAtAboutTime2(lastWeek time.Time, today time.Time) (*[]model.User, error)
+	GetUserUpdateUser(lastWeek time.Time, today time.Time) (*[]model.User, error)
 	GetUserDeleteUser(delete_user int) (model.User, error)
 	GetUserPhone(phone string) (model.User, error)
 
@@ -72,6 +74,6 @@ type IRepo interface {
 	CreateCategory(category model.Categories) (model.Categories, error)
 	UpdateCategory(category *model.Categories) (model.Categories, error)
 	EnableCategory(category *model.Categories) error
-	DisableCategory(uuid uuid.UUID, category *model.Categories) error
+	DisableCategory(category *model.Categories) error
 	DeleteCategory(category *model.Categories) error
 }

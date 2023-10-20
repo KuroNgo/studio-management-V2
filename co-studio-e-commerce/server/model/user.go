@@ -8,7 +8,7 @@ import (
 type User struct {
 	// Tên thuộc tính được đặt trong golang phải là ID nếu kiểu dữ liệu là uuid.UUID
 	ID         uuid.UUID `gorm:"type:uuid;primary_key;default:gen_random_uuid();column:userid" json:"id"`
-	FullName   string    `gorm:"type:varchar(255);column:fullname" json:"fullName"`
+	FullName   string    `gorm:"type:varchar(255);column:full_name" json:"fullName"`
 	Username   string    `gorm:"type:varchar(255);column:username" json:"username"`
 	Email      string    `gorm:"unique;column:email" json:"email"`
 	Password   string    `gorm:"not null;column:password" json:"password"`

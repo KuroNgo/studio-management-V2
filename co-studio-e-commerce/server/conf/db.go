@@ -46,7 +46,7 @@ func (a *App) initDB() *gorm.DB {
 		&model.OrderDetail{},
 		&model.Admin{},
 		&model.ActivityLog{},
-		&model.Login_Session{},
+		&model.LoginSession{},
 		&model.PaymentInformation{},
 		&model.Post{},
 		&model.ShoppingCart{},

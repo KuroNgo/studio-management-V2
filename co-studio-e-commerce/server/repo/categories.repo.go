@@ -91,20 +91,17 @@ func (r *Repo) UpdateCategory(category *model.Categories) (model.Categories, err
 
 func (r *Repo) EnableCategory(category *model.Categories) error {
 	// EnableCategory là hàm hiển thị category
-	if err := r.db.
-		Model(category).
-		Update("enable", 1).Error; err != nil {
+	if err := r.db.Where("category_id = ?", category.ID).Update("enable", 1).Error; err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (r *Repo) DisableCategory(uuid uuid.UUID, category *model.Categories) error {
+func (r *Repo) DisableCategory(category *model.Categories) error {
 	// DisableCategory là hàm ẩn category
 	if err := r.db.
-		Model(category).
-		Where("category_id", uuid.String()).
+		Where("category_id = ?", &category.ID).
 		Update("enable", 0).Error; err != nil {
 		return err
 	}
@@ -116,8 +113,7 @@ func (r *Repo) DeleteCategory(category *model.Categories) error {
 	// Kiểm tra xem có sản phẩm nào được đặt lịch hẹn thuộc danh mục này không
 	var count int64
 	if err := r.db.
-		Model(&model.Product{}).
-		Where("category_id = ?", category.CategoryID).Count(&count).Error; err != nil {
+		Where("category_id = ?", category.ID).Count(&count).Error; err != nil {
 		return err
 	}
 

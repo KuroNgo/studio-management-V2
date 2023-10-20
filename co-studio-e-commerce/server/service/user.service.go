@@ -7,6 +7,7 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	"strings"
+	"time"
 )
 
 type User struct {
@@ -16,11 +17,18 @@ type User struct {
 
 type IUser interface {
 	GetAllUser() ([]model.User, error)
-	LoginUserByUsername(UserRequest model.UserRequest) (userResponse model.User, err error)
-	LoginUserByEmail(UserRequest model.SignInInput) (userResponse model.User, err error)
-	UpdateUser(currentUser model.User, user model.User) (model.User, error)
-	RegisterUser(userRegister model.User) (userResponse model.User, err error)
 	FindUserByID(uuid string) (*model.User, error)
+	FindUserByRole(role string) (*[]model.User, error)
+	GetUserByID(uuid uuid.UUID) (*model.User, error)
+	GetUserByEmail(email string) (*model.User, error)
+	GetUserByUsername(username string) (*model.User, error)
+	GetUserByRole(role string) (*[]model.User, error)
+	GetUserByAddress(address string) (*[]model.User, error)
+	GetUserCreateUser(created_at time.Time) (*[]model.User, error)
+	LoginUserByEmail(UserRequest model.SignInInput) (userResponse *model.User, err error)
+	LoginUserByUsername(UserRequest model.UserRequest) (UserResponse *model.User, err error)
+	UpdateUser(currentUser model.User) (*model.User, error)
+	RegisterUser(userRegister model.User) (userResponse model.User, err error)
 }
 
 func NewUser(repo repo.IRepo) *User {
@@ -44,89 +52,97 @@ func (u *User) FindUserByID(uuid string) (*model.User, error) {
 	return user, nil
 }
 
-func (u *User) GetUserByID(uuid uuid.UUID) (model.User, error) {
+func (u *User) FindUserByRole(role string) (*[]model.User, error) {
+	user, err := u.repo.GetUserRole(role)
+	if err != nil {
+		return &[]model.User{}, err
+	}
+	return user, nil
+}
+
+func (u *User) GetUserByID(uuid uuid.UUID) (*model.User, error) {
 
 	user, err := u.repo.GetUserID(uuid)
 	if err != nil {
-		return model.User{}, err
+		return &model.User{}, err
 	}
 	return user, nil
 }
 
-func (u *User) GetUserByEmail(email string) (model.User, error) {
+func (u *User) GetUserByEmail(email string) (*model.User, error) {
 	user, err := u.repo.GetUserEmail(email)
 	if err != nil {
-		return model.User{}, err
+		return &model.User{}, err
 	}
 	return user, nil
 }
 
-func (u *User) GetUserByUsername(username string) (model.User, error) {
+func (u *User) GetUserByUsername(username string) (*model.User, error) {
 	user, err := u.repo.GetUserByUsername(username)
 	if err != nil {
-		return model.User{}, nil
+		return &model.User{}, nil
 	}
 	return user, nil
 }
 
-func (u *User) GetUserByRole(role string) ([]model.User, error) {
+func (u *User) GetUserByRole(role string) (*[]model.User, error) {
 	user, err := u.repo.GetUserRole(role)
 	if err != nil {
-		return []model.User{}, nil
+		return &[]model.User{}, nil
 	}
 	return user, nil
 }
 
-func (u *User) GetUserByAddress(address string) ([]model.User, error) {
+func (u *User) GetUserByAddress(address string) (*[]model.User, error) {
 	user, err := u.repo.GetUserAddress(address)
 	if err != nil {
-		return []model.User{}, nil
+		return &[]model.User{}, nil
 	}
 	return user, nil
 }
 
-func (u *User) GetUserCreateUser(create_user string) ([]model.User, error) {
-	user, err := u.repo.GetUserCreateUser(create_user)
+func (u *User) GetUserCreateUser(created_at time.Time) (*[]model.User, error) {
+	user, err := u.repo.GetUserCreatedAt(created_at)
 	if err != nil {
-		return []model.User{}, nil
+		return &[]model.User{}, nil
 	}
 	return user, nil
 }
 
 // Đăng nhập theo email và password
-func (u *User) LoginUserByEmail(UserRequest model.SignInInput) (userResponse model.User, err error) {
+func (u *User) LoginUserByEmail(UserRequest model.SignInInput) (userResponse *model.User, err error) {
 	user, err := u.repo.GetUserEmail(UserRequest.Email)
 	if err != nil {
-		return model.User{}, err
+		return &model.User{}, err
 	}
 
 	// Kiểm tra xem mật khẩu đã nhập có đúng với mật khẩu đã hash trong cơ sở dữ liệu không
 	if err := util.VerifyPassword(user.Password, UserRequest.Password); err != nil {
-		return model.User{}, errors.New("Tài khoản hoặc mật khẩu không đúng !")
+		return &model.User{}, errors.New("Tài khoản hoặc mật khẩu không đúng !")
 	}
 
 	return user, nil
 }
 
 // Đăng nhập theo username
-func (u *User) LoginUserByUsername(UserRequest model.UserRequest) (UserResponse model.User, err error) {
+func (u *User) LoginUserByUsername(UserRequest model.UserRequest) (UserResponse *model.User, err error) {
 	user, err := u.repo.GetUserByUsername(UserRequest.Username)
 	if err != nil {
-		return model.User{}, err
+		return &model.User{}, err
 	}
 
 	// Kiểm tra xem mật khẩu đã nhập có đúng với mật khẩu đã hash trong cơ sở dữ liệu không
 	if err := util.VerifyPassword(user.Password, UserRequest.Password); err != nil {
-		return model.User{}, errors.New("Tài khoản hoặc mật khẩu không đúng !")
+		return &model.User{}, errors.New("Tài khoản hoặc mật khẩu không đúng !")
 	}
 	return user, nil
 }
 
-func (u *User) UpdateUser(currentUser model.User, userRequest model.User) (model.User, error) {
+func (u *User) UpdateUser(currentUser model.User) (*model.User, error) {
 	// UpdateUser là hàm cập nhật thông tin user
-	user, err := u.repo.UpdateUser(currentUser, &userRequest)
+	user, err := u.repo.UpdateUser(&currentUser)
 	if err != nil {
-		return model.User{}, err
+		return &model.User{}, err
 	}
 	// Trả về thông tin người dùng sau khi cập nhật
 	return user, nil
@@ -152,5 +168,3 @@ func (u *User) RegisterUser(userRegister model.User) (userResponse model.User, e
 	}
 	return user, nil
 }
-
-// hook
