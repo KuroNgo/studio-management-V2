@@ -15,8 +15,11 @@ type Category struct {
 	user     service.IUser
 }
 
-func NewCategory(service service.ICategory) *Category {
-	return &Category{service: service}
+func NewCategory(service service.ICategory, user service.IUser) *Category {
+	return &Category{
+		service: service,
+		user:    user,
+	}
 }
 
 func (c *Category) GetAllCategories(ctx *gin.Context) {
@@ -44,14 +47,14 @@ func (c *Category) CreateCategory(ctx *gin.Context) {
 		return
 	}
 
-	// Thực hiện lấy thông tin người dùng
-	//userName, err := c.user.FindUserByID(fmt.Sprint(currentUser))
-	//if err != nil {
-	//	ctx.JSON(http.StatusBadRequest, gin.H{
-	//		"status":  "error",
-	//		"message": err.Error(),
-	//	})
-	//}
+	//Thực hiện lấy thông tin người dùng
+	userName, err := c.user.FindUserByID(fmt.Sprint(currentUser))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": err.Error(),
+		})
+	}
 
 	category.UpdatedAt = time.Now()
 	category.CreatedAt = time.Now()
@@ -63,8 +66,9 @@ func (c *Category) CreateCategory(ctx *gin.Context) {
 		Enable:       1,
 		IsUpdate:     category.IsUpdate,
 		UpdatedAt:    category.UpdatedAt,
-		WhoUpdate:    fmt.Sprint(currentUser),
-		IsDelete:     0,
+		//WhoUpdate:    fmt.Sprint(currentUser),
+		WhoUpdate: userName.FullName,
+		IsDelete:  0,
 	}
 
 	categoryResponse, err := c.service.CreateCategory(newCategory)

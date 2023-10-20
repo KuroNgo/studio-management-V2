@@ -14,11 +14,10 @@ type ICategory interface {
 	GetCategory(oneCategory model.Categories) (model.Categories, error)
 	GetAllCategories() ([]model.Categories, error)
 	CreateCategory(categoryRequest model.Categories) (model.Categories, error)
-	//UpdateCategory(ctx context.Context, oneCategory model.Categories) (categoriRes model.Categories, err error)
 	DeleteCategoryFirst(oneCategory model.Categories) error
 }
 
-func NewCategoryService(repo repo.IRepo) *Category {
+func NewCategory(repo repo.IRepo) *Category {
 	return &Category{repo: repo}
 }
 

@@ -29,11 +29,13 @@ func NewService() *Service {
 	userService := service.NewUser(repository)
 	user := handler.NewUser(userService)
 
-	categoryService := service.NewCategoryService(repository)
-	category := handler.NewCategory(categoryService)
+	categoryService := service.NewCategory(repository)
+	category := handler.NewCategory(categoryService, userService)
 
+	// giải quyết về router
 	route := s.Router
 	route.Use(middleware.CORSMiddleware())
+	route.Use(middleware.Recover())
 
 	route.MaxMultipartMemory = 25 << 20 // 8 MiB
 
@@ -76,6 +78,7 @@ func NewService() *Service {
 		clientV1.PUT("/update", user.UpdateUser)
 
 		// category
+		clientV1.GET("/category/get", category.GetAllCategories)
 
 		// image
 		clientV1.GET("/image/get", util.GetUploadedFile)
