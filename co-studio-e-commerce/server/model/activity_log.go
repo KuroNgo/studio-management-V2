@@ -12,9 +12,14 @@ import (
 type ActivityLog struct {
 	LogID        int       `gorm:"primary_key;AUTO_INCREMENT" json:"logid"`
 	UserID       uuid.UUID `json:"user_id" `
+	ClientIP     string    `json:"client_ip"`
+	Method       string    `json:"method"`
+	StatusCode   int       `json:"status_code"`
+	BodySize     int       `json:"body_size"`
+	Path         string    `json:"path"`
+	Latency      string    `json:"latency"`
 	ActivityType string    `json:"activity_type"`
 	ActivityTime time.Time `json:"activity_time"`
-	Description  string    `json:"description"`
 	User         User      `gorm:"foreignKey:UserID"`
 }
 

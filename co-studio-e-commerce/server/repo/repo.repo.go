@@ -46,13 +46,6 @@ type IRepo interface {
 	// User
 	GetUserProfile(email string) (model.User, error)
 	GetAllUser() ([]model.User, error)
-	CreateUser(user model.User) (model.User, error)
-	UpdateUserORInsert(user *model.User) (model.User, error)
-	UpdateUser(currentUser *model.User) (*model.User, error)
-	DeactivateUser(userID uuid.UUID, currentUser model.User) error
-	DeleteUser(user *model.User) error
-	GetUserID(userID uuid.UUID) (*model.User, error)
-	FindUserByID(uuid string) (*model.User, error)
 	GetUserEmail(email string) (*model.User, error)
 	GetUserByUsername(username string) (*model.User, error)
 	GetUserRole(role string) (*[]model.User, error)
@@ -63,13 +56,19 @@ type IRepo interface {
 	GetUserUpdateUser(lastWeek time.Time, today time.Time) (*[]model.User, error)
 	GetUserDeleteUser(delete_user int) (model.User, error)
 	GetUserPhone(phone string) (model.User, error)
+	GetUserID(userID uuid.UUID) (*model.User, error)
+	CreateUser(user model.User) (model.User, error)
+	UpdateUserORInsert(user *model.User) (model.User, error)
+	UpdateUser(currentUser *model.User) (*model.User, error)
+	DeactivateUser(userID uuid.UUID, currentUser model.User) error
+	DeleteUser(user *model.User) error
+	FindUserByID(uuid string) (*model.User, error)
 
 	// category
-	GetCategoryByID(uuid uuid.UUID) (model.Categories, error)
+	GetCategoryByID(uuid string) (model.Categories, error)
 	GetCategoryByName(name string) (model.Categories, error)
 	GetCategoryByEnable(enable int) ([]model.Categories, error)
 	GetCategoryCreatedByUpdateDate(date time.Time) ([]model.Categories, error)
-	GetCategory(category model.Categories) error
 	GetAllCategory() ([]model.Categories, error)
 	CreateCategory(category model.Categories) (model.Categories, error)
 	UpdateCategory(category *model.Categories) (model.Categories, error)

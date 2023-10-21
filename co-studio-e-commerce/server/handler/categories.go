@@ -31,8 +31,20 @@ func (c *Category) GetAllCategories(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"category": categories}})
 }
 
-func (c *Category) GetCategory(category model.Categories) {
-
+func (c *Category) GetCategoryByID(ctx *gin.Context) {
+	categoryID := ctx.Param("category_id")
+	category, err := c.service.GetCategory(categoryID)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   category,
+	})
 }
 
 func (c *Category) CreateCategory(ctx *gin.Context) {
@@ -54,6 +66,7 @@ func (c *Category) CreateCategory(ctx *gin.Context) {
 			"status":  "error",
 			"message": err.Error(),
 		})
+		return
 	}
 
 	category.UpdatedAt = time.Now()

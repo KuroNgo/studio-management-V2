@@ -2,18 +2,15 @@ package repo
 
 import (
 	"errors"
-	"github.com/google/uuid"
-	"gorm.io/gorm"
 	"time"
 
 	"co-studio-e-commerce/model"
 )
 
-func (r *Repo) GetCategoryByID(uuid uuid.UUID) (model.Categories, error) {
+func (r *Repo) GetCategoryByID(uuid string) (model.Categories, error) {
 	var category model.Categories
 	if err := r.db.
-		Model(&category).
-		First("category_id = ?", uuid.String()).Error; err != nil {
+		First("category_id = ?", uuid).Error; err != nil {
 		return model.Categories{}, err
 	}
 	return category, nil
@@ -44,19 +41,6 @@ func (r *Repo) GetCategoryCreatedByUpdateDate(date time.Time) ([]model.Categorie
 		return nil, err
 	}
 	return categories, nil
-}
-
-// done
-func (r *Repo) GetCategory(category model.Categories) error {
-	// GetCategory là hàm lấy thông tin category
-	if err := r.db.
-		Where(category).
-		First(category).Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return errors.New("Category findn't found")
-		}
-	}
-	return nil
 }
 
 // done

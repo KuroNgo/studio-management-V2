@@ -14,13 +14,6 @@ func DeserializeUser() gin.HandlerFunc {
 		var access_token string
 		cookie, err := ctx.Cookie("access_token")
 
-		//if err != nil {
-		//	ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{
-		//		"status": "fail",
-		//		"message":""
-		//	})
-		//}
-
 		authorizationHeader := ctx.Request.Header.Get("Authorization")
 		fields := strings.Fields(authorizationHeader)
 

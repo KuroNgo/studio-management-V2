@@ -11,23 +11,23 @@ type Category struct {
 }
 
 type ICategory interface {
-	GetCategory(oneCategory model.Categories) (model.Categories, error)
+	GetCategory(uuid string) (model.Categories, error)
 	GetAllCategories() ([]model.Categories, error)
 	CreateCategory(categoryRequest model.Categories) (model.Categories, error)
-	DeleteCategoryFirst(oneCategory model.Categories) error
+	DeleteCategoryFirst(uuid string) error
+	DeleteCategorySecond(category model.Categories) error
 }
 
 func NewCategory(repo repo.IRepo) *Category {
 	return &Category{repo: repo}
 }
 
-// chhỉnh lại
-func (c *Category) GetCategory(oneCategory model.Categories) (model.Categories, error) {
-	err := c.repo.GetCategory(oneCategory)
+func (c *Category) GetCategory(uuid string) (model.Categories, error) {
+	category, err := c.repo.GetCategoryByID(uuid)
 	if err != nil {
 		return model.Categories{}, err
 	}
-	return oneCategory, nil
+	return category, nil
 }
 
 // done
@@ -49,13 +49,16 @@ func (c *Category) CreateCategory(categoryRequest model.Categories) (model.Categ
 
 }
 
-func (c *Category) DeleteCategoryFirst(oneCategory model.Categories) error {
-	category, err := c.repo.GetCategoryByID(oneCategory.ID)
+func (c *Category) DeleteCategoryFirst(category model.Categories) error {
+	err := c.repo.DisableCategory(&category)
 	if err != nil {
 		return err
 	}
+	return nil
+}
 
-	err = c.repo.DisableCategory(&category)
+func (c *Category) DeleteCategorySecond(category model.Categories) error {
+	err := c.repo.DeleteCategory(&category)
 	if err != nil {
 		return err
 	}

@@ -9,6 +9,7 @@ import (
 	"co-studio-e-commerce/service"
 	"co-studio-e-commerce/util"
 	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog/log"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
@@ -36,6 +37,7 @@ func NewService() *Service {
 	route := s.Router
 	route.Use(middleware.CORSMiddleware())
 	route.Use(middleware.Recover())
+	route.Use(middleware.StructuredLogger(&log.Logger))
 
 	route.MaxMultipartMemory = 25 << 20 // 8 MiB
 
@@ -77,8 +79,10 @@ func NewService() *Service {
 		clientV1.GET("/logout", middleware.DeserializeUser(), user.LogoutUser)
 		clientV1.PUT("/update", user.UpdateUser)
 
+		// không cần đăng nhập vẫn sử dụng được
 		// category
-		clientV1.GET("/category/get", category.GetAllCategories)
+		clientV1.GET("/category/get-all", category.GetAllCategories)
+		clientV1.GET("/category/get/:category_id", category.GetCategoryByID)
 
 		// image
 		clientV1.GET("/image/get", util.GetUploadedFile)
