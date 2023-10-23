@@ -10,7 +10,9 @@ import (
 func (r *Repo) GetCategoryByID(uuid string) (model.Categories, error) {
 	var category model.Categories
 	if err := r.db.
-		First("category_id = ?", uuid).Error; err != nil {
+		Model(&category).
+		Where("category_id = ? and enable = 1", uuid).
+		First(&category).Error; err != nil {
 		return model.Categories{}, err
 	}
 	return category, nil
@@ -83,13 +85,27 @@ func (r *Repo) EnableCategory(category *model.Categories) error {
 }
 
 func (r *Repo) DisableCategory(category *model.Categories) error {
+	var count int64
 	// DisableCategory là hàm ẩn category
 	if err := r.db.
+		Model(&model.Product{}).
 		Where("category_id = ?", &category.ID).
-		Update("enable", 0).Error; err != nil {
+		Count(&count).
+		Error; err != nil {
 		return err
 	}
 
+	if count > 0 {
+		return errors.New("Không thể xóa danh mục có sản phẩm sử dụng")
+	}
+
+	// Nếu không có sản phẩm sư rudnjg danh mục, thực hiện xóa
+	if err := r.db.
+		Model(&category).
+		Where("category_id = ?", category.ID).
+		Update("enable", 0).Error; err != nil {
+		return err
+	}
 	return nil
 }
 

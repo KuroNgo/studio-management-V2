@@ -108,7 +108,8 @@ func NewService() *Service {
 		adminV1.GET("/get-role", user.GetUserByRole)
 
 		// category
-		adminV1.POST("/category/post", category.CreateCategory)
+		adminV1.POST("/category/create", category.CreateCategory)
+		adminV1.PUT("/category/delete", category.DeleteCategoryWithForeinKey)
 	}
 
 	return &s

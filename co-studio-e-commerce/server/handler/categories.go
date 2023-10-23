@@ -10,12 +10,12 @@ import (
 )
 
 type Category struct {
-	service  service.ICategory
-	category model.Categories
 	user     service.IUser
+	service  service.ICategories
+	category model.Categories
 }
 
-func NewCategory(service service.ICategory, user service.IUser) *Category {
+func NewCategory(service service.ICategories, user service.IUser) *Category {
 	return &Category{
 		service: service,
 		user:    user,
@@ -98,4 +98,51 @@ func (c *Category) CreateCategory(ctx *gin.Context) {
 		"data":   categoryResponse,
 	})
 
+}
+
+func (c *Category) DeleteCategoryWithForeinKey(ctx *gin.Context) {
+	// Lấy user hiện tại đăng nhập
+	currentUser := ctx.MustGet("currentUser")
+	var category model.Categories
+	if err := ctx.ShouldBindJSON(&category); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+
+	}
+
+	//Thực hiện lấy thông tin người dùng
+	userName, err := c.user.FindUserByID(fmt.Sprint(currentUser))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	category.UpdatedAt = time.Now()
+	deleteCategory := model.Categories{
+		CategoryName: category.CategoryName,
+		Description:  category.Description,
+		Enable:       0,
+		IsUpdate:     1,
+		UpdatedAt:    category.UpdatedAt,
+		WhoUpdate:    userName.FullName,
+		IsDelete:     1,
+	}
+
+	err = c.service.DeleteCategoryFirst(deleteCategory)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "error",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+	})
 }

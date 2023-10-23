@@ -72,7 +72,7 @@ func (u *User) GetMeV2(ctx *gin.Context) {
 	resultString, err := json.Marshal(result)
 	userResponse := &model.UserResponse{
 		ID:        result.ID,
-		Name:      result.Username,
+		Name:      result.FullName,
 		Email:     result.Email,
 		Photo:     result.Photo,
 		Role:      result.Role,

@@ -10,11 +10,11 @@ type Category struct {
 	category model.Categories
 }
 
-type ICategory interface {
+type ICategories interface {
 	GetCategory(uuid string) (model.Categories, error)
 	GetAllCategories() ([]model.Categories, error)
 	CreateCategory(categoryRequest model.Categories) (model.Categories, error)
-	DeleteCategoryFirst(uuid string) error
+	DeleteCategoryFirst(category model.Categories) error
 	DeleteCategorySecond(category model.Categories) error
 }
 
