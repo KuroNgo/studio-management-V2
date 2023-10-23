@@ -1,0 +1,31 @@
+package util
+
+import (
+	"fmt"
+	"html"
+	"strings"
+
+	"golang.org/x/crypto/bcrypt"
+)
+
+// Done
+func HashPassword(password string) (string, error) {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+
+	if err != nil {
+		return "", fmt.Errorf("could not hash password %w", err)
+	}
+	return string(hashedPassword), nil
+}
+
+func VerifyPassword(hashedPassword string, candidatePassword string) error {
+	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(candidatePassword))
+}
+
+// để tránh bị SQL injection
+// SQL injection là một loại tấn công về cơ sở dữ liệu
+// Hacker sẽ gửi một loạt các thông tin giả về cơ sở dữ liệu nhằm hủy hoại môi trường server
+func Santize(data string) string {
+	data = html.EscapeString(strings.TrimSpace(data))
+	return data
+}

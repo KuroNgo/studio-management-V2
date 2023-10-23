@@ -1,29 +1,41 @@
 # Cỏ Studio project
 
-This template should help get you started developing with Vue 3 in Vite.
+## Features
+- Product Management
+- Search Product
+- List products by category
+- ...
 
-## Recommended IDE Setup
+## Backend
+Member BE: Ngo Hoai Phong (kuro)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Tech Stack:
+- Golang ( framework Gin, GORM)
+- PostgreSQL
+- ReactiveX (RxGo)
+- Cloudinary - 2 năm hết hạn bắt đầu từ lúc deploy
+- Docker
+- Github CICD
+- Postman API
 
-## Customize configuration
+## Frontend
+Member FE: 
+- Doan Dinh Hoang 
+- Nguyen Ngoc Son
+  
+Tech Stack:
+- VueJS 
+- Tailwind CSS
+- Javascript
+- GSAP
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## DevOps
+Member: Ngo Hoai Phong
 
-## Project Setup
+## Mobile
+Tech Stack:
+- VueJS Ionic
 
-```sh
-npm install
-```
+## UI/UX
+- Made by Mai Quang Dinh 
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```

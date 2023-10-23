@@ -1,0 +1,39 @@
+services:
+  app:
+    image: co-studio-api
+
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: db
+      DB_NAME: kurodev
+      DB_PASSWORD: 01012002Phong.
+      DB_PORT: 8000
+      DB_USER: kurodev
+      PORT: 5432
+      SSLMODE: disable
+
+    depends_on:
+      - db
+
+    restart: on-failure
+
+
+#  vite_docker:
+#    image: co-studio-fe
+#    ports:
+#      - "3000:3000"
+
+  db:
+    image: postgres:latest
+    environment:
+        POSTGRES_HOST: localhost
+        POSTGRES_USER: kurodev
+        POSTGRES_PASSWORD: 01012002Phong.
+        POSTGRES_DB: kurodev
+    ports:
+        - "5432:5432"
+
+
+
+

@@ -1,0 +1,71 @@
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8000
+info:
+  contact:
+    email: hoaiphong01012002@gmai.com
+    name: Ngô Hoài Phong
+    url: http://www.swagger.io/support
+  description: |-
+    Đây là API của Cỏ Studio,
+    Việc sử dụng API này phải có sự đồng ý của Mr. Phong
+    Swagger chỉ phục vụ cho việc hiển thị các API được phép sử dụng
+    Nếu bạn muốn sử dụng phải thực hiện trên postman
+    Để có file test postman, bạn cần liên hệ người quản lý API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://localhost:8000
+  title: Cỏ Studio API
+  version: "1.0"
+paths:
+  /api/v1/get/user:
+    get:
+      consumes:
+      - application/json
+      description: Nhận thông tin chi tiết của người dùng hiện được xác thực
+      produces:
+      - application/json
+      responses: {}
+      summary: Thực hiện tìm kiếm thông tin người dùng theo ID
+  /api/v1/login/email:
+    post:
+      consumes:
+      - application/json
+      description: Thực hiện chức năng đăng nhập bằng email
+      produces:
+      - application/json
+      responses: {}
+      summary: Đăng nhập người dùng
+  /api/v1/login/username:
+    post:
+      consumes:
+      - application/json
+      description: Thực hiện chức năng đăng nhập bằng username
+      produces:
+      - application/json
+      responses: {}
+      summary: Đăng nhập người dùng
+  /api/v1/register:
+    post:
+      consumes:
+      - application/json
+      description: Hiển thị form đăng ký cho người dùng điền thông tin
+      produces:
+      - application/json
+      responses: {}
+      summary: Đăng ký người dùng trên trang web
+  /api/v1/update/user:
+    put:
+      consumes:
+      - application/json
+      description: Cập nhật thông tin người dùng
+      produces:
+      - application/json
+      responses: {}
+      summary: Cập nhật thông tin người dùng
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
