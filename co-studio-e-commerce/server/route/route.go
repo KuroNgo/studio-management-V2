@@ -8,6 +8,7 @@ import (
 	repo "co-studio-e-commerce/repo"
 	"co-studio-e-commerce/service"
 	"co-studio-e-commerce/util"
+	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
 	swaggerFiles "github.com/swaggo/files"
@@ -35,9 +36,12 @@ func NewService() *Service {
 
 	// giải quyết về router
 	route := s.Router
+
+	// add middleware
 	route.Use(middleware.CORSMiddleware())
 	route.Use(middleware.Recover())
 	route.Use(middleware.StructuredLogger(&log.Logger))
+	route.Use(gzip.Gzip(gzip.DefaultCompression, gzip.WithExcludedPaths([]string{",*"})))
 
 	route.MaxMultipartMemory = 25 << 20 // 8 MiB
 

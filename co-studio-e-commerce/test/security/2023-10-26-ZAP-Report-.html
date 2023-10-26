@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZAP Scanning Report</title>
+<link
+	href="2023-10-26-ZAP-Report-/normalize/normalize.css" rel="stylesheet">
+<link
+	href="2023-10-26-ZAP-Report-/themes/original/main.css" rel="stylesheet">
+<link
+	href="2023-10-26-ZAP-Report-/themes/original/colors.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<h1>ZAP Scanning Report</h1>
+		<p>
+			<span>Generated with</span> <a href="https://zaproxy.org"><img
+				src="2023-10-26-ZAP-Report-/zap32x32.png" alt="The ZAP logo" class="zap-logo">ZAP</a>
+			<span>on Th 5 26 thg 10 2023, at 21:05:42</span>
+		</p>
+		<p>ZAP Version: 2.14.0</p>
+	</header>
+
+	<main>
+
+		<section id="contents" class="contents">
+			<h2>Contents</h2>
+			<nav>
+				<ol>
+					<li><a
+						href="#about-this-report">About this report</a>
+						<ol>
+							
+							<li><a
+								href="#report-parameters">Report parameters</a></li>
+						</ol></li>
+					<data-th-block>
+					<li><a
+						href="#summaries">Summaries</a>
+						<ol>
+							<li><a
+								href="#risk-confidence-counts">Alert counts by risk and confidence</a></li>
+							<li><a
+								href="#site-risk-counts">Alert counts by site and risk</a></li>
+							<li><a
+								href="#alert-type-counts">Alert counts by alert type</a></li>
+						</ol></li>
+					<li><a
+						href="#alerts">Alerts</a>
+						<ol>
+							
+							 
+							
+							
+							
+							
+							<li><a
+								href="#alerts--risk-2-confidence-3"><span>Risk</span>=<span
+									class="risk-level">Trung bình</span>, <span>Confidence</span>=<span
+									class="confidence-level">Cao</span> <span>(1)</span></a></li>
+							
+							<li><a
+								href="#alerts--risk-2-confidence-2"><span>Risk</span>=<span
+									class="risk-level">Trung bình</span>, <span>Confidence</span>=<span
+									class="confidence-level">Trung bình</span> <span>(1)</span></a></li>
+							
+							<li><a
+								href="#alerts--risk-2-confidence-1"><span>Risk</span>=<span
+									class="risk-level">Trung bình</span>, <span>Confidence</span>=<span
+									class="confidence-level">Thấp</span> <span>(1)</span></a></li>
+							  
+							 
+							
+							
+							
+							
+							
+							
+							<li><a
+								href="#alerts--risk-0-confidence-2"><span>Risk</span>=<span
+									class="risk-level">Informational</span>, <span>Confidence</span>=<span
+									class="confidence-level">Trung bình</span> <span>(2)</span></a></li>
+							
+							<li><a
+								href="#alerts--risk-0-confidence-1"><span>Risk</span>=<span
+									class="risk-level">Informational</span>, <span>Confidence</span>=<span
+									class="confidence-level">Thấp</span> <span>(3)</span></a></li>
+							  
+						</ol></li>
+					<li><a
+						href="#appendix">Appendix</a>
+						<ol>
+							<li><a
+								href="#alert-types">Alert types</a></li>
+						</ol></li>
+					</data-th-block>
+				</ol>
+			</nav>
+		</section>
+
+		<section
+			id="about-this-report" class="about-this-report">
+			<h2>About this report</h2>
+
+			
+
+			<section
+				id="report-parameters">
+				<h3>Report parameters</h3>
+				<div class="report-parameters--container">
+					<h4>Contexts</h4>
+					
+					
+					<p>No contexts were selected, so all contexts were included by default.</p>
+					  
+
+					<h4>Sites</h4>
+					
+					<p>The following sites were included:</p>
+					<ul class="sites-list">
+						<li><span class="site">http://localhost:8000</span></li>
+					</ul>
+					
+					<p>(If no sites were selected, all sites were included by default.)</p>
+					<p>An included site must also be within one of the included contexts for its data to be included in the report.</p>
+
+					<h4>Risk levels</h4>
+					<p>
+						<span>Included</span>:
+						 
+						<span class="included-risk-codes"><span class="risk-level">Cao</span>, <span class="risk-level">Trung bình</span>, <span class="risk-level">Thấp</span>, <span class="risk-level">Informational</span></span>
+					</p>
+					<p>
+						<span>Excluded</span>:
+						 <span>None</span>
+						
+					</p>
+
+					<h4>Confidence levels</h4>
+					<p>
+						<span>Included</span>:
+						
+						
+						<span class="included-confidence-codes"><span class="confidence-level">User Confirmed</span>, <span class="confidence-level">Cao</span>, <span class="confidence-level">Trung bình</span>, <span class="confidence-level">Thấp</span></span>
+					</p>
+					<p>
+						<span>Excluded</span>:
+						
+						
+						<span class="included-confidence-codes"> <span class="confidence-level">User Confirmed</span>, <span class="confidence-level">Cao</span>, <span class="confidence-level">Trung bình</span>, <span class="confidence-level">Thấp</span>, <span class="confidence-level">Dương tính giả</span></span>
+					</p>
+				</div>
+			</section>
+		</section>
+
+		
+		<section>
+			
+		</section>
+		
+		<section id="summaries" class="summaries">
+			<h2>Summaries</h2>
+
+			<section
+				id="risk-confidence-counts">
+				<h3>Alert counts by risk and confidence</h3>
+				<table class="risk-confidence-counts-table">
+					<caption>
+						<p>This table shows the number of alerts for each level of risk and confidence included in the report.</p>
+						<p>(The percentages in brackets represent the count as a percentage of the total number of alerts included in the report, rounded to one decimal place.)</p>
+					</caption>
+					<colgroup>
+						<col>
+						<col>
+					</colgroup>
+					<colgroup>
+						<col
+							style="width: 14.0%"><col
+							style="width: 14.0%"><col
+							style="width: 14.0%"><col
+							style="width: 14.0%">
+						<col style="width: 14.0%">
+					</colgroup>
+					<thead>
+						<tr>
+							<td colspan="2" rowspan="2"></td>
+							<th scope="colgroup"
+								colspan="5">Confidence</th>
+						</tr>
+						<tr>
+							<th scope="col">User Confirmed</th>
+							<th scope="col">Cao</th>
+							<th scope="col">Trung bình</th>
+							<th scope="col">Thấp</th>
+							<th scope="col">Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="rowgroup"
+								rowspan="5">Risk</th>
+							<th scope="row">Cao</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>0</span><br> <span class="additional-info-percentages">(0,0%)</span></td>
+						</tr>
+						<tr>
+							
+							<th scope="row">Trung bình</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(12,5%)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(12,5%)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(12,5%)</span></td>
+							<td><span>3</span><br> <span class="additional-info-percentages">(37,5%)</span></td>
+						</tr>
+						<tr>
+							
+							<th scope="row">Thấp</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>0</span><br> <span class="additional-info-percentages">(0,0%)</span></td>
+						</tr>
+						<tr>
+							
+							<th scope="row">Informational</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>2</span><br> <span
+								class="additional-info-percentages">(25,0%)</span></td>
+							<td><span>3</span><br> <span
+								class="additional-info-percentages">(37,5%)</span></td>
+							<td><span>5</span><br> <span class="additional-info-percentages">(62,5%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row">Total</th>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0,0%)</span></td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(12,5%)</span></td>
+							<td><span>3</span><br> <span
+								class="additional-info-percentages">(37,5%)</span></td>
+							<td><span>4</span><br> <span
+								class="additional-info-percentages">(50,0%)</span></td>
+							<td><span>8</span><br> <span
+								class="additional-info-percentages">(100%)</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section
+				id="site-risk-counts">
+				<h3>Alert counts by site and risk</h3>
+				<table class="site-risk-counts-table">
+					<caption>
+						<p>This table shows, for each site for which one or more alerts were raised, the number of alerts raised at each risk level.</p>
+						<p>Alerts with a confidence level of &quot;False Positive&quot; have been excluded from these counts.</p>
+						<p>(The numbers in brackets are the number of alerts raised for the site at or above that risk level.)</p>
+					</caption>
+					<colgroup>
+						<col>
+						<col>
+					</colgroup>
+					<colgroup>
+						<col
+							style="width: 16.25%"><col
+							style="width: 16.25%"><col
+							style="width: 16.25%"><col
+							style="width: 16.25%">
+					</colgroup>
+					<thead>
+						<tr>
+							<td colspan="2" rowspan="2"></td>
+							<th scope="colgroup" colspan="4">Risk</th>
+						</tr>
+						<tr>
+							<th scope="col">
+								<span>Cao</span><br>  <span
+									class="additional-info-percentages">(= Cao)</span>  
+							</th>
+							<th scope="col">
+								<span>Trung bình</span><br>   <span
+									class="additional-info-percentages">(&gt;= Trung bình)</span> 
+							</th>
+							<th scope="col">
+								<span>Thấp</span><br>   <span
+									class="additional-info-percentages">(&gt;= Thấp)</span> 
+							</th>
+							<th scope="col">
+								<span>Informational</span><br>   <span
+									class="additional-info-percentages">(&gt;= Informational)</span> 
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="rowgroup"
+								rowspan="1">Site</th>
+							<th scope="row">http://localhost:8000</th>
+							
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(0)</span></td>
+							<td><span>3</span><br> <span
+								class="additional-info-percentages">(3)</span></td>
+							<td><span>0</span><br> <span
+								class="additional-info-percentages">(3)</span></td>
+							<td><span>5</span><br> <span
+								class="additional-info-percentages">(8)</span></td>
+							
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section
+				id="alert-type-counts">
+				<h3>Alert counts by alert type</h3>
+				<table class="alert-type-counts-table">
+					<caption>
+						<p>This table shows the number of alerts of each alert type, together with the alert type&#39;s risk level.</p>
+						<p>(The percentages in brackets represent each count as a percentage, rounded to one decimal place, of the total number of alerts included in this report.)</p>
+					</caption>
+					<thead>
+						<tr>
+							<th scope="col">Alert type</th>
+							<th scope="col">Risk</th>
+							<th scope="col">Count</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-0">.htaccess Information Leak</a></th>
+							<td class="risk-level">Trung bình</td>
+							<td><span>669</span><br> <span
+								class="additional-info-percentages">(8.362,5%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-1">Absence of Anti-CSRF Tokens</a></th>
+							<td class="risk-level">Trung bình</td>
+							<td><span>1338</span><br> <span
+								class="additional-info-percentages">(16.725,0%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-2">CSP: Wildcard Directive</a></th>
+							<td class="risk-level">Trung bình</td>
+							<td><span>1382</span><br> <span
+								class="additional-info-percentages">(17.275,0%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-3">Authentication Request Identified</a></th>
+							<td class="risk-level">Informational</td>
+							<td><span>2</span><br> <span
+								class="additional-info-percentages">(25,0%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-4">Cloud Metadata Potentially Exposed</a></th>
+							<td class="risk-level">Informational</td>
+							<td><span>1</span><br> <span
+								class="additional-info-percentages">(12,5%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-5">Information Disclosure - Sensitive Information in URL</a></th>
+							<td class="risk-level">Informational</td>
+							<td><span>39</span><br> <span
+								class="additional-info-percentages">(487,5%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-6">User Agent Fuzzer</a></th>
+							<td class="risk-level">Informational</td>
+							<td><span>26028</span><br> <span
+								class="additional-info-percentages">(325.350,0%)</span></td>
+						</tr>
+						<tr>
+							<th scope="row"><a
+								href="#alert-type-7">User Controllable HTML Element Attribute (Potential XSS)</a></th>
+							<td class="risk-level">Informational</td>
+							<td><span>4134</span><br> <span
+								class="additional-info-percentages">(51.675,0%)</span></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th scope="row">Total</th>
+							<td></td>
+							<td>8</td>
+						</tr>
+					</tfoot>
+				</table>
+			</section>
+		</section>
+
+		<section id="alerts" class="alerts">
+			<h2>Alerts</h2>
+			<ol>
+				
+				 
+				 
+				
+				
+				<li id="alerts--risk-2-confidence-3">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Trung bình</span>, <span>Confidence</span>=<span
+							class="confidence-level">Cao</span> <span>(1)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">http://localhost:8000</span> <span>(1)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-2">CSP: Wildcard Directive</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://localhost:8000</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP_2021_A05</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration.html">OWASP_2017_A06</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: </p>
+
+<p>frame-ancestors, form-action</p>
+
+<p>The directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (242 bytes)</summary>
+				
+				<pre><code>GET http://localhost:8000 HTTP/1.1
+host: localhost:8000
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 OPR/102.0.0.0
+pragma: no-cache
+cache-control: no-cache
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (565 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Pragma: no-cache
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src &#39;none&#39;; script-src &#39;self&#39;; connect-src &#39;self&#39;; child-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39; data:; style-src &#39;self&#39;
+Referrer-Policy: no-referrer
+Access-Control-Allow-Methods: GET,POST,OPTIONS
+Access-Control-Allow-Headers: ZAP-Header
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Clacks-Overhead: GNU Terry Pratchett
+content-length: 1532
+Content-Type: text/html; charset=UTF-8
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (1532 bytes)</summary>
+				
+				<pre><code>&lt;head&gt;
+&lt;title&gt;ZAP API UI&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to the OWASP Zed Attack Proxy (ZAP)&lt;/h1&gt;&lt;p&gt;ZAP is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Please be aware that you should only attack applications that you have been specifically been given permission to test.&lt;/p&gt;&lt;h2&gt;Proxy Configuration&lt;/h2&gt;&lt;p&gt;To use ZAP effectively it is recommended that you configure your browser to proxy via ZAP.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;The easiest way to do this is to launch your browser from ZAP via the &quot;Quick Start / Manual Explore&quot; panel - it will be configured to proxy via ZAP and ignore any certificate warnings.&lt;br&gt;Alternatively, you can configure your browser manually, or use the generated &lt;a href=&quot;/OTHER/network/other/proxy.pac/?apinonce=74a22642f6779ef2&quot;&gt;PAC file&lt;/a&gt;.&lt;/p&gt;&lt;h2&gt;HTTPS Warnings Prevention&lt;/h2&gt;&lt;p&gt;To avoid HTTPS Warnings &lt;a href=&quot;/OTHER/network/other/rootCaCert/?apinonce=32eb83c54adeca0c&quot;&gt;download&lt;/a&gt; and &lt;a href=&quot;https://www.zaproxy.org/docs/desktop/addons/network/options/servercertificates/#install&quot; target=&quot;_blank&quot;&gt;install CA root Certificate&lt;/a&gt; in your Mobile device or computer.&lt;/p&gt;&lt;h2&gt;Links&lt;/h2&gt;&lt;li&gt;&lt;a href=&quot;/UI&quot;&gt;Local API&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.zaproxy.org/&quot;&gt;ZAP Website&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://groups.google.com/group/zaproxy-users&quot;&gt;ZAP User Group&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://groups.google.com/group/zaproxy-develop&quot;&gt;ZAP Developer Group&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://github.com/zaproxy/zaproxy/issues&quot;&gt;Report an issue&lt;/a&gt;&lt;/li&gt;&lt;/body&gt;
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>Content-Security-Policy</code></pre></td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Evidence</th>
+		<td><pre><code>default-src &#39;none&#39;; script-src &#39;self&#39;; connect-src &#39;self&#39;; child-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39; data:; style-src &#39;self&#39;</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				
+				<li id="alerts--risk-2-confidence-2">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Trung bình</span>, <span>Confidence</span>=<span
+							class="confidence-level">Trung bình</span> <span>(1)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">http://localhost:8000</span> <span>(1)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-0">.htaccess Information Leak</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://localhost:8000/UI/acsrf/action/removeOptionToken/.htaccess</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP_2021_A05</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/05-Enumerate_Infrastructure_and_Application_Admin_Interfaces">WSTG-v42-CONF-05</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration.html">OWASP_2017_A06</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>htaccess files can be used to alter the configuration of the Apache Web Server software to enable/disable additional functionality and features that the Apache Web Server software has to offer. </p>
+ </td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (328 bytes)</summary>
+				
+				<pre><code>GET http://localhost:8000/UI/acsrf/action/removeOptionToken/.htaccess HTTP/1.1
+host: localhost:8000
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 OPR/102.0.0.0
+pragma: no-cache
+cache-control: no-cache
+referer: http://localhost:8000/UI/acsrf/
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (565 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Pragma: no-cache
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src &#39;none&#39;; script-src &#39;self&#39;; connect-src &#39;self&#39;; child-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39; data:; style-src &#39;self&#39;
+Referrer-Policy: no-referrer
+Access-Control-Allow-Methods: GET,POST,OPTIONS
+Access-Control-Allow-Headers: ZAP-Header
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Clacks-Overhead: GNU Terry Pratchett
+content-length: 1139
+Content-Type: text/html; charset=UTF-8
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (1139 bytes)</summary>
+				
+				<pre><code>&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+&lt;title&gt;ZAP API UI&lt;/title&gt;
+&lt;script src=&quot;/script.js/?v=2&amp;apinonce=5d74ce644db4a71&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;&lt;a href=&quot;/UI/&quot;&gt;ZAP API UI&lt;/a&gt;&lt;/h1&gt;
+&lt;h2&gt;&lt;a href=&quot;/UI/acsrf/&quot;&gt;Component: acsrf&lt;/a&gt;&lt;/h2&gt;
+&lt;h3&gt;Action: removeOptionToken&lt;/h3&gt;
+Removes the anti-CSRF token with the given name
+&lt;form id=&quot;zapform&quot; name=&quot;zapform&quot; action=&quot;override&quot;&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;Output Format&lt;/td&gt;&lt;td&gt;
+&lt;select id=&quot;zapapiformat&quot;&gt;
+&lt;option value=&quot;JSON&quot;&gt;JSON&lt;/option&gt;
+&lt;option value=&quot;JSONP&quot; disabled&gt;JSONP&lt;/option&gt;
+&lt;option value=&quot;HTML&quot;&gt;HTML&lt;/option&gt;
+&lt;option value=&quot;XML&quot;&gt;XML&lt;/option&gt;
+&lt;/select&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;apikey*&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;apikey&quot; name=&quot;apikey&quot; value=&quot;&quot;/&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Form Method&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;formMethod&quot;&gt;
+&lt;option value=&quot;GET&quot; selected&gt;GET&lt;/option&gt;
+&lt;option value=&quot;POST&quot;&gt;POST&lt;/option&gt;
+&lt;/select&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;String*&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;String&quot; name=&quot;String&quot;/&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;button&quot; value=&quot;removeOptionToken&quot; type=&quot;submit&quot; zap-component=&quot;acsrf&quot; zap-type=&quot;action&quot; zap-name=&quot;removeOptionToken&quot;/&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	
+	
+	<tr>
+		<th scope="row">Evidence</th>
+		<td><pre><code>HTTP/1.1 200 OK</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Ensure the .htaccess file is not accessible.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				
+				<li id="alerts--risk-2-confidence-1">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Trung bình</span>, <span>Confidence</span>=<span
+							class="confidence-level">Thấp</span> <span>(1)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">http://localhost:8000</span> <span>(1)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-1">Absence of Anti-CSRF Tokens</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://localhost:8000/UI/alertFilter/view/alertFilterList/</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/">OWASP_2021_A01</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/06-Session_Management_Testing/05-Testing_for_Cross_Site_Request_Forgery">WSTG-v42-SESS-05</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control.html">OWASP_2017_A05</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>No Anti-CSRF tokens were found in a HTML submission form.</p>
+
+<p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p>
+
+<p>CSRF attacks are effective in a number of situations, including:</p>
+
+<p>    * The victim has an active session on the target site.</p>
+
+<p>    * The victim is authenticated via HTTP auth on the target site.</p>
+
+<p>    * The victim is on the same local network as the target site.</p>
+
+<p>CSRF has primarily been used to perform an action against a target site using the victim&#39;s privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: &quot;apikey&quot; &quot;button&quot; &quot;contextId&quot; ].</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (327 bytes)</summary>
+				
+				<pre><code>GET http://localhost:8000/UI/alertFilter/view/alertFilterList/ HTTP/1.1
+host: localhost:8000
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 OPR/102.0.0.0
+pragma: no-cache
+cache-control: no-cache
+referer: http://localhost:8000/UI/alertFilter/
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (565 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Pragma: no-cache
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src &#39;none&#39;; script-src &#39;self&#39;; connect-src &#39;self&#39;; child-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39; data:; style-src &#39;self&#39;
+Referrer-Policy: no-referrer
+Access-Control-Allow-Methods: GET,POST,OPTIONS
+Access-Control-Allow-Headers: ZAP-Header
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Clacks-Overhead: GNU Terry Pratchett
+content-length: 1166
+Content-Type: text/html; charset=UTF-8
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (1166 bytes)</summary>
+				
+				<pre><code>&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+&lt;title&gt;ZAP API UI&lt;/title&gt;
+&lt;script src=&quot;/script.js/?v=2&amp;apinonce=f149a7dfa647efaf&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;&lt;a href=&quot;/UI/&quot;&gt;ZAP API UI&lt;/a&gt;&lt;/h1&gt;
+&lt;h2&gt;&lt;a href=&quot;/UI/alertFilter/&quot;&gt;Component: alertFilter&lt;/a&gt;&lt;/h2&gt;
+&lt;h3&gt;View:alertFilterList&lt;/h3&gt;
+Lists the alert filters of the context with the given ID.
+&lt;form id=&quot;zapform&quot; name=&quot;zapform&quot; action=&quot;override&quot;&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;Output Format&lt;/td&gt;&lt;td&gt;
+&lt;select id=&quot;zapapiformat&quot;&gt;
+&lt;option value=&quot;JSON&quot;&gt;JSON&lt;/option&gt;
+&lt;option value=&quot;JSONP&quot; disabled&gt;JSONP&lt;/option&gt;
+&lt;option value=&quot;HTML&quot;&gt;HTML&lt;/option&gt;
+&lt;option value=&quot;XML&quot;&gt;XML&lt;/option&gt;
+&lt;/select&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;apikey*&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;apikey&quot; name=&quot;apikey&quot; value=&quot;&quot;/&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Form Method&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;formMethod&quot;&gt;
+&lt;option value=&quot;GET&quot; selected&gt;GET&lt;/option&gt;
+&lt;option value=&quot;POST&quot;&gt;POST&lt;/option&gt;
+&lt;/select&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;contextId*&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;contextId&quot; name=&quot;contextId&quot;/&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;button&quot; value=&quot;alertFilterList&quot; type=&quot;submit&quot; zap-component=&quot;alertFilter&quot; zap-type=&quot;view&quot; zap-name=&quot;alertFilterList&quot;/&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	
+	
+	<tr>
+		<th scope="row">Evidence</th>
+		<td><pre><code>&lt;form id=&quot;zapform&quot; name=&quot;zapform&quot; action=&quot;override&quot;&gt;</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Phase: Architecture and Design</p>
+
+<p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p>
+
+<p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p>
+
+<p>Phase: Implementation</p>
+
+<p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p>
+
+<p>Phase: Architecture and Design</p>
+
+<p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p>
+
+<p>Note that this can be bypassed using XSS.</p>
+
+<p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p>
+
+<p>Note that this can be bypassed using XSS.</p>
+
+<p>Use the ESAPI Session Management control.</p>
+
+<p>This control includes a component for CSRF.</p>
+
+<p>Do not use the GET method for any request that triggers a state change.</p>
+
+<p>Phase: Implementation</p>
+
+<p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				  
+				 
+				 
+				
+				
+				
+				
+				<li id="alerts--risk-0-confidence-2">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Informational</span>, <span>Confidence</span>=<span
+							class="confidence-level">Trung bình</span> <span>(2)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">http://localhost:8000</span> <span>(2)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-5">Information Disclosure - Sensitive Information in URL</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://localhost:8000/UI/forcedUser/action/setForcedUser/override?apikey=ZAP&amp;contextId=ZAP&amp;userId=ZAP</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/">OWASP_2021_A01</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure.html">OWASP_2017_A03</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>The request appeared to contain sensitive information leaked in the URL. This can violate PCI and most organizational compliance policies. You can configure the list of strings for this check to add or remove values specific to your environment.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>The URL contains potentially sensitive information. The following string was found via the pattern: user</p>
+
+<p>userId</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (390 bytes)</summary>
+				
+				<pre><code>GET http://localhost:8000/UI/forcedUser/action/setForcedUser/override?apikey=ZAP&amp;contextId=ZAP&amp;userId=ZAP HTTP/1.1
+host: localhost:8000
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 OPR/102.0.0.0
+pragma: no-cache
+cache-control: no-cache
+referer: http://localhost:8000/UI/forcedUser/action/setForcedUser/
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (565 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Pragma: no-cache
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src &#39;none&#39;; script-src &#39;self&#39;; connect-src &#39;self&#39;; child-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39; data:; style-src &#39;self&#39;
+Referrer-Policy: no-referrer
+Access-Control-Allow-Methods: GET,POST,OPTIONS
+Access-Control-Allow-Headers: ZAP-Header
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Clacks-Overhead: GNU Terry Pratchett
+content-length: 1270
+Content-Type: text/html; charset=UTF-8
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (1270 bytes)</summary>
+				
+				<pre><code>&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+&lt;title&gt;ZAP API UI&lt;/title&gt;
+&lt;script src=&quot;/script.js/?v=2&amp;apinonce=cc72ee6827e53d44&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;&lt;a href=&quot;/UI/&quot;&gt;ZAP API UI&lt;/a&gt;&lt;/h1&gt;
+&lt;h2&gt;&lt;a href=&quot;/UI/forcedUser/&quot;&gt;Component: forcedUser&lt;/a&gt;&lt;/h2&gt;
+&lt;h3&gt;Action: setForcedUser&lt;/h3&gt;
+Sets the user (ID) that should be used in &#39;forced user&#39; mode for the given context (ID)
+&lt;form id=&quot;zapform&quot; name=&quot;zapform&quot; action=&quot;override&quot;&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;Output Format&lt;/td&gt;&lt;td&gt;
+&lt;select id=&quot;zapapiformat&quot;&gt;
+&lt;option value=&quot;JSON&quot;&gt;JSON&lt;/option&gt;
+&lt;option value=&quot;JSONP&quot; disabled&gt;JSONP&lt;/option&gt;
+&lt;option value=&quot;HTML&quot;&gt;HTML&lt;/option&gt;
+&lt;option value=&quot;XML&quot;&gt;XML&lt;/option&gt;
+&lt;/select&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;apikey*&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;apikey&quot; name=&quot;apikey&quot; value=&quot;&quot;/&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Form Method&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;formMethod&quot;&gt;
+&lt;option value=&quot;GET&quot; selected&gt;GET&lt;/option&gt;
+&lt;option value=&quot;POST&quot;&gt;POST&lt;/option&gt;
+&lt;/select&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;contextId*&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;contextId&quot; name=&quot;contextId&quot;/&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;userId*&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;userId&quot; name=&quot;userId&quot;/&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;button&quot; value=&quot;setForcedUser&quot; type=&quot;submit&quot; zap-component=&quot;forcedUser&quot; zap-type=&quot;action&quot; zap-name=&quot;setForcedUser&quot;/&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>userId</code></pre></td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Evidence</th>
+		<td><pre><code>userId</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Do not pass sensitive information in URIs.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-6">User Agent Fuzzer</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://localhost:8000</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>Check for differences in response based on fuzzed User Agent (eg. mobile sites, access as a Search Engine Crawler). Compares the response statuscode and the hashcode of the response body with the original response.</p>
+ </td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (167 bytes)</summary>
+				
+				<pre><code>GET http://localhost:8000 HTTP/1.1
+host: localhost:8000
+user-agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)
+pragma: no-cache
+cache-control: no-cache
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (565 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Pragma: no-cache
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src &#39;none&#39;; script-src &#39;self&#39;; connect-src &#39;self&#39;; child-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39; data:; style-src &#39;self&#39;
+Referrer-Policy: no-referrer
+Access-Control-Allow-Methods: GET,POST,OPTIONS
+Access-Control-Allow-Headers: ZAP-Header
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Clacks-Overhead: GNU Terry Pratchett
+content-length: 1532
+Content-Type: text/html; charset=UTF-8
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (1532 bytes)</summary>
+				
+				<pre><code>&lt;head&gt;
+&lt;title&gt;ZAP API UI&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to the OWASP Zed Attack Proxy (ZAP)&lt;/h1&gt;&lt;p&gt;ZAP is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;Please be aware that you should only attack applications that you have been specifically been given permission to test.&lt;/p&gt;&lt;h2&gt;Proxy Configuration&lt;/h2&gt;&lt;p&gt;To use ZAP effectively it is recommended that you configure your browser to proxy via ZAP.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;The easiest way to do this is to launch your browser from ZAP via the &quot;Quick Start / Manual Explore&quot; panel - it will be configured to proxy via ZAP and ignore any certificate warnings.&lt;br&gt;Alternatively, you can configure your browser manually, or use the generated &lt;a href=&quot;/OTHER/network/other/proxy.pac/?apinonce=63834e960bbfea62&quot;&gt;PAC file&lt;/a&gt;.&lt;/p&gt;&lt;h2&gt;HTTPS Warnings Prevention&lt;/h2&gt;&lt;p&gt;To avoid HTTPS Warnings &lt;a href=&quot;/OTHER/network/other/rootCaCert/?apinonce=8ef6655c6b85d388&quot;&gt;download&lt;/a&gt; and &lt;a href=&quot;https://www.zaproxy.org/docs/desktop/addons/network/options/servercertificates/#install&quot; target=&quot;_blank&quot;&gt;install CA root Certificate&lt;/a&gt; in your Mobile device or computer.&lt;/p&gt;&lt;h2&gt;Links&lt;/h2&gt;&lt;li&gt;&lt;a href=&quot;/UI&quot;&gt;Local API&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.zaproxy.org/&quot;&gt;ZAP Website&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://groups.google.com/group/zaproxy-users&quot;&gt;ZAP User Group&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://groups.google.com/group/zaproxy-develop&quot;&gt;ZAP Developer Group&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://github.com/zaproxy/zaproxy/issues&quot;&gt;Report an issue&lt;/a&gt;&lt;/li&gt;&lt;/body&gt;
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>Header User-Agent</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Attack</th>
+		<td><pre><code>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)</code></pre></td>
+	</tr>
+	
+	
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				
+				<li id="alerts--risk-0-confidence-1">
+					<h3>
+						<span>Risk</span>=<span
+							class="risk-level">Informational</span>, <span>Confidence</span>=<span
+							class="confidence-level">Thấp</span> <span>(3)</span>
+					</h3>
+					<ol>
+						
+						<li class="alerts--site-li">
+							<h4>
+								<span class="site">http://localhost:8000</span> <span>(3)</span>
+							</h4>
+							<ol>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-3">Authentication Request Identified</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://localhost:8000/UI/network/action/setHttpProxy/override?apikey=ZAP&amp;host=ZAP&amp;password=ZAP&amp;port=ZAP&amp;realm=ZAP&amp;username=ZAP</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>The given request has been identified as an authentication request. The &#39;Other Info&#39; field contains a set of key=value lines which identify any relevant fields. If the request is in a context which has an Authentication Method set to &quot;Auto-Detect&quot; then this rule will change the authentication to match the request identified.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>userParam=username</p>
+
+<p>userValue=ZAP</p>
+
+<p>passwordParam=password</p>
+
+<p>referer=http://localhost:8000/UI/network/action/setHttpProxy/</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (411 bytes)</summary>
+				
+				<pre><code>GET http://localhost:8000/UI/network/action/setHttpProxy/override?apikey=ZAP&amp;host=ZAP&amp;password=ZAP&amp;port=ZAP&amp;realm=ZAP&amp;username=ZAP HTTP/1.1
+host: localhost:8000
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 OPR/102.0.0.0
+pragma: no-cache
+cache-control: no-cache
+referer: http://localhost:8000/UI/network/action/setHttpProxy/
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (565 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Pragma: no-cache
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src &#39;none&#39;; script-src &#39;self&#39;; connect-src &#39;self&#39;; child-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39; data:; style-src &#39;self&#39;
+Referrer-Policy: no-referrer
+Access-Control-Allow-Methods: GET,POST,OPTIONS
+Access-Control-Allow-Headers: ZAP-Header
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Clacks-Overhead: GNU Terry Pratchett
+content-length: 1511
+Content-Type: text/html; charset=UTF-8
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (1511 bytes)</summary>
+				
+				<pre><code>&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+&lt;title&gt;ZAP API UI&lt;/title&gt;
+&lt;script src=&quot;/script.js/?v=2&amp;apinonce=f4e380728cce294c&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;&lt;a href=&quot;/UI/&quot;&gt;ZAP API UI&lt;/a&gt;&lt;/h1&gt;
+&lt;h2&gt;&lt;a href=&quot;/UI/network/&quot;&gt;Component: network&lt;/a&gt;&lt;/h2&gt;
+&lt;h3&gt;Action: setHttpProxy&lt;/h3&gt;
+Sets the HTTP proxy configuration.
+&lt;form id=&quot;zapform&quot; name=&quot;zapform&quot; action=&quot;override&quot;&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;Output Format&lt;/td&gt;&lt;td&gt;
+&lt;select id=&quot;zapapiformat&quot;&gt;
+&lt;option value=&quot;JSON&quot;&gt;JSON&lt;/option&gt;
+&lt;option value=&quot;JSONP&quot; disabled&gt;JSONP&lt;/option&gt;
+&lt;option value=&quot;HTML&quot;&gt;HTML&lt;/option&gt;
+&lt;option value=&quot;XML&quot;&gt;XML&lt;/option&gt;
+&lt;/select&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;apikey*&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;apikey&quot; name=&quot;apikey&quot; value=&quot;&quot;/&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Form Method&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;formMethod&quot;&gt;
+&lt;option value=&quot;GET&quot; selected&gt;GET&lt;/option&gt;
+&lt;option value=&quot;POST&quot;&gt;POST&lt;/option&gt;
+&lt;/select&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;host*&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;host&quot; name=&quot;host&quot;/&gt;&lt;/td&gt;&lt;td&gt;The host, name or address.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;port*&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;port&quot; name=&quot;port&quot;/&gt;&lt;/td&gt;&lt;td&gt;The port.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;realm&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;realm&quot; name=&quot;realm&quot;/&gt;&lt;/td&gt;&lt;td&gt;The authentication realm.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;username&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;username&quot; name=&quot;username&quot;/&gt;&lt;/td&gt;&lt;td&gt;The user name.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;password&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;password&quot; name=&quot;password&quot;/&gt;&lt;/td&gt;&lt;td&gt;The password.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;button&quot; value=&quot;setHttpProxy&quot; type=&quot;submit&quot; zap-component=&quot;network&quot; zap-type=&quot;action&quot; zap-name=&quot;setHttpProxy&quot;/&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>username</code></pre></td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Evidence</th>
+		<td><pre><code>password</code></pre></td>
+	</tr>
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-4">Cloud Metadata Potentially Exposed</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://localhost:8000/latest/meta-data/</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>The Cloud Metadata Attack attempts to abuse a misconfigured NGINX server in order to access the instance metadata maintained by cloud service providers such as AWS, GCP and Azure.</p>
+
+<p>All of these providers provide metadata via an internal unroutable IP address &#39;169.254.169.254&#39; - this can be exposed by incorrectly configured NGINX servers and accessed by using this IP address in the Host header field.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>Based on the successful response status code cloud metadata may have been returned in the response. Check the response data to see if any cloud metadata has been returned.</p>
+
+<p>The meta data returned can include information that would allow an attacker to completely compromise the system.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (261 bytes)</summary>
+				
+				<pre><code>GET http://localhost:8000/latest/meta-data/ HTTP/1.1
+host: 169.254.169.254
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 OPR/102.0.0.0
+pragma: no-cache
+cache-control: no-cache
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (569 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 302 OK
+Pragma: no-cache
+Cache-Control: no-cache
+Content-Security-Policy: default-src &#39;none&#39;; script-src &#39;self&#39;; connect-src https://zap wss://zap; frame-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39; data:; style-src &#39;self&#39; &#39;unsafe-inline&#39; ;
+Access-Control-Allow-Methods: GET,POST,OPTIONS
+Access-Control-Allow-Headers: ZAP-Header
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Clacks-Overhead: GNU Terry Pratchett
+content-length: 82
+Content-Type: text/html; charset=UTF-8
+location: https://169.254.169.254/latest/meta-data/
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (82 bytes)</summary>
+				
+				<pre><code>&lt;html&gt;&lt;body&gt;Redirecting to https://169.254.169.254/latest/meta-data/&lt;/body&gt;&lt;/html&gt;</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Attack</th>
+		<td><pre><code>169.254.169.254</code></pre></td>
+	</tr>
+	
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Do not trust any user data in NGINX configs. In this case it is probably the use of the $host variable which is set from the &#39;Host&#39; header and can be controlled by an attacker.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+								<li>
+									<h5>
+										<a
+											href="#alert-type-7">User Controllable HTML Element Attribute (Potential XSS)</a> <span>(1)</span>
+									</h5>
+									<ol>
+										<li><details>
+												<summary>
+													<span class="request-method-n-url">GET http://localhost:8000/UI/alertFilter/view/globalAlertFilterList/override?apikey=ZAP</span>
+												</summary>
+												
+<table class="alerts-table">
+	<tr>
+		<th scope="row">Alert tags</th>
+		<td>
+			<ul class="alert-tags-list">
+				<li>
+					<span><a href="https://owasp.org/Top10/A03_2021-Injection/">OWASP_2021_A03</a></span> 
+				</li>
+				<li>
+					<span><a href="https://owasp.org/www-project-top-ten/2017/A1_2017-Injection.html">OWASP_2017_A01</a></span> 
+				</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">Alert description</th>
+		<td> 
+<p>This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Other info</th>
+		<td> 
+<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p>
+
+<p></p>
+
+<p>http://localhost:8000/UI/alertFilter/view/globalAlertFilterList/override?apikey=ZAP</p>
+
+<p></p>
+
+<p>appears to include user input in: </p>
+
+<p></p>
+
+<p>a(n) [form] tag [id] attribute </p>
+
+<p></p>
+
+<p>The user input found was:</p>
+
+<p>apikey=ZAP</p>
+
+<p></p>
+
+<p>The user-controlled value was:</p>
+
+<p>zapform</p>
+ </td>
+	</tr>
+	<tr>
+		<th scope="row">Request</th>
+		<td><details open="open">
+				<summary>Request line and header section (379 bytes)</summary>
+				
+				<pre><code>GET http://localhost:8000/UI/alertFilter/view/globalAlertFilterList/override?apikey=ZAP HTTP/1.1
+host: localhost:8000
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 OPR/102.0.0.0
+pragma: no-cache
+cache-control: no-cache
+referer: http://localhost:8000/UI/alertFilter/view/globalAlertFilterList/
+
+</code></pre>
+				
+				
+			</details> <details class="request-body" open="open">
+				<summary>Request body (0 bytes)</summary>
+				
+				<pre><code></code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Response</th>
+		<td><details open="open">
+				<summary>Status line and header section (565 bytes)</summary>
+				
+				<pre><code>HTTP/1.1 200 OK
+Pragma: no-cache
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Security-Policy: default-src &#39;none&#39;; script-src &#39;self&#39;; connect-src &#39;self&#39;; child-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39; data:; style-src &#39;self&#39;
+Referrer-Policy: no-referrer
+Access-Control-Allow-Methods: GET,POST,OPTIONS
+Access-Control-Allow-Headers: ZAP-Header
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Clacks-Overhead: GNU Terry Pratchett
+content-length: 1071
+Content-Type: text/html; charset=UTF-8
+
+</code></pre>
+				
+				
+			</details> <details class="response-body" open="open">
+				<summary>Response body (1071 bytes)</summary>
+				
+				<pre><code>&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+&lt;title&gt;ZAP API UI&lt;/title&gt;
+&lt;script src=&quot;/script.js/?v=2&amp;apinonce=4315ece75822591f&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;&lt;a href=&quot;/UI/&quot;&gt;ZAP API UI&lt;/a&gt;&lt;/h1&gt;
+&lt;h2&gt;&lt;a href=&quot;/UI/alertFilter/&quot;&gt;Component: alertFilter&lt;/a&gt;&lt;/h2&gt;
+&lt;h3&gt;View:globalAlertFilterList&lt;/h3&gt;
+Lists the global alert filters.
+&lt;form id=&quot;zapform&quot; name=&quot;zapform&quot; action=&quot;override&quot;&gt;&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;Output Format&lt;/td&gt;&lt;td&gt;
+&lt;select id=&quot;zapapiformat&quot;&gt;
+&lt;option value=&quot;JSON&quot;&gt;JSON&lt;/option&gt;
+&lt;option value=&quot;JSONP&quot; disabled&gt;JSONP&lt;/option&gt;
+&lt;option value=&quot;HTML&quot;&gt;HTML&lt;/option&gt;
+&lt;option value=&quot;XML&quot;&gt;XML&lt;/option&gt;
+&lt;/select&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;apikey*&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;apikey&quot; name=&quot;apikey&quot; value=&quot;&quot;/&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Form Method&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;formMethod&quot;&gt;
+&lt;option value=&quot;GET&quot; selected&gt;GET&lt;/option&gt;
+&lt;option value=&quot;POST&quot;&gt;POST&lt;/option&gt;
+&lt;/select&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;input id=&quot;button&quot; value=&quot;globalAlertFilterList&quot; type=&quot;submit&quot; zap-component=&quot;alertFilter&quot; zap-type=&quot;view&quot; zap-name=&quot;globalAlertFilterList&quot;/&gt;
+&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+</code></pre>
+				
+				
+			</details></td>
+	</tr>
+	<tr>
+		<th scope="row">Parameter</th>
+		<td><pre><code>apikey</code></pre></td>
+	</tr>
+	
+	
+	<tr>
+		<th scope="row">Solution</th>
+		<td> 
+<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>
+ </td>
+	</tr>
+</table>
+
+											</details></li>
+									</ol>
+								</li>
+								
+							</ol>
+						</li>
+						
+					</ol>
+				</li>
+				  
+			</ol>
+		</section>
+
+		<section id="appendix" class="appendix">
+			<h2>Appendix</h2>
+
+			<section id="alert-types" class="alert-types">
+				<h3>Alert types</h3>
+				<p class="alert-types-intro">This section contains additional information on the types of alerts in the report.</p>
+				<ol>
+					<li
+						id="alert-type-0">
+						<h4>.htaccess Information Leak</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by an active scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/40032/">.htaccess Information Leak</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/94.html">94</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>14</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="http://www.htaccess-guide.com/">http://www.htaccess-guide.com/</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-1">
+						<h4>Absence of Anti-CSRF Tokens</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10202/">Absence of Anti-CSRF Tokens</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/352.html">352</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>9</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="http://projects.webappsec.org/Cross-Site-Request-Forgery">http://projects.webappsec.org/Cross-Site-Request-Forgery</a></li>
+										<li><a
+											href="http://cwe.mitre.org/data/definitions/352.html">http://cwe.mitre.org/data/definitions/352.html</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-2">
+						<h4>CSP: Wildcard Directive</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10055/">CSP</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/693.html">693</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>15</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="http://www.w3.org/TR/CSP2/">http://www.w3.org/TR/CSP2/</a></li>
+										<li><a
+											href="http://www.w3.org/TR/CSP/">http://www.w3.org/TR/CSP/</a></li>
+										<li><a
+											href="http://caniuse.com/#search=content+security+policy">http://caniuse.com/#search=content+security+policy</a></li>
+										<li><a
+											href="http://content-security-policy.com/">http://content-security-policy.com/</a></li>
+										<li><a
+											href="https://github.com/shapesecurity/salvation">https://github.com/shapesecurity/salvation</a></li>
+										<li><a
+											href="https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources">https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-3">
+						<h4>Authentication Request Identified</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10111/">Authentication Request Identified</a>)
+									</span>   
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/">https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-4">
+						<h4>Cloud Metadata Potentially Exposed</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by an active scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/90034/">Cloud Metadata Potentially Exposed</a>)
+									</span>   
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://www.nginx.com/blog/trust-no-one-perils-of-trusting-user-input/">https://www.nginx.com/blog/trust-no-one-perils-of-trusting-user-input/</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-5">
+						<h4>Information Disclosure - Sensitive Information in URL</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10024/">Information Disclosure - Sensitive Information in URL</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/200.html">200</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>13</td>
+							</tr>
+							
+						</table>
+					</li>
+					<li
+						id="alert-type-6">
+						<h4>User Agent Fuzzer</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by an active scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10104/">User Agent Fuzzer</a>)
+									</span>   
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="https://owasp.org/wstg">https://owasp.org/wstg</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+					<li
+						id="alert-type-7">
+						<h4>User Controllable HTML Element Attribute (Potential XSS)</h4>
+						<table class="alert-types-table">
+							<tr>
+								<th scope="row">Source</th>
+								<td>
+									
+									   <span>raised by a passive scanner</span> <span>(<a
+										href="https://www.zaproxy.org/docs/alerts/10031/">User Controllable HTML Element Attribute (Potential XSS)</a>)
+									</span>   
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">CWE ID</th>
+								<td><a
+									href="https://cwe.mitre.org/data/definitions/20.html">20</a></td>
+							</tr>
+							<tr>
+								<th scope="row">WASC ID</th>
+								<td>20</td>
+							</tr>
+							<tr>
+								<th scope="row">Reference</th>
+								<td>
+									<ol>
+										<li><a
+											href="http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute">http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</a></li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+					</li>
+				</ol>
+			</section>
+		</section>
+		 
+	</main>
+</body>
+</html>
+
+
+
