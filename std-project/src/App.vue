@@ -7,7 +7,7 @@
       <component :is="Component" />
     </transition>
   </router-view> -->
-  <footer-view />
+  <footer-view v-if="showHeaderFooter"/>
 </template>
 
 <script>

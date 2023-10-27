@@ -65,9 +65,8 @@
                     </RouterLink>
                 </ul>
             </div>
-            <button class=" bg-white px-6 py-1 rounded-xl" @click="togglePopup">Đăng nhập</button>
+            <RouterLink to="/login"><button class=" bg-white px-6 py-1 rounded-xl">Đăng nhập</button></RouterLink>
 
-            <LoginView ref="loginPopup" />
         </div>
     </main>
 </template>
@@ -87,7 +86,6 @@ export default {
         };
     },
 
-
     methods: {
         togglePopup() {
             this.$refs.loginPopup.togglePopup();
@@ -100,7 +98,7 @@ export default {
         }
     },
 
-    components: { RouterLink, LoginView }, LoginView,
+    components: { RouterLink, LoginView }
 }
 
 </script>
