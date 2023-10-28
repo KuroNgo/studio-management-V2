@@ -75,7 +75,7 @@
 import SlideHomeView from '../../components/Slides/SlidesHomePage/SlideHomeView.vue';
 import LoginView from '@/views/Client/Account/LoginView.vue';
 import ContainerImagesView from '../../components/ContainerImages/ContainerImagesView.vue';
-import { useUserStore } from '../../stores/stores';
+import { useUserStore } from '../../stores/Account.stores';
 export default{
     components:{
         SlideHomeView,LoginView,ContainerImagesView
@@ -90,10 +90,9 @@ export default{
     },
     methods: {
     },
-    // async mounted(){
-    //     const a = await useUserStore().GetUser();
-    
-    // },
+    async mounted(){
+        // const a = await useUserStore().GetUser();
+    },
 }
 
 </script>
