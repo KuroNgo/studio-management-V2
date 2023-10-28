@@ -1,253 +1,186 @@
 <template>
-  <div class="login-popup">
-    <div class="overlay" @click="closePopup"></div>
-    <div class="popup">
-      <div class="left-section">
-        <h2>Đăng ký</h2>
-        <form @submit.prevent="login">
-          <div class="input-group">
-            <div class="account-box">
-              <label for="account" class="block text-gray-600">Tài khoản</label>
-              <input
-                type="text"
-                id="username"
-                v-model="username"
-                placeholder="Enter your username"
-              />
-            </div>
-            <div class="account-box">
-              <label for="email" class="block text-gray-600"
-                >Địa chỉ email</label>
-              <input
-                type="text"
-                id="email"
-                v-model="email"
-                placeholder="Địa chỉ email của bạn"
-              />
-            </div>
-            <div class="account-box">
-              <label for="phone" class="block text-gray-600"
-                >Số điện thoại</label
-              >
-              <input
-                type="text"
-                id="phone"
-                v-model="phone"
-                placeholder="Không bắt buộc"
-              />
-            </div>
-            <div class="account-box">
-              <label for="password" class="block text-gray-600">Mật khẩu</label>
-              <input
-                type="password"
-                id="password"
-                v-model="password"
-                placeholder="Chứa ít nhất 8 ký tự và"
-              />
-            </div>
-            <div class="account-box">
-              <label for="passwordConfirm" class="block text-gray-600"
-                >Nhập lại mật khẩu</label
-              >
-              <input
-                type="password"
-                id="passwordConfirm"
-                v-model="passwordConfirm"
-                placeholder="Nhập lại mật khẩu bạn đã nhập"
-              />
-            </div>
+  <main class=" py-20 h-screen">
+    <div class="flex h-full w-3/4 mx-auto border border-solid border-gray-500">
+      <div class="w-2/4 mt-auto mb-auto px-32">
+        <h4 class="Heading4 uppercase text-center mb-11">ĐĂNG KÝ</h4>
+        <!-- <form>
+          <label class="block">
+            <span class="block text-sm font-medium text-slate-700">Email</span>
+            <input type="email" class="peer" />
+            <p class="mt-2 invisible peer-invalid:visible text-pink-600 text-sm">
+              Please provide a valid email address.
+            </p>
+          </label>
+        </form> -->
+        
+          <div class=" relative mb-3">
+            <input type="text" v-model="inputUserName.value" placeholder="Không chứa các ký tự *,#,&" pattern="^[^*#&]+$"
+            :class="{' outline-red-700' : inputUserName.error}"
+              class="form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+            <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Tên tài
+              khoản</p>
+            <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
+              Tên tài khoảng không chứa các ký tự *,#,&
+            </p>
           </div>
-          <button type="submit" class="mx-auto">Đăng nhập</button>
-          <p>Không có tài khoản ? <a href="#">Đăng ký</a></p>      
-        </form>
-       
+
+          <div class=" relative mb-3">
+            <input type="text" v-model="inputEmail.value" pattern="^[a-zA-Z0-9._%+-]+@(gmail\.com|gmail\.com\.vn)$"
+              placeholder="Địa chỉ email của bạn"
+              :class="{' outline-red-700' : inputEmail.error}"
+              class="form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+            <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2 left-3 ">Địa chỉ
+              email</p>
+            <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
+              Vui lòng cung cấp một địa chỉ email hợp lệ
+            </p>
+          </div>
+
+          <div class=" relative mb-3">
+            <input type="text" v-model="inputPhoneNumber.value" placeholder="Số điện thoại của bạn" pattern="^0\d{9,10}$"
+            :class="{' outline-red-700' : inputPhoneNumber.error}"
+              class="form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+            <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Số điện
+              thoại</p>
+            <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
+              Vui lòng cung cấp số điện thoại hợp lệ
+            </p>
+          </div>
+
+          <div class=" relative mb-3">
+            <input type="text" v-model="inputPassword.value" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$"
+              placeholder="Chứa ít nhất 8 ký tự bao gồm ( chứ viết hoa, chữ số và một ký tự đặc biệt )"
+              :class="{' outline-red-700' : inputPassword.error}"
+              class=" form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+            <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Mật khẩu
+            </p>
+            <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
+              Chứa ít nhất 8 ký tự bao gồm ( chứ viết hoa, chữ số và một ký tự đặc biệt )
+            </p>
+          </div>
+
+          <div class=" relative mb-7">
+            <input type="text" v-model="enterPassword.value" placeholder="Nhập lại mật khẩu bạn đã nhập"
+            :class="{' outline-red-700' : enterPassword.error}"
+              class="form-input mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+            <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Nhập lại
+              mật khẩu</p>
+          </div>
+
+          <button @click="CheckForm()"
+            class=" text-DomlantColor Button p-3 bg-AccentColor w-full rounded-xl mb-11">Đăng
+            nhập</button>
+          <p class="Body2 text-center ">Đã có tài khoản ? <RouterLink to="/login"><strong
+                class=" underline text-SecondColor">Đăng nhập</strong> </RouterLink>
+          </p>
+        
       </div>
-      <div class="right-section">
-        <img src="/assets/images/login.jpg" alt="Login Image" />
-      </div>
+      <div class="background-img w-2/4 h-full"></div>
     </div>
-  </div>
+  </main>
 </template>
 
+<script>
+import { RouterLink } from 'vue-router';
+export default {
+  data() {
+    return {
+      inputUserName: {
+        value:'',
+        error:false,
+      },
+      inputEmail: {
+        value:'',
+        error:false,
+      },
+      inputPhoneNumber: {
+        value:'',
+        error:false,
+      },
+      inputPassword: {
+        value:'',
+        error:false,
+      },
+      enterPassword:{
+        value:'',
+        error:false,
+      },
+      alertError:false,
+    }
+  },
+  methods: {
+    CheckInputUserName() {
+      const usernamePattern = /^[^*#&]+$/;
+      if (!usernamePattern.test(this.inputUserName.value)) {
+        this.inputUserName.error=true;
+        this.inputUsername.value = "";
+      }else{
+        this.inputUserName.error=false;
+      }
+    },
+    CheckInputEmail() {
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@(gmail\.com|gmail\.com\.vn)$/;
+      if (!emailPattern.test(this.inputEmail.value)) {
+        this.inputEmail.error=true;
+        this.inputEmail.value = "";
+      }else{
+        this.inputEmail.error=false;
+      }
+    },
+    CheckInputPhoneNumber() {
+      const phoneNumberPattern = /^(0[1-9][0-9]{8,9})$/;
+      if (!phoneNumberPattern.test(this.inputPhoneNumber.value)) {
+        this.inputPhoneNumber.error=true;
+        this.inputPhoneNumber.value = "";
+      }else{
+        this.inputPhoneNumber.error=false;
+      }
+    },
+    CheckInputPassword() {
+      const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+      if (!passwordPattern.test(this.inputPassword.value)) {
+        this.inputPassword.error=true;
+        this.inputPassword.value = "";
+      }else{
+        this.inputPassword.error=false;
+      }
+    },
+    CheckEnterPassword(){
+      if (this.enterPassword.value == this.inputPassword.value) {
+        this.enterPassword.error=false;
+      }else{
+        this.enterPassword.error=true;
+      }
+    },
+    CheckForm(){
+      this.CheckInputEmail();
+      this.CheckInputPhoneNumber();
+      this.CheckInputPassword();
+      this.CheckEnterPassword();
+      this.CheckInputUserName();
+      if (this.inputEmail.error == this.inputUserName.error == this.inputPassword.error == this.inputPhoneNumber.error == this.enterPassword.error == false) {
+        alert("thành công")
+      }
+    }
 
-<script></script>
+  },
+  mounted() {
+
+  }
+}
+</script>
 
 <style scoped>
-.my-link {
-  color: #aadfd1;
-  padding-top: 20px;
-  margin-left: 100px;
-}
-.popup {
-  width: 1184px; /* Tổng chiều rộng 1184 px */
-  height: 650px;
-  background: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 2;
-  display: flex;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-a {
-  color: #aadfd1;
-}
-p {
-  text-align: center;
-  margin-top: 20px;
-}
+.background-img {
+  background: url("../../../../public/assets/images/Login/Image-1.png") no-repeat center/cover;
 
-.right-section {
-  flex: 1;
-  padding: 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f0f0f0;
 }
+.border-error{
 
-.right-section img {
-  width: 592px;
-  height: 650px;
-  object-fit: cover;
 }
-
-.left-section {
-  flex: 1; /* Phần bên phải sẽ mở rộng nhiều hơn để chứa các trường đăng nhập */
-  padding: 20px;
+.label-input {
+  top: -2px;
+  background-color: white;
+  padding: 0 3px;
 }
-.left-section h2 {
-  font-size: 34px;
-  text-align: center; /* Căn giữa ngang */
-  margin-top: 0; /* Loại bỏ khoảng trống trên đầu h2 nếu có */
-  margin-bottom: 20px; /* Tạo khoảng trống phía dưới h2 để tạo khoảng cách */
-}
-
-.left-section h3 {
-  font-size: 16px;
-  color: #5a8d80;
-  text-align: center; /* Căn giữa ngang */
-  margin-top: 0; /* Loại bỏ khoảng trống trên đầu h2 nếu có */
-  margin-bottom: 20px; /* Tạo khoảng trống phía dưới h2 để tạo khoảng cách */
-}
-.left-section h4 {
-  padding-top: 20px;
-  font-size: 12px;
-  color: #999999;
-  text-align: center; /* Căn giữa ngang */
-  margin-top: 0; /* Loại bỏ khoảng trống trên đầu h2 nếu có */
-  margin-bottom: 20px; /* Tạo khoảng trống phía dưới h2 để tạo khoảng cách */
-}
-/* Stylize form elements */
-input[type="text"] {
-  width: 374px;
-  height: 48px;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  display: block; /* Biến input thành phần tử block để chiếm toàn bộ chiều ngang */
-  margin: 0 auto;
-}
-
-input[type="password"] {
-  width: 374px;
-  height: 48px;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  display: block; /* Biến input thành phần tử block để chiếm toàn bộ chiều ngang */
-  margin: 0 auto;
-}
-input[type="radio"] {
-  display: block; /* Biến input thành phần tử block để chiếm toàn bộ chiều ngang */
-  margin-top: 20px;
-  padding-left: 10px;
-}
-label {
-  padding-left: 100px;
-}
-span.label-text {
-  margin-top: 20px;
-}
-
-button[type="submit"] {
-  margin-top: 20px;
-  background: var(--accent-color) 0% 0% no-repeat padding-box;
-  box-shadow: 3px 3px 1px var(--unnamed-color-000000);
-  background: #35665b 0% 0% no-repeat padding-box;
-  box-shadow: 3px 3px 1px #000000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 375px;
-  height: 42px;
-  border-radius: 12px;
-  opacity: 1;
-}
-button {
-  margin-top: 20px;
-  background: var(--accent-color) 0% 0% no-repeat padding-box;
-  box-shadow: 3px 3px 1px var(--unnamed-color-000000);
-  background: #ffffff;
-  box-shadow: 3px 3px 1px #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 375px;
-  height: 42px;
-  border-radius: 12px;
-  margin-left: 100px;
-  opacity: 1;
-}
-
-button[type="submit"]:hover {
-  background-color: #0056b3;
-}
-/* Định dạng CSS cho phần input */
-.custom-input {
-  border: none; /* Loại bỏ đường viền mặc định */
-  border-bottom: 1px solid #ccc; /* Đường viền dưới cùng */
-  padding: 10px; /* Thêm padding để tạo khoảng cách */
-  outline: none; /* Loại bỏ đường viền khi tập trung vào input */
-  width: 100%; /* Để input rộng hết phần tử cha */
-}
-
-/* Định dạng CSS cho phần account-box */
-.account-box {
-  position: relative;
-  padding: 8px;
-}
-.custom-radio {
-  appearance: none; /* Loại bỏ giao diện mặc định */
-  width: 20px;
-  height: 20px;
-  border: 1px solid #707070; /* Màu xanh */
-  border-radius: 50%; /* Để nút radio tròn */
-  outline: none;
-  margin-right: 10px;
-  background: #ffffff 0% 0% no-repeat padding-box;
-}
-
-/* Tạo kiểu dáng nút radio khi được chọn */
-.custom-radio:checked {
-  background: #ffffff;
-  border: 1px solid#AADFD1;
-}
-
-/* Tạo kiểu dáng cho nhãn của nút radio */
-.radio-label {
-  display: flex;
-  align-items: center;
-}
-
-/* Định dạng văn bản bên cạnh nút radio */
-.label-text[data-v-2b619d6d] {
-  color: #aadfd1;
-}
-
-/* Định dạng CSS cho đường viền */
 </style>

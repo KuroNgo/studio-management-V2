@@ -57,12 +57,12 @@
         </button>
         <p class="Caption text-center text-gray-400 mb-12">Hoặc đăng nhập với</p>
         <div class=" relative mb-5">
-          <input type="text" placeholder=" " class="form-input transition duration-200 ease outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+          <input type="text" placeholder="Nhập email hoặc số điện thoại của bạn" class="form-input placeholder:text-gray-400 placeholder:Caption transition duration-200 ease outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
           <p class="label-input Subtitle2 text-gray-400 absolute top-1/2 transform -translate-y-1/2 focus:top-0.5 focus:transform left-3 ">Tài khoản</p>
         </div>
         <div class=" relative mb-2">
-          <input type="text" placeholder=" " class="form-input transition duration-200 ease outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
-          <p class="label-input Subtitle2 text-gray-400 absolute top-1/2 transform -translate-y-1/2 focus:top-0.5 focus:transform left-3 ">Mật khẩu</p>
+          <input type="text" placeholder="Nhập mật khẩu của bạn" class="form-input placeholder:text-gray-400 placeholder:Caption transition duration-200 ease outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+          <p class="label-input Subtitle2 text-gray-400 absolute transform -translate-y-1/2 focus:top-0.5 focus:transform left-3 ">Mật khẩu</p>
         </div>
         <div class="flex justify-between gap-1 mb-7">
           <div class="flex gap-1">
@@ -89,13 +89,8 @@ import { RouterLink } from 'vue-router';
 
 }
 .label-input{
-  transition: 0.25s ease;
-}
-.form-input:not(:placeholder-shown) +.label-input,
-.form-input:focus + .label-input{
   top : -2px;
   background-color: white;
   padding: 0 3px;
-
 }
 </style>
