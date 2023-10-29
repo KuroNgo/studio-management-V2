@@ -8,12 +8,14 @@ import (
 type Category struct {
 	repo     repo.IRepo
 	category model.Categories
+	user     model.User
 }
 
 type ICategories interface {
 	GetCategory(uuid string) (model.Categories, error)
 	GetAllCategories() ([]model.Categories, error)
 	CreateCategory(categoryRequest model.Categories) (model.Categories, error)
+	UpdateCategory(categoryRequest model.Categories) (model.Categories, error)
 	DeleteCategoryFirst(category model.Categories) error
 	DeleteCategorySecond(category model.Categories) error
 }
@@ -47,6 +49,14 @@ func (c *Category) CreateCategory(categoryRequest model.Categories) (model.Categ
 	}
 	return category, nil
 
+}
+
+func (c *Category) UpdateCategory(categoryRequest model.Categories) (model.Categories, error) {
+	category, err := c.repo.UpdateCategory(&categoryRequest)
+	if err != nil {
+		return model.Categories{}, err
+	}
+	return category, nil
 }
 
 func (c *Category) DeleteCategoryFirst(category model.Categories) error {

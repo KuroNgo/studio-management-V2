@@ -103,7 +103,7 @@ func (r *Repo) DisableCategory(category *model.Categories) error {
 	if err := r.db.
 		Model(&category).
 		Where("category_id = ?", category.ID).
-		Update("enable", 0).Error; err != nil {
+		Updates(category).Error; err != nil {
 		return err
 	}
 	return nil

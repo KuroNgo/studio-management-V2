@@ -113,7 +113,8 @@ func NewService() *Service {
 
 		// category
 		adminV1.POST("/category/create", category.CreateCategory)
-		adminV1.PUT("/category/delete", category.DeleteCategoryWithForeinKey)
+		adminV1.PUT("/category/update", category.UpdateCategory)
+		adminV1.PUT("/category/delete", category.DeleteCategoryFirst)
 	}
 
 	return &s
