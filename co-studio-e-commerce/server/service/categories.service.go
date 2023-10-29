@@ -12,7 +12,8 @@ type Category struct {
 }
 
 type ICategories interface {
-	GetCategory(uuid string) (model.Categories, error)
+	GetCategoryByID(uuid string) (model.Categories, error)
+	GetCategoryByName(name string) (*[]model.Categories, error)
 	GetAllCategories() ([]model.Categories, error)
 	CreateCategory(categoryRequest model.Categories) (model.Categories, error)
 	UpdateCategory(categoryRequest model.Categories) (model.Categories, error)
@@ -24,10 +25,20 @@ func NewCategory(repo repo.IRepo) *Category {
 	return &Category{repo: repo}
 }
 
-func (c *Category) GetCategory(uuid string) (model.Categories, error) {
+// Nếu chỉ get ra để xem
+func (c *Category) GetCategoryByID(uuid string) (model.Categories, error) {
 	category, err := c.repo.GetCategoryByID(uuid)
 	if err != nil {
 		return model.Categories{}, err
+	}
+	return category, nil
+}
+
+// Nếu get ra để xử lý
+func (c *Category) GetCategoryByName(name string) (*[]model.Categories, error) {
+	category, err := c.repo.GetCategoryByName(name)
+	if err != nil {
+		return &[]model.Categories{}, err
 	}
 	return category, nil
 }

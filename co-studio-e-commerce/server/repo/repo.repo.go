@@ -66,9 +66,9 @@ type IRepo interface {
 
 	// category
 	GetCategoryByID(uuid string) (model.Categories, error)
-	GetCategoryByName(name string) (model.Categories, error)
-	GetCategoryByEnable(enable int) ([]model.Categories, error)
-	GetCategoryCreatedByUpdateDate(date time.Time) ([]model.Categories, error)
+	GetCategoryByName(name string) (*[]model.Categories, error)
+	GetCategoryByEnable(enable int) (*[]model.Categories, error)
+	GetCategoryCreatedByUpdateDate(date time.Time) (*[]model.Categories, error)
 	GetAllCategory() ([]model.Categories, error)
 	CreateCategory(category model.Categories) (model.Categories, error)
 	UpdateCategory(category *model.Categories) (model.Categories, error)

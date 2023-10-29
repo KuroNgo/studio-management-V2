@@ -95,7 +95,9 @@ func (r *Repo) UpdateProduct(product *model.Product) error {
 
 func (r *Repo) UpdateEnable(enable int) error {
 	var product *model.Product
-	if err := r.db.Where("product_id = ?", product.ID).Update("enable = ?", enable).Error; err != nil {
+	if err := r.db.
+		Where("product_id = ?", product.ID).
+		Update("enable = ?", enable).Error; err != nil {
 		return err
 	}
 	if _enable := r.db.Where("enable = 0").Update("is_delete = ?", 1).Error; _enable != nil {

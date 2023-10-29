@@ -35,7 +35,7 @@ func (c *Category) GetAllCategories(ctx *gin.Context) {
 // tìm category theo id
 func (c *Category) GetCategoryByID(ctx *gin.Context) {
 	categoryID := ctx.Param("category_id")
-	category, err := c.service.GetCategory(categoryID)
+	category, err := c.service.GetCategoryByID(categoryID)
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{
 			"status":  "fail",
