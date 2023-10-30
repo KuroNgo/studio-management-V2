@@ -13,7 +13,8 @@ func (r *Repo) GetCategoryByID(uuid string) (model.Categories, error) {
 	if err := r.db.
 		Model(&category).
 		Where("category_id = ? and enable = 1", uuid).
-		First(&category).Error; err != nil {
+		First(&category).
+		Error; err != nil {
 		return model.Categories{}, err
 	}
 	return category, nil
@@ -22,7 +23,10 @@ func (r *Repo) GetCategoryByID(uuid string) (model.Categories, error) {
 // Nếu get để làm việc
 func (r *Repo) GetCategoryByID2(uuid string) (*model.Categories, error) {
 	var category model.Categories
-	if err := r.db.Model(&category).Where("category_id = ? and enable = 1", uuid).Error; err != nil {
+	if err := r.db.
+		Model(&category).
+		Where("category_id = ? and enable = 1", uuid).
+		Error; err != nil {
 		return nil, err
 	}
 	return &category, nil
@@ -32,7 +36,8 @@ func (r *Repo) GetCategoryByID2(uuid string) (*model.Categories, error) {
 func (r *Repo) GetCategoryByName(name string) (*[]model.Categories, error) {
 	var category []model.Categories
 	if err := r.db.
-		First(&category, "category_name = ?", name).Error; err != nil {
+		First(&category, "category_name = ?", name).
+		Error; err != nil {
 		return &[]model.Categories{}, err
 	}
 	return &category, nil
@@ -42,7 +47,8 @@ func (r *Repo) GetCategoryByName(name string) (*[]model.Categories, error) {
 func (r *Repo) GetCategoryByEnable(enable int) (*[]model.Categories, error) {
 	var categories []model.Categories
 	if err := r.db.
-		Find(&categories, "enable = ?", enable).Error; err != nil {
+		Find(&categories, "enable = ?", enable).
+		Error; err != nil {
 		return nil, err
 	}
 	return &categories, nil
@@ -52,7 +58,8 @@ func (r *Repo) GetCategoryByEnable(enable int) (*[]model.Categories, error) {
 func (r *Repo) GetCategoryCreatedByUpdateDate(date time.Time) (*[]model.Categories, error) {
 	var categories []model.Categories
 	if err := r.db.
-		Find(&categories, "update_date = ?", date).Error; err != nil {
+		Find(&categories, "update_date = ?", date).
+		Error; err != nil {
 		return nil, err
 	}
 	return &categories, nil
@@ -63,7 +70,9 @@ func (r *Repo) GetAllCategory() ([]model.Categories, error) {
 	// Hiển thị thông tin tất cả category
 	var categories []model.Categories
 
-	if err := r.db.Find(&categories).Error; err != nil {
+	if err := r.db.
+		Find(&categories).
+		Error; err != nil {
 		return nil, err
 	}
 
@@ -72,7 +81,9 @@ func (r *Repo) GetAllCategory() ([]model.Categories, error) {
 
 // Tạo category
 func (r *Repo) CreateCategory(category model.Categories) (model.Categories, error) {
-	if err := r.db.Create(&category).Error; err != nil {
+	if err := r.db.
+		Create(&category).
+		Error; err != nil {
 		return model.Categories{}, err
 	}
 	return category, nil

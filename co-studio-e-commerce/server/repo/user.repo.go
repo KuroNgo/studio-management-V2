@@ -15,7 +15,8 @@ func (r *Repo) GetUserProfile(email string) (model.User, error) {
 	var user model.User
 	if err := r.db.
 		Where("email = ?", email).
-		First(&user).Order("created_at ASC").Error; err != nil {
+		First(&user).Order("created_at ASC").
+		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return model.User{}, errors.New("Người dùng không tồn tại")
 		}
@@ -31,7 +32,8 @@ func (r *Repo) GetAllUser() ([]model.User, error) {
 	// Thực hiện truy vấn hoặc lấy thông tin tất cả người dùng từ nguồn dữ liệu của bạn
 	if err := r.db.
 		Find(&users).
-		Order("role DESC").Error; err != nil {
+		Order("role DESC").
+		Error; err != nil {
 		return nil, err // Trả về nil và lỗi nếu có lỗi
 	}
 
@@ -43,7 +45,9 @@ func (r *Repo) CreateUser(user model.User) (model.User, error) {
 	// CreateUser là hàm tạo mới user
 
 	// Thực hiện tạo mới user trong cơ sở dữ liệu
-	if err := r.db.Create(&user).Error; err != nil {
+	if err := r.db.
+		Create(&user).
+		Error; err != nil {
 		return model.User{}, err // Trả về lỗi nếu có lỗi
 	}
 
@@ -52,7 +56,9 @@ func (r *Repo) CreateUser(user model.User) (model.User, error) {
 
 // cập nhật user, nếu user chưa có sẽ thực hiện thêm
 func (r *Repo) UpdateUserORInsert(user *model.User) (model.User, error) {
-	if err := r.db.Save(user).Error; err != nil {
+	if err := r.db.
+		Save(user).
+		Error; err != nil {
 		return model.User{}, err
 	}
 	// Trả về thông tin người dùng sau khi cập nhật
@@ -92,7 +98,9 @@ func (r *Repo) DeactivateUser(userID uuid.UUID, currentUser model.User) error {
 }
 
 func (r *Repo) DeleteUser(user *model.User) error {
-	if err := r.db.Delete(user).Error; err != nil {
+	if err := r.db.
+		Delete(user).
+		Error; err != nil {
 		return err
 	}
 	return nil
@@ -123,7 +131,8 @@ func (r *Repo) GetUserID(userID uuid.UUID) (*model.User, error) {
 	var user model.User
 	if err := r.db.
 		Where("userid = ?", userID.String()).
-		First(&user).Error; err != nil {
+		First(&user).
+		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return &model.User{}, errors.New("User not found")
 		}
@@ -134,7 +143,9 @@ func (r *Repo) GetUserID(userID uuid.UUID) (*model.User, error) {
 
 func (r *Repo) FindUserByID(uuid string) (*model.User, error) {
 	var user model.User
-	if err := r.db.First(&user, "userid = ?", uuid).Error; err != nil {
+	if err := r.db.
+		First(&user, "userid = ?", uuid).
+		Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
@@ -147,7 +158,8 @@ func (r *Repo) GetUserEmail(email string) (*model.User, error) {
 	var user model.User
 	if err := r.db.
 		Where("email = ?", email).
-		First(&user).Error; err != nil {
+		First(&user).
+		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return &model.User{}, errors.New("Email not found!")
 		}
@@ -162,7 +174,8 @@ func (r *Repo) GetUserByUsername(username string) (*model.User, error) {
 	var user model.User
 	if err := r.db.
 		Where("username = ?", username).
-		First(&user).Error; err != nil {
+		First(&user).
+		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return &model.User{}, errors.New("Username not found!")
 		}
@@ -176,7 +189,8 @@ func (r *Repo) GetUserRole(role string) (*[]model.User, error) {
 	var user []model.User
 	if err := r.db.
 		Where("role = ?", role).
-		Find(&user).Error; err != nil {
+		Find(&user).
+		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return &[]model.User{}, errors.New("role not found!")
 		}
@@ -190,7 +204,8 @@ func (r *Repo) GetUserAddress(address string) (*[]model.User, error) {
 	var user []model.User
 	if err := r.db.
 		Where("address = ?", address).
-		Find(&user).Error; err != nil {
+		Find(&user).
+		Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
@@ -202,7 +217,8 @@ func (r *Repo) GetUserCreatedAt(created_at time.Time) (*[]model.User, error) {
 	var user []model.User
 	if err := r.db.
 		Where("created_at = ?", created_at).
-		Find(&user).Error; err != nil {
+		Find(&user).
+		Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
@@ -212,7 +228,8 @@ func (r *Repo) GetUserCraetedAtAboutTime(createdAt time.Time) (*[]model.User, er
 	var user []model.User
 	if err := r.db.
 		Where("created_at > ?", createdAt).
-		First(&user).Error; err != nil {
+		First(&user).
+		Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
@@ -222,7 +239,8 @@ func (r *Repo) GetUserCreatedAtAboutTime2(lastWeek time.Time, today time.Time) (
 	var user []model.User
 	if err := r.db.
 		Where("created_at BETWEEN ? AND ?", lastWeek, today).
-		Find(&user).Error; err != nil {
+		Find(&user).
+		Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
@@ -234,7 +252,8 @@ func (r *Repo) GetUserUpdateUser(lastWeek time.Time, today time.Time) (*[]model.
 	var user []model.User
 	if err := r.db.
 		Where("updated_at BETWEEN ? AND ?", lastWeek, today).
-		Find(&user).Error; err != nil {
+		Find(&user).
+		Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
