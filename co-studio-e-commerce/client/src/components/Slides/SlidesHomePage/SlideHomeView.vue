@@ -1,5 +1,5 @@
 <template>
-    <div class="slides-inner">
+    <div class="slides-inner relative">
         <!-- <button @click="ClickChangeSlides(1)"><font-awesome-icon id="left" class="a font-awesome-icon-left"
                  style="color: #4678ce;" /></button> -->
 
