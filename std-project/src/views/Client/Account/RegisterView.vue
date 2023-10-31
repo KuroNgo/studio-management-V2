@@ -292,7 +292,7 @@ export default {
 
 <style scoped>
 .background-img {
-  background: url("../../../../public/assets/images/Login/Image-1.png") no-repeat center/cover;
+  background: url("../../../../public/assets/images/SignUp/Image.png") no-repeat center/cover;
 
 }
 

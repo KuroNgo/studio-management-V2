@@ -4,6 +4,7 @@
             <CardImageView class=" w-1/3"  v-for="(x) in dataImages" :url-image="x"   />
         </ul>
     </div>
+    
 </template>
 
 <script>
@@ -15,8 +16,9 @@ export default{
     },
     data(){
         return{
-            dataImage : ['../../../../public/assets/images/Homepage/ImageSlider.png','../../../../public/assets/images/Homepage/ImageSlider.png','../../../../public/assets/images/Homepage/ImageSlider.png']
-
+            dataImage : ['../../../../public/assets/images/Homepage/ImageSlider.png','../../../../public/assets/images/Homepage/ImageSlider.png','../../../../public/assets/images/Homepage/ImageSlider.png'],
+            items: [1, 2, 3, 4],
+            index:0,
         }   
     },
     props:{
