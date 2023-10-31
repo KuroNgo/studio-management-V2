@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type Categories struct {
+type Category struct {
 	ID           uuid.UUID `gorm:"type:uuid;primary_key;default:gen_random_uuid();column:category_id" json:"category_id"`
 	CategoryName string    `gorm:"unique" json:"category_name"`
 	Description  string    `json:"description"`
@@ -17,6 +17,6 @@ type Categories struct {
 	IsDelete     int       `json:"is_delete" default:"0"`
 }
 
-func (Categories) TableName() string {
+func (Category) TableName() string {
 	return "categories"
 }

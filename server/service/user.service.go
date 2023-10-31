@@ -5,7 +5,6 @@ import (
 	"co-studio-e-commerce/repo"
 	"co-studio-e-commerce/util"
 	"errors"
-	"github.com/google/uuid"
 	"strings"
 	"time"
 )
@@ -19,7 +18,6 @@ type IUser interface {
 	GetAllUser() ([]model.User, error)
 	FindUserByID(uuid string) (*model.User, error)
 	FindUserByRole(role string) (*[]model.User, error)
-	GetUserByID(uuid uuid.UUID) (*model.User, error)
 	GetUserByEmail(email string) (*model.User, error)
 	GetUserByUsername(username string) (*model.User, error)
 	GetUserByRole(role string) (*[]model.User, error)
@@ -56,15 +54,6 @@ func (u *User) FindUserByRole(role string) (*[]model.User, error) {
 	user, err := u.repo.GetUserRole(role)
 	if err != nil {
 		return &[]model.User{}, err
-	}
-	return user, nil
-}
-
-func (u *User) GetUserByID(uuid uuid.UUID) (*model.User, error) {
-
-	user, err := u.repo.GetUserID(uuid)
-	if err != nil {
-		return &model.User{}, err
 	}
 	return user, nil
 }

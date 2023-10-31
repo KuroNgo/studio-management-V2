@@ -12,12 +12,12 @@ const docTemplate = `{
         "termsOfService": "http://localhost:8000",
         "contact": {
             "name": "Ngô Hoài Phong",
-            "url": "http://www.swagger.io/support",
+            "url": "https://www.swagger.io/support",
             "email": "hoaiphong01012002@gmai.com"
         },
         "license": {
             "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "version": "{{.Version}}"
     },

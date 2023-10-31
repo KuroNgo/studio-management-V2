@@ -11,7 +11,7 @@ import (
 
 var DbDefault *gorm.DB
 
-// sử dụng singleton pattern để tạo một connection duy nhất đến database
+// GetDB sử dụng singleton pattern để tạo một connection duy nhất đến database
 // khi ứng dụng lớn hơn thì không nên sử dụng singleton pattern
 // thay vào đó nên sử dụng connection pool
 func (a *App) GetDB() *gorm.DB {
@@ -41,7 +41,7 @@ func (a *App) initDB() *gorm.DB {
 		&model.User{},
 		&model.Product{},
 		&model.Image{},
-		&model.Categories{},
+		&model.Category{},
 		&model.Order{},
 		&model.OrderDetail{},
 		&model.Admin{},

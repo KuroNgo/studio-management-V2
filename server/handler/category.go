@@ -10,21 +10,21 @@ import (
 )
 
 type Category struct {
-	user     service.IUser
-	service  service.ICategories
-	category model.Categories
+	categoryService service.ICategory
+	userService     service.IUser
+	categoryModel   model.Category
 }
 
-func NewCategory(service service.ICategories, user service.IUser) *Category {
+func NewCategory(service service.ICategory, user service.IUser) *Category {
 	return &Category{
-		service: service,
-		user:    user,
+		categoryService: service,
+		userService:     user,
 	}
 }
 
-// Lấy tất cả loại
-func (c *Category) GetAllCategories(ctx *gin.Context) {
-	categories, err := c.service.GetAllCategories()
+// GetAllCategoriesForView GetAllCategories Lấy tất cả loại
+func (c *Category) GetAllCategoriesForView(ctx *gin.Context) {
+	categories, err := c.categoryService.GetAllCategories()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
 		return
@@ -32,10 +32,10 @@ func (c *Category) GetAllCategories(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"category": categories}})
 }
 
-// tìm category theo id
-func (c *Category) GetCategoryByID(ctx *gin.Context) {
+// GetCategoryByIDForView GetCategoryByID tìm category theo id nếu để xem
+func (c *Category) GetCategoryByIDForView(ctx *gin.Context) {
 	categoryID := ctx.Param("category_id")
-	category, err := c.service.GetCategoryByID(categoryID)
+	category, err := c.categoryService.GetCategoryByID(categoryID)
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{
 			"status":  "fail",
@@ -49,11 +49,28 @@ func (c *Category) GetCategoryByID(ctx *gin.Context) {
 	})
 }
 
-// Tạo mới category
+// GetCategoryByIDForEdit GetCategoryByID tìm category theo id nếu để edit
+func (c *Category) GetCategoryByIDForEdit(ctx *gin.Context) {
+	categoryID := ctx.Param("category_id")
+	category, err := c.categoryService.GetCategoryByID2(categoryID)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   category,
+	})
+}
+
+// CreateCategory Tạo mới category
 func (c *Category) CreateCategory(ctx *gin.Context) {
 	// Lấy user hiện đang đăng nhập
 	currentUser := ctx.MustGet("currentUser")
-	var category model.Categories
+	var category model.Category
 	if err := ctx.ShouldBindJSON(&category); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
@@ -63,7 +80,7 @@ func (c *Category) CreateCategory(ctx *gin.Context) {
 	}
 
 	//Thực hiện lấy thông tin người dùng
-	userName, err := c.user.FindUserByID(fmt.Sprint(currentUser))
+	userName, err := c.userService.FindUserByID(fmt.Sprint(currentUser))
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
@@ -76,7 +93,7 @@ func (c *Category) CreateCategory(ctx *gin.Context) {
 	category.CreatedAt = time.Now()
 
 	// Thực hiện thêm category
-	newCategory := model.Categories{
+	newCategory := model.Category{
 		CategoryName: category.CategoryName,
 		Description:  category.Description,
 		Enable:       1,
@@ -87,7 +104,7 @@ func (c *Category) CreateCategory(ctx *gin.Context) {
 		IsDelete:  0,
 	}
 
-	categoryResponse, err := c.service.CreateCategory(newCategory)
+	categoryResponse, err := c.categoryService.CreateCategory(newCategory)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"status":  "error",
@@ -103,11 +120,11 @@ func (c *Category) CreateCategory(ctx *gin.Context) {
 
 }
 
-// Thực hiện cập nhật category
+// UpdateCategory Thực hiện cập nhật category
 func (c *Category) UpdateCategory(ctx *gin.Context) {
 	// Lấy user hiện tại đăng nhập
 	currentUser := ctx.MustGet("currentUser")
-	var category model.Categories
+	var category model.Category
 	if err := ctx.ShouldBindJSON(&category); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "fail",
@@ -117,7 +134,7 @@ func (c *Category) UpdateCategory(ctx *gin.Context) {
 	}
 
 	// Thực hiện lấy thông tin người dùng
-	userName, err := c.user.FindUserByID(fmt.Sprint(currentUser))
+	userName, err := c.userService.FindUserByID(fmt.Sprint(currentUser))
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
@@ -127,7 +144,7 @@ func (c *Category) UpdateCategory(ctx *gin.Context) {
 	}
 
 	category.UpdatedAt = time.Now()
-	updateCategory := model.Categories{
+	updateCategory := model.Category{
 		CategoryName: category.CategoryName,
 		Description:  category.Description,
 		Enable:       category.Enable,
@@ -137,7 +154,7 @@ func (c *Category) UpdateCategory(ctx *gin.Context) {
 		IsDelete:     0,
 	}
 
-	data, err := c.service.UpdateCategory(updateCategory)
+	data, err := c.categoryService.UpdateCategory(updateCategory)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
@@ -152,11 +169,11 @@ func (c *Category) UpdateCategory(ctx *gin.Context) {
 	})
 }
 
-// Thực hiện chuyển enable về disable thông qua câu lệnh update
+// DeleteCategoryFirst Thực hiện chuyển enable về disable thông qua câu lệnh update
 func (c *Category) DeleteCategoryFirst(ctx *gin.Context) {
 	// Lấy user hiện tại đăng nhập
 	currentUser := ctx.MustGet("currentUser")
-	var category model.Categories
+	var category model.Category
 	if err := ctx.ShouldBindJSON(&category); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "fail",
@@ -166,7 +183,7 @@ func (c *Category) DeleteCategoryFirst(ctx *gin.Context) {
 	}
 
 	//Thực hiện lấy thông tin người dùng
-	userName, err := c.user.FindUserByID(fmt.Sprint(currentUser))
+	userName, err := c.userService.FindUserByID(fmt.Sprint(currentUser))
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
@@ -176,7 +193,7 @@ func (c *Category) DeleteCategoryFirst(ctx *gin.Context) {
 	}
 
 	category.UpdatedAt = time.Now()
-	deleteCategory := model.Categories{
+	deleteCategory := model.Category{
 		CategoryName: category.CategoryName,
 		Description:  category.Description,
 		Enable:       0,
@@ -186,7 +203,7 @@ func (c *Category) DeleteCategoryFirst(ctx *gin.Context) {
 		IsDelete:     1,
 	}
 
-	err = c.service.DeleteCategoryFirst(deleteCategory)
+	err = c.categoryService.DeleteCategoryFirst(deleteCategory)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"status":  "error",
@@ -200,10 +217,10 @@ func (c *Category) DeleteCategoryFirst(ctx *gin.Context) {
 	})
 }
 
-// Chỉ admin mới xóa được lần 2
+// DeleteCategorySecond Chỉ admin mới xóa được lần 2
 func (c *Category) DeleteCategorySecond(ctx *gin.Context) {
 	//currentUser := ctx.MustGet("currentUser")
-	var category model.Categories
+	var category model.Category
 
 	if err := ctx.ShouldBindJSON(&category); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -223,7 +240,7 @@ func (c *Category) DeleteCategorySecond(ctx *gin.Context) {
 	//	return
 	//}
 
-	err := c.service.DeleteCategorySecond(category)
+	err := c.categoryService.DeleteCategorySecond(category)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"status":  "error",
@@ -238,17 +255,39 @@ func (c *Category) DeleteCategorySecond(ctx *gin.Context) {
 
 }
 
-// Khôi phục category đã xóa ( disable to enable)
-//func (c *Category) ResolveCategory(ctx *gin.Context) {
-//	currentUser := ctx.MustGet("currentUser")
-//	var category model.Categories
-//	if err := ctx.ShouldBindJSON(&category); err != nil {
-//		ctx.JSON(http.StatusBadRequest, gin.H{
-//			"status":  "fail",
-//			"message": err.Error(),
-//		})
-//		return
-//	}
-//
-//	data, err := c.service.
-//}
+// ResolveCategory Khôi phục category đã xóa ( disable to enable)
+func (c *Category) ResolveCategory(ctx *gin.Context) {
+	currentUser := ctx.MustGet("currentUser")
+	var category model.Category
+	if err := ctx.ShouldBindJSON(&category); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	//Thực hiện lấy thông tin người dùng
+	userName, err := c.userService.FindUserByID(fmt.Sprint(currentUser))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	category.WhoUpdate = userName.FullName
+	err = c.categoryService.EnableCategory(category)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+	})
+}

@@ -52,6 +52,56 @@ func (u *User) GetUserByRole(ctx *gin.Context) {
 
 }
 
+func (u *User) FindUserByRole(ctx *gin.Context) {
+	var role string
+	data, err := u.service.FindUserByRole(role)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "message",
+		"data":   data,
+	})
+}
+
+func (u *User) GetUserByEmail(ctx *gin.Context) {
+	var email string
+	data, err := u.service.GetUserByEmail(email)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   data,
+	})
+}
+
+func (u *User) GetUserByUsername(ctx *gin.Context) {
+	var username string
+	data, err := u.service.GetUserByUsername(username)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   data,
+	})
+}
+
 func (u *User) GetMeV2(ctx *gin.Context) {
 	cookie, err := ctx.Cookie("access_token")
 

@@ -65,14 +65,15 @@ type IRepo interface {
 	FindUserByID(uuid string) (*model.User, error)
 
 	// category
-	GetCategoryByID(uuid string) (model.Categories, error)
-	GetCategoryByName(name string) (*[]model.Categories, error)
-	GetCategoryByEnable(enable int) (*[]model.Categories, error)
-	GetCategoryCreatedByUpdateDate(date time.Time) (*[]model.Categories, error)
-	GetAllCategory() ([]model.Categories, error)
-	CreateCategory(category model.Categories) (model.Categories, error)
-	UpdateCategory(category *model.Categories) (model.Categories, error)
-	EnableCategory(category *model.Categories) error
-	DisableCategory(category *model.Categories) error
-	DeleteCategory(category *model.Categories) error
+	GetCategoryByID(uuid string) (model.Category, error)
+	GetCategoryByID2(uuid string) (*model.Category, error)
+	GetCategoryByName(name string) (*[]model.Category, error)
+	GetCategoryByEnable(enable int) (*[]model.Category, error)
+	GetCategoryCreatedByUpdateDate(date time.Time) (*[]model.Category, error)
+	GetAllCategory() ([]model.Category, error)
+	CreateCategory(category model.Category) (model.Category, error)
+	UpdateCategory(category *model.Category) (model.Category, error)
+	EnableCategory(category *model.Category) error
+	DisableCategory(category *model.Category) error
+	DeleteCategory(category *model.Category) error
 }

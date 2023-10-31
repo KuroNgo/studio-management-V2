@@ -5,15 +5,16 @@ import (
 	"co-studio-e-commerce/docs"
 	"co-studio-e-commerce/handler"
 	"co-studio-e-commerce/middleware"
-	repo "co-studio-e-commerce/repo"
+	"co-studio-e-commerce/repo"
 	"co-studio-e-commerce/service"
 	"co-studio-e-commerce/util"
+	"net/http"
+
 	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"net/http"
 )
 
 type Service struct {
@@ -36,7 +37,6 @@ func NewService() *Service {
 
 	// giải quyết về router
 	route := s.Router
-
 	// add middleware
 	route.Use(middleware.CORSMiddleware())
 	route.Use(middleware.Recover())
@@ -85,8 +85,8 @@ func NewService() *Service {
 
 		// không cần đăng nhập vẫn sử dụng được
 		// category
-		clientV1.GET("/category/get-all", category.GetAllCategories)
-		clientV1.GET("/category/get/:category_id", category.GetCategoryByID)
+		clientV1.GET("/category/get-all", category.GetAllCategoriesForView)
+		clientV1.GET("/category/get/:category_id", category.GetCategoryByIDForView)
 
 		// image
 		clientV1.GET("/image/get", util.GetUploadedFile)
@@ -110,6 +110,7 @@ func NewService() *Service {
 		// user
 		adminV1.GET("/get-all-user", user.GetAllUser)
 		adminV1.GET("/get-role", user.GetUserByRole)
+		adminV1.GET("/get-role-edit", user.FindUserByRole)
 
 		// category
 		adminV1.POST("/category/create", category.CreateCategory)
