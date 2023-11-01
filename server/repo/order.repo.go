@@ -30,9 +30,9 @@ func (r *Repo) GetOrderByOrderDate(date time.Time) ([]model.Order, error) {
 	return order, nil
 }
 
-func (r *Repo) GetOrderByOrderDateAndTotalAmount(order_date time.Time, total_amount int32) ([]model.Order, error) {
+func (r *Repo) GetOrderByOrderDateAndTotalAmount(orderDate time.Time, totalAmount int32) ([]model.Order, error) {
 	var order []model.Order
-	if err := r.db.Where("order_date = ? and total_amount = ?", order_date, total_amount).Find(&order).Error; err != nil {
+	if err := r.db.Where("order_date = ? and total_amount = ?", orderDate, totalAmount).Find(&order).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return []model.Order{}, nil
 		}
@@ -40,9 +40,9 @@ func (r *Repo) GetOrderByOrderDateAndTotalAmount(order_date time.Time, total_amo
 	return order, nil
 }
 
-func (r *Repo) GetOrderByTotalAmount(total_amount int32) ([]model.Order, error) {
+func (r *Repo) GetOrderByTotalAmount(totalAmount int32) ([]model.Order, error) {
 	var order []model.Order
-	if err := r.db.Where("total_amount = ?", total_amount).Find(&order).Error; err != nil {
+	if err := r.db.Where("total_amount = ?", totalAmount).Find(&order).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return []model.Order{}, nil
 		}

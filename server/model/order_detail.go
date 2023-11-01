@@ -20,7 +20,3 @@ type OrderDetail struct {
 func (OrderDetail) TableName() string {
 	return "order_detail"
 }
-
-func (a *OrderDetail) IsSet() bool {
-	return a.OrderDetailID != 0
-}

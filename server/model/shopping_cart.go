@@ -22,7 +22,3 @@ type ShoppingCart struct {
 func (ShoppingCart) TableName() string {
 	return "shopping_cart"
 }
-
-func (a *ShoppingCart) IsSet() bool {
-	return a.ShoppingCartID != 0
-}

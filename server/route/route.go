@@ -116,6 +116,11 @@ func NewService() *Service {
 		adminV1.POST("/category/create", category.CreateCategory)
 		adminV1.PUT("/category/update", category.UpdateCategory)
 		adminV1.PUT("/category/delete", category.DeleteCategoryFirst)
+		adminV1.GET("/category/getid-edit/:category_id", category.GetCategoryByIDForEdit)
+		adminV1.GET("/category/getupdate-date/:update_date", category.GetCategoryByUpdateDateForEdit)
+		adminV1.GET("/category/get-enable/:enable", category.GetCategoryByEnableForEdit)
+		adminV1.DELETE("/category/delete", category.DeleteCategorySecond)
+		adminV1.PATCH("category/resolve", category.ResolveCategory)
 	}
 
 	return &s

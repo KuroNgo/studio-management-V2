@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// done
+// GetUserProfile done
 func (r *Repo) GetUserProfile(email string) (model.User, error) {
 	// GetUser là hàm lấy thông tin user
 	var user model.User
@@ -18,13 +18,13 @@ func (r *Repo) GetUserProfile(email string) (model.User, error) {
 		First(&user).Order("created_at ASC").
 		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return model.User{}, errors.New("Người dùng không tồn tại")
+			return model.User{}, errors.New("người dùng không tồn tại")
 		}
 	}
 	return user, nil
 }
 
-// Done
+// GetAllUser Done
 func (r *Repo) GetAllUser() ([]model.User, error) {
 	// GetAllUser là hàm lấy thông tin tất cả user
 	var users []model.User
@@ -40,7 +40,7 @@ func (r *Repo) GetAllUser() ([]model.User, error) {
 	return users, nil // Trả về danh sách người dùng và không có lỗi nếu thành công
 }
 
-// Done
+// CreateUser Done
 func (r *Repo) CreateUser(user model.User) (model.User, error) {
 	// CreateUser là hàm tạo mới user
 
@@ -54,7 +54,7 @@ func (r *Repo) CreateUser(user model.User) (model.User, error) {
 	return user, nil // Trả về thông tin người dùng và không có lỗi nếu thành công
 }
 
-// cập nhật user, nếu user chưa có sẽ thực hiện thêm
+// UpdateUserORInsert cập nhật user, nếu user chưa có sẽ thực hiện thêm
 func (r *Repo) UpdateUserORInsert(user *model.User) (model.User, error) {
 	if err := r.db.
 		Save(user).
@@ -65,7 +65,7 @@ func (r *Repo) UpdateUserORInsert(user *model.User) (model.User, error) {
 	return *user, nil
 }
 
-// cập nhật người dùng
+// UpdateUser cập nhật người dùng
 func (r *Repo) UpdateUser(currentUser *model.User) (*model.User, error) {
 	// UpdateUser là hàm cập nhật thông tin user
 	if err := r.db.
@@ -83,7 +83,7 @@ func (r *Repo) UpdateUser(currentUser *model.User) (*model.User, error) {
 func (r *Repo) DeactivateUser(userID uuid.UUID, currentUser model.User) error {
 	// Kiểm tra xem người thực hiện thao tác này có quyền (admin) hay không
 	if !middleware.CurrentUserIsAdmin(currentUser) {
-		return errors.New("Bạn không có quyền xóa người dùng.")
+		return errors.New("bạn không có quyền xóa người dùng")
 	}
 
 	// Đánh dấu người dùng có ID là userID là "bị vô hiệu hóa" trong cơ sở dữ liệu
@@ -125,7 +125,7 @@ func (r *Repo) DeleteUser(user *model.User) error {
 //	return nil
 //}
 
-// get id user
+// GetUserID get id user
 // login
 func (r *Repo) GetUserID(userID uuid.UUID) (*model.User, error) {
 	var user model.User
@@ -134,7 +134,7 @@ func (r *Repo) GetUserID(userID uuid.UUID) (*model.User, error) {
 		First(&user).
 		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return &model.User{}, errors.New("User not found")
+			return &model.User{}, errors.New("user not found")
 		}
 		return &model.User{}, err
 	}
@@ -151,7 +151,7 @@ func (r *Repo) FindUserByID(uuid string) (*model.User, error) {
 	return &user, nil
 }
 
-// done
+// GetUserEmail done
 // get email
 func (r *Repo) GetUserEmail(email string) (*model.User, error) {
 	// GetUserEmail là hàm lấy thông tin user
@@ -161,13 +161,13 @@ func (r *Repo) GetUserEmail(email string) (*model.User, error) {
 		First(&user).
 		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return &model.User{}, errors.New("Email not found!")
+			return &model.User{}, errors.New("email not found")
 		}
 	}
 	return &user, nil
 }
 
-// done
+// GetUserByUsername done
 // get username
 func (r *Repo) GetUserByUsername(username string) (*model.User, error) {
 	// GetUserByUsername là hàm lấy thông tin user
@@ -177,13 +177,13 @@ func (r *Repo) GetUserByUsername(username string) (*model.User, error) {
 		First(&user).
 		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return &model.User{}, errors.New("Username not found!")
+			return &model.User{}, errors.New("username not found")
 		}
 	}
 	return &user, nil
 }
 
-// get role
+// GetUserRole get role
 func (r *Repo) GetUserRole(role string) (*[]model.User, error) {
 	// GetUserRole là hàm lấy thông tin user
 	var user []model.User
@@ -192,13 +192,13 @@ func (r *Repo) GetUserRole(role string) (*[]model.User, error) {
 		Find(&user).
 		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return &[]model.User{}, errors.New("role not found!")
+			return &[]model.User{}, errors.New("role not found")
 		}
 	}
 	return &user, nil
 }
 
-// get address
+// GetUserAddress get address
 func (r *Repo) GetUserAddress(address string) (*[]model.User, error) {
 	// GetUserAddress là hàm lấy thông tin user
 	var user []model.User
@@ -211,12 +211,12 @@ func (r *Repo) GetUserAddress(address string) (*[]model.User, error) {
 	return &user, nil
 }
 
-// get create user
-func (r *Repo) GetUserCreatedAt(created_at time.Time) (*[]model.User, error) {
+// GetUserCreatedAt get create user
+func (r *Repo) GetUserCreatedAt(createdAt time.Time) (*[]model.User, error) {
 	// GetUserCreateUser là hàm lấy thông tin user
 	var user []model.User
 	if err := r.db.
-		Where("created_at = ?", created_at).
+		Where("created_at = ?", createdAt).
 		Find(&user).
 		Error; err != nil {
 		return nil, err
@@ -246,7 +246,7 @@ func (r *Repo) GetUserCreatedAtAboutTime2(lastWeek time.Time, today time.Time) (
 	return &user, nil
 }
 
-// get update user
+// GetUserUpdateUser get update user
 func (r *Repo) GetUserUpdateUser(lastWeek time.Time, today time.Time) (*[]model.User, error) {
 	// GetUserUpdateUser là hàm lấy thông tin user
 	var user []model.User
@@ -259,17 +259,17 @@ func (r *Repo) GetUserUpdateUser(lastWeek time.Time, today time.Time) (*[]model.
 	return &user, nil
 }
 
-// get delete user
-func (r *Repo) GetUserDeleteUser(delete_user int) (model.User, error) {
+// GetUserDeleteUser get delete user
+func (r *Repo) GetUserDeleteUser(deleteUser int) (model.User, error) {
 	// GetUserDeleteUser là hàm lấy thông tin user
 	var user model.User
 	r.db.
-		Where("deleted_at = ?", delete_user).
+		Where("deleted_at = ?", deleteUser).
 		First(&user)
 	return user, nil
 }
 
-// get phone
+// GetUserPhone get phone
 func (r *Repo) GetUserPhone(phone string) (model.User, error) {
 	// GetUserPhone là hàm lấy thông tin user
 	var user model.User

@@ -26,7 +26,3 @@ type ActivityLog struct {
 func (ActivityLog) TableName() string {
 	return "activity_log"
 }
-
-func (a *ActivityLog) IsSet() bool {
-	return a.LogID != 0
-}

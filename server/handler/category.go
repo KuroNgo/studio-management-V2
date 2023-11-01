@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -64,6 +65,40 @@ func (c *Category) GetCategoryByIDForEdit(ctx *gin.Context) {
 		"status": "success",
 		"data":   category,
 	})
+}
+
+func (c *Category) GetCategoryByUpdateDateForEdit(ctx *gin.Context) {
+	updateDateParam := ctx.Param("update_date")
+	updateDateParam2, err := time.Parse("02-01-2006", updateDateParam)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid 'date' parameter"})
+		return
+	}
+	categories, err := c.categoryService.GetCategoryCreateByUpdateDate(updateDateParam2)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Trả về mảng dữ liệu dưới dạng JSON
+	ctx.JSON(http.StatusOK, categories)
+}
+
+// GetCategoryByEnableForEdit lấy category theo enable
+func (c *Category) GetCategoryByEnableForEdit(ctx *gin.Context) {
+	enableParam := ctx.Param("enable")
+	enable, err := strconv.Atoi(enableParam)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid 'enable' parameter"})
+		return
+	}
+	categories, err := c.categoryService.GetCategoryByEnable(enable)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, categories)
 }
 
 // CreateCategory Tạo mới category

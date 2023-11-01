@@ -16,7 +16,3 @@ type PaymentInformation struct {
 func (PaymentInformation) TableName() string {
 	return "payment_information"
 }
-
-func (a *PaymentInformation) IsSet() bool {
-	return a.PaymentID != 0
-}

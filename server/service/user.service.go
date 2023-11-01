@@ -22,7 +22,7 @@ type IUser interface {
 	GetUserByUsername(username string) (*model.User, error)
 	GetUserByRole(role string) (*[]model.User, error)
 	GetUserByAddress(address string) (*[]model.User, error)
-	GetUserCreateUser(created_at time.Time) (*[]model.User, error)
+	GetUserCreateUser(createdAt time.Time) (*[]model.User, error)
 	LoginUserByEmail(UserRequest model.SignInInput) (userResponse *model.User, err error)
 	LoginUserByUsername(UserRequest model.UserRequest) (UserResponse *model.User, err error)
 	UpdateUser(currentUser model.User) (*model.User, error)
@@ -90,15 +90,15 @@ func (u *User) GetUserByAddress(address string) (*[]model.User, error) {
 	return user, nil
 }
 
-func (u *User) GetUserCreateUser(created_at time.Time) (*[]model.User, error) {
-	user, err := u.repo.GetUserCreatedAt(created_at)
+func (u *User) GetUserCreateUser(createdAt time.Time) (*[]model.User, error) {
+	user, err := u.repo.GetUserCreatedAt(createdAt)
 	if err != nil {
 		return &[]model.User{}, nil
 	}
 	return user, nil
 }
 
-// Đăng nhập theo email và password
+// LoginUserByEmail Đăng nhập theo email và password
 func (u *User) LoginUserByEmail(UserRequest model.SignInInput) (userResponse *model.User, err error) {
 	user, err := u.repo.GetUserEmail(UserRequest.Email)
 	if err != nil {
@@ -107,13 +107,13 @@ func (u *User) LoginUserByEmail(UserRequest model.SignInInput) (userResponse *mo
 
 	// Kiểm tra xem mật khẩu đã nhập có đúng với mật khẩu đã hash trong cơ sở dữ liệu không
 	if err := util.VerifyPassword(user.Password, UserRequest.Password); err != nil {
-		return &model.User{}, errors.New("Tài khoản hoặc mật khẩu không đúng !")
+		return &model.User{}, errors.New("tài khoản hoặc mật khẩu không đúng ")
 	}
 
 	return user, nil
 }
 
-// Đăng nhập theo username
+// LoginUserByUsername Đăng nhập theo username
 func (u *User) LoginUserByUsername(UserRequest model.UserRequest) (UserResponse *model.User, err error) {
 	user, err := u.repo.GetUserByUsername(UserRequest.Username)
 	if err != nil {
@@ -122,7 +122,7 @@ func (u *User) LoginUserByUsername(UserRequest model.UserRequest) (UserResponse 
 
 	// Kiểm tra xem mật khẩu đã nhập có đúng với mật khẩu đã hash trong cơ sở dữ liệu không
 	if err := util.VerifyPassword(user.Password, UserRequest.Password); err != nil {
-		return &model.User{}, errors.New("Tài khoản hoặc mật khẩu không đúng !")
+		return &model.User{}, errors.New("tài khoản hoặc mật khẩu không đúng ")
 	}
 	return user, nil
 }
@@ -137,7 +137,7 @@ func (u *User) UpdateUser(currentUser model.User) (*model.User, error) {
 	return user, nil
 }
 
-// Đăng ký tài khoản
+// RegisterUser Đăng ký tài khoản
 func (u *User) RegisterUser(userRegister model.User) (userResponse model.User, err error) {
 	userRequest := model.User{
 		FullName:   userRegister.FullName,

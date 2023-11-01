@@ -17,7 +17,3 @@ type LoginSession struct {
 func (LoginSession) TableName() string {
 	return "login_session"
 }
-
-func (a *LoginSession) IsSet() bool {
-	return a.SessionID != 0
-}

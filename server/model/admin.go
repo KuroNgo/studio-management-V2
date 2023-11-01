@@ -12,7 +12,7 @@ type Admin struct {
 	Phone     string    `json:"phone"`
 }
 
-// Đặt tên trong database là admin
+// TableName Đặt tên trong database là admin
 func (Admin) TableName() string {
 	return "admin"
 }

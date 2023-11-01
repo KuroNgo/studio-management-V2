@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// Lấy tất cả bình luận trong một bài viết(blog)
+// GetAllReviewInOneProduct Lấy tất cả bình luận trong một bài viết(blog)
 func (r *Repo) GetAllReviewInOneProduct(id uuid.UUID) ([]model.Reviews, error) {
 	var review []model.Reviews
 	if err := r.db.Where("product_id = ?", id.String()).Find(review).Error; err != nil {
@@ -15,7 +15,7 @@ func (r *Repo) GetAllReviewInOneProduct(id uuid.UUID) ([]model.Reviews, error) {
 	return review, nil
 }
 
-// Lấy thông tin review bằng ID
+// GetReviewByID Lấy thông tin review bằng ID
 func (r *Repo) GetReviewByID(id int32) (model.Reviews, error) {
 	var review model.Reviews
 	if err := r.db.Model(&review).Where("review_id = ?", id).First(review).Error; err != nil {
@@ -24,7 +24,7 @@ func (r *Repo) GetReviewByID(id int32) (model.Reviews, error) {
 	return review, nil
 }
 
-// Lấy thông tin review theo mã sản phẩm
+// GetReviewByProductID Lấy thông tin review theo mã sản phẩm
 func (r *Repo) GetReviewByProductID(id uuid.UUID) (model.Reviews, error) {
 	var review model.Reviews
 	if err := r.db.Model(&review).Where("product_id = ?", id.String()).First(review).Error; err != nil {

@@ -5,7 +5,7 @@ import (
 	"unicode"
 )
 
-// Không trả về json
+// EmailValid Không trả về json
 func EmailValid(email string) bool {
 	// Biểu thức chính quy kiểm tra địa chỉ email theo định dạng thông thường
 	emailRegex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
@@ -20,7 +20,7 @@ func PhoneValid(phone string) bool {
 	return regex.MatchString(phone)
 }
 
-// Không trả về Json
+// PasswordStrong Không trả về Json
 func PasswordStrong(password string) bool {
 	if len(password) < 8 {
 		return false

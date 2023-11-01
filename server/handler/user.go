@@ -187,7 +187,7 @@ func (u *User) UpdateUser(ctx *gin.Context) {
 	})
 }
 
-// Login godoc
+// LoginWithUserName Login godoc
 // @Summary Đăng nhập người dùng
 // @Description Thực hiện chức năng đăng nhập bằng username
 // @Accept json
@@ -211,27 +211,27 @@ func (u *User) LoginWithUserName(ctx *gin.Context) {
 	cfg, _ := conf.LoadConfig(".")
 
 	// Generate token
-	access_token, err := util.CreateToken(cfg.AccessTokenExpiresIn, data.ID, cfg.AccessTokenPrivateKey)
+	accessToken, err := util.CreateToken(cfg.AccessTokenExpiresIn, data.ID, cfg.AccessTokenPrivateKey)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
 		return
 	}
 
-	refresh_token, err := util.CreateToken(cfg.RefreshTokenExpiresIn, data.ID, cfg.RefreshTokenPrivateKey)
+	refreshToken, err := util.CreateToken(cfg.RefreshTokenExpiresIn, data.ID, cfg.RefreshTokenPrivateKey)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
 		return
 	}
 
-	ctx.SetCookie("access_token", access_token, cfg.AccessTokenMaxAge*60, "/", "localhost", false, true)
-	ctx.SetCookie("refresh_token", refresh_token, cfg.RefreshTokenMaxAge*60, "/", "localhost", false, true)
+	ctx.SetCookie("access_token", accessToken, cfg.AccessTokenMaxAge*60, "/", "localhost", false, true)
+	ctx.SetCookie("refresh_token", refreshToken, cfg.RefreshTokenMaxAge*60, "/", "localhost", false, true)
 	ctx.SetCookie("logged_in", "true", cfg.AccessTokenMaxAge*60, "/", "localhost", false, false)
 
 	// Trả về thông báo login thành công
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "message": "Login successful", "user": data})
 }
 
-// Login godoc
+// LoginWithEmail Login godoc
 // @Summary Đăng nhập người dùng
 // @Description Thực hiện chức năng đăng nhập bằng email
 // @Accept json
@@ -256,27 +256,27 @@ func (u *User) LoginWithEmail(ctx *gin.Context) {
 	cfg, _ := conf.LoadConfig(".")
 
 	// Generate token
-	access_token, err := util.CreateToken(cfg.AccessTokenExpiresIn, data.ID, cfg.AccessTokenPrivateKey)
+	accessToken, err := util.CreateToken(cfg.AccessTokenExpiresIn, data.ID, cfg.AccessTokenPrivateKey)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
 		return
 	}
 
-	refresh_token, err := util.CreateToken(cfg.RefreshTokenExpiresIn, data.ID, cfg.RefreshTokenPrivateKey)
+	refreshToken, err := util.CreateToken(cfg.RefreshTokenExpiresIn, data.ID, cfg.RefreshTokenPrivateKey)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
 		return
 	}
 
-	ctx.SetCookie("access_token", access_token, cfg.AccessTokenMaxAge*60, "/", "localhost", false, true)
-	ctx.SetCookie("refresh_token", refresh_token, cfg.RefreshTokenMaxAge*60, "/", "localhost", false, true)
+	ctx.SetCookie("access_token", accessToken, cfg.AccessTokenMaxAge*60, "/", "localhost", false, true)
+	ctx.SetCookie("refresh_token", refreshToken, cfg.RefreshTokenMaxAge*60, "/", "localhost", false, true)
 	ctx.SetCookie("logged_in", "true", cfg.AccessTokenMaxAge*60, "/", "localhost", false, false)
 
 	// Trả về thông báo login thành công
-	ctx.JSON(http.StatusOK, gin.H{"status": "success", "access_token": access_token})
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "access_token": accessToken})
 }
 
-// Đăng ký người dùng godoc
+// Register Đăng ký người dùng godoc
 // @Summary Đăng ký người dùng trên trang web
 // @Description Hiển thị form đăng ký cho người dùng điền thông tin
 // @Accept json
@@ -360,18 +360,18 @@ func (u *User) RefreshAccessToken(ctx *gin.Context) {
 		return
 	}
 
-	access_token, err := util.CreateToken(cfg.AccessTokenExpiresIn, result.ID, cfg.AccessTokenPrivateKey)
+	accessToken, err := util.CreateToken(cfg.AccessTokenExpiresIn, result.ID, cfg.AccessTokenPrivateKey)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": err.Error()})
 		return
 	}
 
-	ctx.SetCookie("access_token", access_token, cfg.AccessTokenMaxAge*60, "/", "localhost", false, true)
+	ctx.SetCookie("access_token", accessToken, cfg.AccessTokenMaxAge*60, "/", "localhost", false, true)
 	ctx.SetCookie("logged_in", "true", cfg.AccessTokenMaxAge*60, "/", "localhost", false, false)
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"status":       "success",
-		"access_token": access_token,
+		"access_token": accessToken,
 	})
 }
 

@@ -8,7 +8,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// Done
+// HashPassword Done
 func HashPassword(password string) (string, error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 
@@ -22,7 +22,7 @@ func VerifyPassword(hashedPassword string, candidatePassword string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(candidatePassword))
 }
 
-// để tránh bị SQL injection
+// Santize để tránh bị SQL injection
 // SQL injection là một loại tấn công về cơ sở dữ liệu
 // Hacker sẽ gửi một loạt các thông tin giả về cơ sở dữ liệu nhằm hủy hoại môi trường server
 func Santize(data string) string {

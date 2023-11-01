@@ -24,7 +24,3 @@ type Reviews struct {
 func (Reviews) TableName() string {
 	return "reviews"
 }
-
-func (a *Reviews) IsSet() bool {
-	return a.ReviewID != 0
-}
