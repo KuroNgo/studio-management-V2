@@ -18,7 +18,7 @@ type IProduct interface {
 	GetProductByWhoUpdateForView(person string) ([]model.Product, error)
 	GetProductByUpdateDateForView(date time.Time) ([]model.Product, error)
 	GetAllProductForView() ([]model.Product, error)
-	CreateProduct(product model.Product) error
+	CreateProduct(product model.Product) (model.Product, error)
 	UpdateProduct(product model.Product) error
 	UpdateEnable(enable int) error
 	Disable() error
@@ -78,12 +78,12 @@ func (p *Product) GetAllProductForView() ([]model.Product, error) {
 	return product, err
 }
 
-func (p *Product) CreateProduct(product model.Product) error {
-	result := p.repo.CreateProduct(&product)
-	if result != nil {
-		return result
+func (p *Product) CreateProduct(product model.Product) (model.Product, error) {
+	data, err := p.repo.CreateProduct(product)
+	if err != nil {
+		return model.Product{}, err
 	}
-	return nil
+	return data, nil
 }
 
 func (p *Product) UpdateProduct(product model.Product) error {

@@ -90,7 +90,7 @@ type IRepo interface {
 	GetProductByWhoUpdate(person string) ([]model.Product, error)
 	GetProductByUpdateDate(date time.Time) ([]model.Product, error)
 	GetAllProduct() ([]model.Product, error)
-	CreateProduct(product *model.Product) error
+	CreateProduct(product model.Product) (model.Product, error)
 	UpdateProduct(product *model.Product) error
 	UpdateEnable(enable int) error
 	Disable() error

@@ -88,14 +88,14 @@ func (r *Repo) GetAllProduct() ([]model.Product, error) {
 }
 
 // CreateProduct Tạo mới category
-func (r *Repo) CreateProduct(product *model.Product) error {
+func (r *Repo) CreateProduct(product model.Product) (model.Product, error) {
 	// CreateCategory là hàm tạo mới category
 	if err := r.db.
 		Create(product).
 		Error; err != nil {
-		return err
+		return model.Product{}, err
 	}
-	return nil
+	return product, nil
 }
 
 func (r *Repo) UpdateProduct(product *model.Product) error {
