@@ -27,10 +27,16 @@ func NewCategory(service service.ICategory, user service.IUser) *Category {
 func (c *Category) GetAllCategoriesForView(ctx *gin.Context) {
 	categories, err := c.categoryService.GetAllCategories()
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "error",
+			"message": err.Error(),
+		})
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"category": categories}})
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   gin.H{"category": categories},
+	})
 }
 
 // GetCategoryByIDForView GetCategoryByID tìm category theo id nếu để xem
@@ -38,7 +44,7 @@ func (c *Category) GetCategoryByIDForView(ctx *gin.Context) {
 	categoryID := ctx.Param("category_id")
 	category, err := c.categoryService.GetCategoryByID(categoryID)
 	if err != nil {
-		ctx.JSON(http.StatusNotFound, gin.H{
+		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "fail",
 			"message": err.Error(),
 		})
@@ -55,7 +61,7 @@ func (c *Category) GetCategoryByIDForEdit(ctx *gin.Context) {
 	categoryID := ctx.Param("category_id")
 	category, err := c.categoryService.GetCategoryByID2(categoryID)
 	if err != nil {
-		ctx.JSON(http.StatusNotFound, gin.H{
+		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "fail",
 			"message": err.Error(),
 		})
@@ -71,12 +77,16 @@ func (c *Category) GetCategoryByUpdateDateForEdit(ctx *gin.Context) {
 	updateDateParam := ctx.Param("update_date")
 	updateDateParam2, err := time.Parse("02-01-2006", updateDateParam)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid 'date' parameter"})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": "Invalid 'date' parameter",
+		})
 		return
 	}
 	categories, err := c.categoryService.GetCategoryCreateByUpdateDate(updateDateParam2)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
 		return
 	}
 
@@ -89,7 +99,9 @@ func (c *Category) GetCategoryByEnableForEdit(ctx *gin.Context) {
 	enableParam := ctx.Param("enable")
 	enable, err := strconv.Atoi(enableParam)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid 'enable' parameter"})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": "Invalid 'enable' parameter",
+		})
 		return
 	}
 	categories, err := c.categoryService.GetCategoryByEnable(enable)

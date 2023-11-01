@@ -20,15 +20,6 @@ info:
   title: Cỏ Studio API
   version: "1.0"
 paths:
-  /api/v1/get/user:
-    get:
-      consumes:
-      - application/json
-      description: Nhận thông tin chi tiết của người dùng hiện được xác thực
-      produces:
-      - application/json
-      responses: {}
-      summary: Thực hiện tìm kiếm thông tin người dùng theo ID
   /api/v1/login/email:
     post:
       consumes:
@@ -56,15 +47,6 @@ paths:
       - application/json
       responses: {}
       summary: Đăng ký người dùng trên trang web
-  /api/v1/update/user:
-    put:
-      consumes:
-      - application/json
-      description: Cập nhật thông tin người dùng
-      produces:
-      - application/json
-      responses: {}
-      summary: Cập nhật thông tin người dùng
 securityDefinitions:
   BasicAuth:
     type: basic

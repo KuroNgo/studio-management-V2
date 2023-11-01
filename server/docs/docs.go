@@ -12,31 +12,18 @@ const docTemplate = `{
         "termsOfService": "http://localhost:8000",
         "contact": {
             "name": "Ngô Hoài Phong",
-            "url": "https://www.swagger.io/support",
+            "url": "http://www.swagger.io/support",
             "email": "hoaiphong01012002@gmai.com"
         },
         "license": {
             "name": "Apache 2.0",
-            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/get/user": {
-            "get": {
-                "description": "Nhận thông tin chi tiết của người dùng hiện được xác thực",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Thực hiện tìm kiếm thông tin người dùng theo ID",
-                "responses": {}
-            }
-        },
         "/api/v1/login/email": {
             "post": {
                 "description": "Thực hiện chức năng đăng nhập bằng email",
@@ -73,19 +60,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "summary": "Đăng ký người dùng trên trang web",
-                "responses": {}
-            }
-        },
-        "/api/v1/update/user": {
-            "put": {
-                "description": "Cập nhật thông tin người dùng",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Cập nhật thông tin người dùng",
                 "responses": {}
             }
         }

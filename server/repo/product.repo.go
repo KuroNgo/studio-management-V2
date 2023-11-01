@@ -2,7 +2,6 @@ package repo
 
 import (
 	"errors"
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 	"time"
 
@@ -10,10 +9,10 @@ import (
 )
 
 // GetProductsByCategory Hiển thị thông tin sản phẩm
-func (r *Repo) GetProductsByCategory(categoryID uuid.UUID) ([]model.Product, error) {
+func (r *Repo) GetProductsByCategory(categoryID string) ([]model.Product, error) {
 	var products []model.Product
 	if err := r.db.
-		Where("category_id = ?", categoryID.String()).
+		Where("category_id = ?", categoryID).
 		Find(&products).
 		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -116,7 +115,10 @@ func (r *Repo) UpdateEnable(enable int) error {
 		Error; err != nil {
 		return err
 	}
-	if _enable := r.db.Where("enable = 0").Update("is_delete = ?", 1).Error; _enable != nil {
+	if _enable := r.db.
+		Where("enable = 0").
+		Update("is_delete = ?", 1).
+		Error; _enable != nil {
 		return _enable
 	}
 	return nil

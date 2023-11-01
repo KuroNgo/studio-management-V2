@@ -35,6 +35,8 @@ func NewService() *Service {
 	categoryService := service.NewCategory(repository)
 	category := handler.NewCategory(categoryService, userService)
 
+	productService := service.NewProduct(repository)
+	product := handler.NewProduct(productService, userService)
 	// giải quyết về router
 	route := s.Router
 	// add middleware
@@ -87,6 +89,9 @@ func NewService() *Service {
 		// category
 		clientV1.GET("/category/get-all", category.GetAllCategoriesForView)
 		clientV1.GET("/category/get/:category_id", category.GetCategoryByIDForView)
+
+		// product
+		clientV1.GET("/product-getall", product.GetAllProductForView)
 
 		// image
 		clientV1.GET("/image/get", util.GetUploadedFile)

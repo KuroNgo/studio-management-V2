@@ -18,18 +18,21 @@ func NewRepo(db *gorm.DB) *Repo {
 }
 
 type IRepo interface {
-	// GetActivityLog activity_log
-	GetActivityLog(ctx context.Context, log *model.ActivityLog) error
-	ViewHistoryUserActitvity(ctx context.Context, log *[]model.ActivityLog) error
-	CreateActivityLog(ctx context.Context, log *model.ActivityLog) error
-	UpdateActivityLog(ctx context.Context, log *model.ActivityLog) error
-	DeleteActivityLog(ctx context.Context, log *model.ActivityLog) error
+	//  activity_log
 
-	// GetAdmin admin
+	GetActivityLog(log *model.ActivityLog) error
+	ViewHistoryUserActitvity(log *[]model.ActivityLog) error
+	CreateActivityLog(log *model.ActivityLog) error
+	UpdateActivityLog(log *model.ActivityLog) error
+	DeleteActivityLog(log *model.ActivityLog) error
+
+	// admin
+
 	GetAdmin(ctx context.Context, admin *model.Admin) error
 	UpdateAdmin(ctx context.Context, admin *model.Admin) error
 
-	// GetOrderByID order
+	// order
+
 	GetOrderByID(id int) (model.Order, error)
 	GetOrderByOrderDate(date time.Time) ([]model.Order, error)
 	GetOrderByOrderDateAndTotalAmount(orderDate time.Time, totalAmount int32) ([]model.Order, error)
@@ -43,7 +46,8 @@ type IRepo interface {
 	DeleteOrder(order *model.Order) error
 	RemoveOrder(order *model.Order) error
 
-	// GetUserProfile User
+	//  User
+
 	GetUserProfile(email string) (model.User, error)
 	GetAllUser() ([]model.User, error)
 	GetUserEmail(email string) (*model.User, error)
@@ -64,7 +68,8 @@ type IRepo interface {
 	DeleteUser(user *model.User) error
 	FindUserByID(uuid string) (*model.User, error)
 
-	// GetCategoryByID category
+	// category
+
 	GetCategoryByID(uuid string) (model.Category, error)
 	GetCategoryByID2(uuid string) (*model.Category, error)
 	GetCategoryByName(name string) (*[]model.Category, error)
@@ -76,4 +81,19 @@ type IRepo interface {
 	EnableCategory(category *model.Category) error
 	DisableCategory(category *model.Category) error
 	DeleteCategory(category *model.Category) error
+
+	// product
+
+	GetProductsByCategory(categoryID string) ([]model.Product, error)
+	GetProductByName(name string) ([]model.Product, error)
+	GetProductByPrice(minPrice int32, maxPrice int32) ([]model.Product, error)
+	GetProductByWhoUpdate(person string) ([]model.Product, error)
+	GetProductByUpdateDate(date time.Time) ([]model.Product, error)
+	GetAllProduct() ([]model.Product, error)
+	CreateProduct(product *model.Product) error
+	UpdateProduct(product *model.Product) error
+	UpdateEnable(enable int) error
+	Disable() error
+	Enable() error
+	DeleteProduct(product *model.Product) error
 }
