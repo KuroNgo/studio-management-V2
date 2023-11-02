@@ -11,7 +11,7 @@ type Product struct {
 	ProductName string    `gorm:"unique" json:"product_name"`
 	Price       int       `json:"price"`
 	Description string    `json:"description"`
-	ImageURL    string    `json:"image_url"`
+	AvatarURL   string    `json:"image_url"`
 	Enable      int       `json:"enable"`
 	IsUpdate    int       `json:"is_update"`
 	WhoUpdate   string    `json:"who_update"`

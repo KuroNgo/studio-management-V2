@@ -3,9 +3,11 @@ package handler
 import (
 	"co-studio-e-commerce/model"
 	"co-studio-e-commerce/service"
+	"co-studio-e-commerce/util"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"path/filepath"
 	"time"
 )
 
@@ -145,9 +147,35 @@ func (p *Product) GetProductByUpdateDateForView(ctx *gin.Context) {
 	})
 }
 
-// CreateProduct Chưa khởi tạo việc láy URL của image
+// CreateProduct đã khởi tạo nhưng chưa thực hiện test
 func (p *Product) CreateProduct(ctx *gin.Context) {
 	currentUser := ctx.MustGet("currentUser")
+
+	// Thực hiện lấy thông tin file
+	file, err := ctx.FormFile("file")
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	if !util.IsImageFile(file.Filename) {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": "This is not an image",
+		})
+	}
+
+	filePath := filepath.Join("uploads", file.Filename)
+	if err := ctx.SaveUploadedFile(file, filePath); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to save file",
+		})
+		return
+	}
+
 	var product model.Product
 	if err := ctx.ShouldBindJSON(&product); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -166,6 +194,8 @@ func (p *Product) CreateProduct(ctx *gin.Context) {
 		})
 		return
 	}
+
+	product.AvatarURL = filePath
 	product.WhoUpdate = userName.WhoUpdates
 	data, err := p.productService.CreateProduct(product)
 	if err != nil {
@@ -181,7 +211,7 @@ func (p *Product) CreateProduct(ctx *gin.Context) {
 	})
 }
 
-// UpdateProduct Chưa khởi tạo việc láy URL của image
+// UpdateProduct Đã khởi tạo nhưng chưa test
 func (p *Product) UpdateProduct(ctx *gin.Context) {
 	currentUser := ctx.MustGet("currentUser")
 	var product model.Product
@@ -192,6 +222,31 @@ func (p *Product) UpdateProduct(ctx *gin.Context) {
 		})
 		return
 	}
+
+	file, err := ctx.FormFile("file")
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	if !util.IsImageFile(file.Filename) {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": "This is not an image",
+		})
+	}
+
+	filePath := filepath.Join("uploads", file.Filename)
+	if err := ctx.SaveUploadedFile(file, filePath); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to save file",
+		})
+		return
+	}
+
 	//Thực hiện lấy thông tin người dùng
 	userName, err := p.userService.FindUserByID(fmt.Sprint(currentUser))
 	if err != nil {
@@ -206,7 +261,7 @@ func (p *Product) UpdateProduct(ctx *gin.Context) {
 		ProductName: product.ProductName,
 		Price:       product.Price,
 		Description: product.Description,
-		ImageURL:    product.ImageURL,
+		AvatarURL:   filePath,
 		Enable:      product.Enable,
 		IsUpdate:    1,
 		WhoUpdate:   userName.WhoUpdates,
