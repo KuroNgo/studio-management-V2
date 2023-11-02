@@ -166,6 +166,7 @@ func (p *Product) CreateProduct(ctx *gin.Context) {
 			"status":  "fail",
 			"message": "This is not an image",
 		})
+		return
 	}
 
 	filePath := filepath.Join("uploads", file.Filename)
@@ -205,6 +206,7 @@ func (p *Product) CreateProduct(ctx *gin.Context) {
 		})
 		return
 	}
+
 	ctx.JSON(http.StatusOK, gin.H{
 		"status": "success",
 		"data":   data,
