@@ -32,6 +32,12 @@ Tech Stack:
 ## DevOps
 Member: Ngo Hoai Phong
 
+## Test
+Member: Ngo Hoai Phong (kurodev) 
+
+- OWASP for test security
+- Apache Jmeter for test server
+- Postman for test API
 ## Mobile
 Tech Stack:
 - VueJS Ionic
