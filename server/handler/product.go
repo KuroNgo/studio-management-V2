@@ -107,6 +107,7 @@ func (p *Product) GetProductByWhoUpdateForView(ctx *gin.Context) {
 		})
 		return
 	}
+
 	product, err := p.productService.GetProductByWhoUpdateForView(whoUpdate)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -144,6 +145,7 @@ func (p *Product) GetProductByUpdateDateForView(ctx *gin.Context) {
 	})
 }
 
+// CreateProduct Chưa khởi tạo việc láy URL của image
 func (p *Product) CreateProduct(ctx *gin.Context) {
 	currentUser := ctx.MustGet("currentUser")
 	var product model.Product
@@ -176,5 +178,106 @@ func (p *Product) CreateProduct(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"status": "success",
 		"data":   data,
+	})
+}
+
+// UpdateProduct Chưa khởi tạo việc láy URL của image
+func (p *Product) UpdateProduct(ctx *gin.Context) {
+	currentUser := ctx.MustGet("currentUser")
+	var product model.Product
+	if err := ctx.ShouldBindJSON(&product); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+		return
+	}
+	//Thực hiện lấy thông tin người dùng
+	userName, err := p.userService.FindUserByID(fmt.Sprint(currentUser))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	data := model.Product{
+		ProductName: product.ProductName,
+		Price:       product.Price,
+		Description: product.Description,
+		ImageURL:    product.ImageURL,
+		Enable:      product.Enable,
+		IsUpdate:    1,
+		WhoUpdate:   userName.WhoUpdates,
+		UpdateDate:  time.Now(),
+		IsDelete:    1,
+		CategoryID:  product.CategoryID,
+	}
+
+	result := p.productService.UpdateProduct(data)
+	if result != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+	})
+}
+
+func (p *Product) UpdateEnable(ctx *gin.Context) {
+	var enable int
+	if err := ctx.ShouldBindJSON(enable); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
+	}
+
+	result := p.productService.UpdateEnable(enable)
+	if result != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": result.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+	})
+}
+
+func (p *Product) Disable(ctx *gin.Context) {
+	result := p.productService.Disable()
+	if result != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": result.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+	})
+}
+
+func (p *Product) Enable(ctx *gin.Context) {
+	result := p.productService.Enable()
+	if result != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": result.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
 	})
 }
