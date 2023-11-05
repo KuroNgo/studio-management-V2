@@ -9,76 +9,206 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "http://localhost:8000",
         "contact": {
             "name": "Ngô Hoài Phong",
             "url": "http://www.swagger.io/support",
             "email": "hoaiphong01012002@gmai.com"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/login/email": {
+        "/client/login/email": {
             "post": {
-                "description": "Thực hiện chức năng đăng nhập bằng email",
+                "description": "login user item",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Đăng nhập người dùng",
+                "tags": [
+                    "users"
+                ],
+                "summary": "login user",
+                "parameters": [
+                    {
+                        "description": "login user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.User"
+                        }
+                    }
+                ],
                 "responses": {}
             }
         },
-        "/api/v1/login/username": {
+        "/client/login/username": {
             "post": {
-                "description": "Thực hiện chức năng đăng nhập bằng username",
+                "description": "Create a new user item",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Đăng nhập người dùng",
+                "tags": [
+                    "users"
+                ],
+                "summary": "login user",
+                "parameters": [
+                    {
+                        "description": "login user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.User"
+                        }
+                    }
+                ],
                 "responses": {}
             }
         },
-        "/api/v1/register": {
-            "post": {
-                "description": "Hiển thị form đăng ký cho người dùng điền thông tin",
+        "/client/logout": {
+            "get": {
+                "description": "logout item",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Đăng ký người dùng trên trang web",
+                "tags": [
+                    "users"
+                ],
+                "summary": "logout user",
+                "responses": {}
+            }
+        },
+        "/client/refresh": {
+            "get": {
+                "description": "refresh token item",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "refresh token user",
+                "parameters": [
+                    {
+                        "description": "refresh token user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.User"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/client/register": {
+            "post": {
+                "description": "Create a new user item",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "register user",
+                "parameters": [
+                    {
+                        "description": "register user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.User"
+                        }
+                    }
+                ],
                 "responses": {}
             }
         }
     },
-    "securityDefinitions": {
-        "BasicAuth": {
-            "type": "basic"
+    "definitions": {
+        "model.User": {
+            "type": "object",
+            "properties": {
+                "avatarUser": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "enable": {
+                    "type": "integer"
+                },
+                "fullName": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Tên thuộc tính được đặt trong golang phải là ID nếu kiểu dữ liệu là uuid.UUID",
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "photo": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "provider": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "verified": {
+                    "type": "boolean"
+                },
+                "who_updates": {
+                    "type": "string"
+                }
+            }
         }
-    },
-    "externalDocs": {
-        "description": "OpenAPI",
-        "url": "https://swagger.io/resources/open-api/"
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8000",
+	Host:             "localhost:8000/",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Cỏ Studio API",

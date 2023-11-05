@@ -61,7 +61,7 @@ func NewService() *Service {
 	// option method to fix preflight request
 	route.OPTIONS("/*path", middleware.OptionMessage)
 
-	v1User := route.Group("api/user/v1")
+	v1User := route.Group("api/v1/user")
 	{
 
 		v1User.Use(
@@ -73,7 +73,7 @@ func NewService() *Service {
 
 	}
 
-	clientV1 := route.Group("api/client/v1")
+	clientV1 := route.Group("api/v1/client")
 	{
 		clientV1.Use(middleware.CORSMiddleware())
 		clientV1.Use(middleware.RateLimiter())
@@ -107,7 +107,7 @@ func NewService() *Service {
 	// Nhưng đối với nhân viên thì khác
 	// Cơ chế rate limit sẽ giới hạn đối với nhân viên
 	// Nhưng số lần gửi request giới hạn sẽ được tăng lên so với người dùng user
-	adminV1 := route.Group("api/admin/v1")
+	adminV1 := route.Group("api/v1/admin")
 	{
 		adminV1.Use(
 			middleware.CORSForDev(),

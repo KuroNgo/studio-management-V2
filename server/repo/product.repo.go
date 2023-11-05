@@ -39,7 +39,7 @@ func (r *Repo) GetProductByName(name string) ([]model.Product, error) {
 func (r *Repo) GetProductByPrice(minPrice int32, maxPrice int32) ([]model.Product, error) {
 	var products []model.Product
 	if err := r.db.
-		Where("price >= ? and price <= ?", minPrice, maxPrice).
+		Where("min_price >= ? and max_price <= ?", minPrice, maxPrice).
 		Find(&products).
 		Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {

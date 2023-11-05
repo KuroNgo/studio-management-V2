@@ -2,7 +2,6 @@ package model
 
 import (
 	"github.com/google/uuid"
-	"gorm.io/gorm"
 	"time"
 )
 
@@ -22,8 +21,9 @@ type Product struct {
 }
 
 type Image struct {
-	gorm.Model
+	ID          uuid.UUID
 	Name        string
+	ImageURL    string
 	Description string
 	Data        []byte
 }

@@ -187,12 +187,14 @@ func (u *User) UpdateUser(ctx *gin.Context) {
 	})
 }
 
-// LoginWithUserName Login godoc
-// @Summary Đăng nhập người dùng
-// @Description Thực hiện chức năng đăng nhập bằng username
+// LoginWithUserName LoginUser godoc
+// @Summary login user
+// @Description Create a new user item
+// @Tags users
 // @Accept json
 // @Produce json
-// @Router /api/v1/login/username [post]
+// @Param user body model.User true "login user"
+// @Router /client/login/username [post]
 func (u *User) LoginWithUserName(ctx *gin.Context) {
 	// Lấy thông tin từ request
 	userRequest := model.UserRequest{}
@@ -231,12 +233,14 @@ func (u *User) LoginWithUserName(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "message": "Login successful", "user": data})
 }
 
-// LoginWithEmail Login godoc
-// @Summary Đăng nhập người dùng
-// @Description Thực hiện chức năng đăng nhập bằng email
+// LoginWithEmail godoc
+// @Summary login user
+// @Description login user item
+// @Tags users
 // @Accept json
 // @Produce json
-// @Router /api/v1/login/email [post]
+// @Param user body model.User true "login user"
+// @Router /client/login/email [post]
 func (u *User) LoginWithEmail(ctx *gin.Context) {
 	//  Lấy thông tin từ request
 	userRequest := model.SignInInput{}
@@ -276,12 +280,14 @@ func (u *User) LoginWithEmail(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "access_token": accessToken})
 }
 
-// Register Đăng ký người dùng godoc
-// @Summary Đăng ký người dùng trên trang web
-// @Description Hiển thị form đăng ký cho người dùng điền thông tin
+// Register godoc
+// @Summary register user
+// @Description Create a new user item
+// @Tags users
 // @Accept json
 // @Produce json
-// @Router /api/v1/register [post]
+// @Param user body model.User true "register user"
+// @Router /client/register [post]
 func (u *User) Register(ctx *gin.Context) {
 	var user model.User
 	if err := ctx.ShouldBindJSON(&user); err != nil {
@@ -334,6 +340,14 @@ func (u *User) Register(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"user": userResponse}})
 }
 
+// RefreshAccessToken godoc
+// @Summary refresh token user
+// @Description refresh token item
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param user body model.User true "refresh token user"
+// @Router /client/refresh [get]
 func (u *User) RefreshAccessToken(ctx *gin.Context) {
 	message := "could not fresh access token"
 
@@ -375,6 +389,13 @@ func (u *User) RefreshAccessToken(ctx *gin.Context) {
 	})
 }
 
+// LogoutUser godoc
+// @Summary logout user
+// @Description logout item
+// @Tags users
+// @Accept json
+// @Produce json
+// @Router /client/logout [get]
 func (u *User) LogoutUser(ctx *gin.Context) {
 	ctx.SetCookie("access_token", "", -1, "/", "localhost", false, true)
 	ctx.SetCookie("refresh_token", "", -1, "/", "localhost", false, true)
