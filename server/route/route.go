@@ -37,8 +37,10 @@ func NewService() *Service {
 
 	productService := service.NewProduct(repository)
 	product := handler.NewProduct(productService, userService)
+
 	// giải quyết về router
 	route := s.Router
+
 	// add middleware
 	route.Use(middleware.CORSMiddleware())
 	route.Use(middleware.Recover())
@@ -130,6 +132,15 @@ func NewService() *Service {
 		// product
 		adminV1.GET("/product/get-all", product.GetAllProductForView)
 		adminV1.GET("/product/get-name", product.GetProductByNameForView)
+		adminV1.GET("/product/get-id", product.GetProductByCategoryIDForView)
+		adminV1.GET("/product/get-price", product.GetProductByPriceForView)
+		adminV1.GET("/product/get-who_update", product.GetProductByWhoUpdateForView)
+		adminV1.GET("/product/get-update_date", product.GetProductByUpdateDateForView)
+		adminV1.POST("/product/create", product.CreateProduct)
+		adminV1.PATCH("/product/update", product.UpdateProduct)
+		adminV1.PATCH("/product/update-enable", product.UpdateEnable)
+		adminV1.PATCH("/product/remove-first", product.Disable)
+		adminV1.PATCH("/product/enable", product.Enable)
 	}
 
 	return &s
