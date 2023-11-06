@@ -6,9 +6,9 @@ const routes = [
     path: '/',
     name: 'Trang chủ | Cỏ Studio',
     component: HomeViewVue,
-    meta:{
-      showHeaderFooter: true
-    }
+    meta: {
+      showHeaderFooter: true,
+    },
   },
 
   {
@@ -18,9 +18,9 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Client/AboutView.vue'),
-    meta:{
-      showHeaderFooter: true
-    }
+    meta: {
+      showHeaderFooter: true,
+    },
   },
 
   {
@@ -38,9 +38,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '../views/Client/Services/EVServiceView.vue'),
-        meta:{
-          showHeaderFooter: true
-        }
+        meta: {
+          showHeaderFooter: true,
+        },
       },
       {
         path: 'comercialservice',
@@ -49,9 +49,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '../views/Client/Services/ComercialServiceView.vue'),
-        meta:{
-          showHeaderFooter: true
-        }
+        meta: {
+          showHeaderFooter: true,
+        },
       },
       {
         path: 'flycamservice',
@@ -60,9 +60,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '../views/Client/Services/FlycamServiceView.vue'),
-        meta:{
-          showHeaderFooter: true
-        }
+        meta: {
+          showHeaderFooter: true,
+        },
       },
       {
         path: 'livestream',
@@ -71,9 +71,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '../views/Client/Services/LiveServiceView.vue'),
-        meta:{
-          showHeaderFooter: true
-        }
+        meta: {
+          showHeaderFooter: true,
+        },
       },
       {
         path: 'weddingservices',
@@ -82,11 +82,11 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '../views/Client/Services/WedServiceView.vue'),
-        meta:{
-          showHeaderFooter: true
-        }
+        meta: {
+          showHeaderFooter: true,
+        },
       },
-    ]
+    ],
   },
 
   {
@@ -96,9 +96,9 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Client/ContactView.vue'),
-    meta:{
-      showHeaderFooter: true
-    }
+    meta: {
+      showHeaderFooter: true,
+    },
   },
 
   {
@@ -108,18 +108,18 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Client/CollectionView.vue'),
-    meta:{
-      showHeaderFooter: true
-    }
+    meta: {
+      showHeaderFooter: true,
+    },
   },
 
   {
-    name: "OPPS | Page Not Found",
+    name: 'OPPS | Page Not Found',
     path: '/:pathMatch(.*)*',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('@/views/Client/NotFoundView.vue')
+    component: () => import('@/views/Client/NotFoundView.vue'),
   },
 
   //********************************************************CLIENT/ACCOUNT********************************************** */
@@ -130,9 +130,9 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/LoginView.vue'),
-    meta:{
-      showHeaderFooter: false
-    }
+    meta: {
+      showHeaderFooter: false,
+    },
   },
   {
     path: '/register',
@@ -140,7 +140,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/RegisterView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/RegisterView.vue'),
   },
   {
     path: '/success',
@@ -148,7 +148,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/SuccessView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/SuccessView.vue'),
   },
   //********************************************************CLIENT/ACCOUNT********************************************** */
 
@@ -159,7 +159,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/AccountRecovery/ForgetPassView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/Client/Account/AccountRecovery/ForgetPassView.vue'),
   },
   {
     path: '/recoverpassword',
@@ -167,7 +168,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/AccountRecovery/RecoverPassView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/Client/Account/AccountRecovery/RecoverPassView.vue'),
   },
   {
     path: '/resetpassword',
@@ -175,7 +177,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/AccountRecovery/ResetPassView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/Client/Account/AccountRecovery/ResetPassView.vue'),
   },
   {
     path: '/sentcode',
@@ -183,13 +186,11 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/AccountRecovery/SentCodeView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Client/Account/AccountRecovery/SentCodeView.vue'),
   },
   //********************************************************CLIENT/ACCOUNT/ACCOUNT-RECOVERY********************************************** */
 
-
   //********************************************************CLIENT********************************************** */
-
 
   //********************************************************USER********************************************** */
 
@@ -199,7 +200,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/User/PaymentView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/User/PaymentView.vue'),
   },
 
   //********************************************************USER********************************************** */
@@ -212,7 +213,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/AccountManagerView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/AccountManagerView.vue'),
   },
 
   {
@@ -221,7 +222,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/AdminView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/AdminView.vue'),
   },
 
   {
@@ -230,7 +231,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/BookingManagerView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/BookingManagerView.vue'),
   },
 
   {
@@ -239,7 +240,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/CustomerManagerView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/CustomerManagerView.vue'),
   },
 
   {
@@ -248,19 +249,16 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/ProductManagerView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/ProductManagerView.vue'),
   },
 
   {
     path: '/schedule',
     name: 'Quản lý lịch làm việc | Cỏ Studio',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/ScheduleView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Admin/ScheduleView.vue'),
   },
 
   //********************************************************ADMIN********************************************** */
-
-
-
 ];
 
 const router = vueRouter.createRouter({
@@ -283,7 +281,7 @@ const router = vueRouter.createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  document.title = ` ${to.name} `
-  next()
-})
-export default router
+  document.title = ` ${to.name} `;
+  next();
+});
+export default router;

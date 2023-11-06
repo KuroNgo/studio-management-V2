@@ -1,15 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-    "./node_modules/flowbite/**/*.js"
-  ],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}', './node_modules/flowbite/**/*.js'],
   theme: {
     extend: {
       colors: {
         //Primary Color
-        BlackColor :'#0F0402',
+        BlackColor: '#0F0402',
         AccentColor: '#35665B',
         SecondColor: '#5A8D80',
         SupportColor1: '#81B5A8',
@@ -21,7 +17,6 @@ module.exports = {
         WarningColor: '#FC9C30',
         SuccessColor: '#049F67',
         DisableColor: '#F8F8F8',
-
       },
       typography: {
         DEFAULT: {
@@ -75,12 +70,11 @@ module.exports = {
             fontSize: '0.875rem',
             lineHeight: 'normal',
           },
-        }
-      }
+        },
+      },
     },
   },
   plugins: [
     require('@tailwindcss/typography'), // Kích hoạt plugin Typography
   ],
-}
-
+};

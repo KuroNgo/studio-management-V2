@@ -1,17 +1,15 @@
 <template>
-    <li class="" :style="{background : 'url('+ srcUrl +') center/cover no-repeat' }" style="padding-top: 50%;">
-        <!-- <img class="w-full object-cover" :src="srcUrl" alt="" style="height: 90vh;"> -->
-    </li>
+  <li class="" :style="{ background: 'url(' + srcUrl + ') center/cover no-repeat' }" style="padding-top: 50%">
+    <!-- <img class="w-full object-cover" :src="srcUrl" alt="" style="height: 90vh;"> -->
+  </li>
 </template>
 
 <script>
-export default {
+  export default {
     props: {
-        srcUrl: String
-    }
-}
+      srcUrl: String,
+    },
+  };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

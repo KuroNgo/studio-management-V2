@@ -1,35 +1,38 @@
 <template>
-    <div >
-        <ul class=" flex justify-between gap-x-4">
-            <CardImageView class=" w-1/3"  v-for="(x) in dataImages" :url-image="x"   />
-        </ul>
-    </div>
-    
+  <div>
+    <ul class="flex justify-between gap-x-4">
+      <CardImageView class="w-1/3" v-for="x in dataImages" :url-image="x" />
+    </ul>
+  </div>
 </template>
 
 <script>
-import CardImageView from './CardImageView.vue'
+  import CardImageView from './CardImageView.vue';
 
-export default{
-    components:{
-        CardImageView
+  export default {
+    components: {
+      CardImageView,
     },
-    data(){
-        return{
-            dataImage : ['../../../../public/assets/images/Homepage/ImageSlider.png','../../../../public/assets/images/Homepage/ImageSlider.png','../../../../public/assets/images/Homepage/ImageSlider.png'],
-            items: [1, 2, 3, 4],
-            index:0,
-        }   
+    data() {
+      return {
+        dataImage: [
+          '../../../../public/assets/images/Homepage/ImageSlider.png',
+          '../../../../public/assets/images/Homepage/ImageSlider.png',
+          '../../../../public/assets/images/Homepage/ImageSlider.png',
+        ],
+        items: [1, 2, 3, 4],
+        index: 0,
+      };
     },
-    props:{
-        dataImages: Array
+    props: {
+      dataImages: Array,
     },
     methods: {
-    shouldDisplay(index) {
-      return index < 3;
-    }
-  }
-}
+      shouldDisplay(index) {
+        return index < 3;
+      },
+    },
+  };
 </script>
 
 <style scoped></style>
