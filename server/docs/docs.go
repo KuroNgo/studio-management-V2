@@ -19,6 +19,262 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/admin/category/create": {
+            "post": {
+                "description": "create category",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "create category",
+                "responses": {}
+            }
+        },
+        "/admin/category/update": {
+            "put": {
+                "description": "create category",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "update category",
+                "responses": {}
+            }
+        },
+        "/client/category/delete": {
+            "patch": {
+                "description": "delete category",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "delete category",
+                "responses": {}
+            }
+        },
+        "/client/category/delete-second": {
+            "delete": {
+                "description": "delete category with admin",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "delete category with admin",
+                "responses": {}
+            }
+        },
+        "/client/category/get-all": {
+            "get": {
+                "description": "get all categories",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "get all categories",
+                "responses": {}
+            }
+        },
+        "/client/category/get-enable/:enable": {
+            "get": {
+                "description": "get category by update date",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "get category by update date",
+                "responses": {}
+            }
+        },
+        "/client/category/get-update-date/:update_date": {
+            "get": {
+                "description": "get category by update date",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "get category by update date",
+                "responses": {}
+            }
+        },
+        "/client/category/get/:category_id": {
+            "get": {
+                "description": "get category by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "get category by id",
+                "responses": {}
+            }
+        },
+        "/client/category/get2/:category_id": {
+            "get": {
+                "description": "get category by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "get category by id",
+                "responses": {}
+            }
+        },
+        "/client/category/resolve": {
+            "patch": {
+                "description": "resolve category with admin",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "resolve category with admin",
+                "responses": {}
+            }
+        },
+        "/client/get-all-user": {
+            "get": {
+                "description": "get all user item",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "get all user",
+                "responses": {}
+            }
+        },
+        "/client/get-user": {
+            "get": {
+                "description": "get a new user item",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "get user",
+                "responses": {}
+            }
+        },
+        "/client/get-user-role": {
+            "get": {
+                "description": "get user by role",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "get user role",
+                "responses": {}
+            }
+        },
+        "/client/get-user/email": {
+            "get": {
+                "description": "get user by email",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "get user email",
+                "responses": {}
+            }
+        },
+        "/client/get-user/role": {
+            "get": {
+                "description": "get user by role",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "get user role",
+                "responses": {}
+            }
+        },
+        "/client/get-user/username": {
+            "get": {
+                "description": "get a new user item by username",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "get user",
+                "responses": {}
+            }
+        },
         "/client/login/email": {
             "post": {
                 "description": "login user item",
@@ -39,7 +295,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.User"
+                            "$ref": "#/definitions/model.SignInInput"
                         }
                     }
                 ],
@@ -48,7 +304,7 @@ const docTemplate = `{
         },
         "/client/login/username": {
             "post": {
-                "description": "Create a new user item",
+                "description": "login user with username",
                 "consumes": [
                     "application/json"
                 ],
@@ -66,7 +322,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.User"
+                            "$ref": "#/definitions/model.UserRequest"
                         }
                     }
                 ],
@@ -102,17 +358,6 @@ const docTemplate = `{
                     "users"
                 ],
                 "summary": "refresh token user",
-                "parameters": [
-                    {
-                        "description": "refresh token user",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.User"
-                        }
-                    }
-                ],
                 "responses": {}
             }
         },
@@ -142,9 +387,51 @@ const docTemplate = `{
                 ],
                 "responses": {}
             }
+        },
+        "/client/update": {
+            "put": {
+                "description": "update a new user item",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "login user",
+                "parameters": [
+                    {
+                        "description": "login user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.User"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
         }
     },
     "definitions": {
+        "model.SignInInput": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
         "model.User": {
             "type": "object",
             "properties": {
@@ -198,6 +485,17 @@ const docTemplate = `{
                     "type": "boolean"
                 },
                 "who_updates": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UserRequest": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
                     "type": "string"
                 }
             }

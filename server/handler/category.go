@@ -23,7 +23,13 @@ func NewCategory(service service.ICategory, user service.IUser) *Category {
 	}
 }
 
-// GetAllCategoriesForView GetAllCategories Lấy tất cả loại
+// GetAllCategoriesForView godoc
+// @Summary get all categories
+// @Description get all categories
+// @Tags category
+// @Accept json
+// @Produce json
+// @Router /client/category/get-all [get]
 func (c *Category) GetAllCategoriesForView(ctx *gin.Context) {
 	categories, err := c.categoryService.GetAllCategories()
 	if err != nil {
@@ -35,11 +41,19 @@ func (c *Category) GetAllCategoriesForView(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, gin.H{
 		"status": "success",
-		"data":   gin.H{"category": categories},
+		"data": gin.H{
+			"category": categories,
+		},
 	})
 }
 
-// GetCategoryByIDForView GetCategoryByID tìm category theo id nếu để xem
+// GetCategoryByIDForView godoc
+// @Summary get category by id
+// @Description get category by id
+// @Tags category
+// @Accept json
+// @Produce json
+// @Router /client/category/get/:category_id [get]
 func (c *Category) GetCategoryByIDForView(ctx *gin.Context) {
 	categoryID := ctx.Param("category_id")
 	category, err := c.categoryService.GetCategoryByID(categoryID)
@@ -56,7 +70,13 @@ func (c *Category) GetCategoryByIDForView(ctx *gin.Context) {
 	})
 }
 
-// GetCategoryByIDForEdit GetCategoryByID tìm category theo id nếu để edit
+// GetCategoryByIDForEdit godoc
+// @Summary get category by id
+// @Description get category by id
+// @Tags category
+// @Accept json
+// @Produce json
+// @Router /client/category/get2/:category_id [get]
 func (c *Category) GetCategoryByIDForEdit(ctx *gin.Context) {
 	categoryID := ctx.Param("category_id")
 	category, err := c.categoryService.GetCategoryByID2(categoryID)
@@ -73,6 +93,13 @@ func (c *Category) GetCategoryByIDForEdit(ctx *gin.Context) {
 	})
 }
 
+// GetCategoryByUpdateDateForEdit godoc
+// @Summary get category by update date
+// @Description get category by update date
+// @Tags category
+// @Accept json
+// @Produce json
+// @Router /client/category/get-update-date/:update_date [get]
 func (c *Category) GetCategoryByUpdateDateForEdit(ctx *gin.Context) {
 	updateDateParam := ctx.Param("update_date")
 	updateDateParam2, err := time.Parse("02-01-2006", updateDateParam)
@@ -94,7 +121,13 @@ func (c *Category) GetCategoryByUpdateDateForEdit(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, categories)
 }
 
-// GetCategoryByEnableForEdit lấy category theo enable
+// GetCategoryByEnableForEdit godoc
+// @Summary get category by update date
+// @Description get category by update date
+// @Tags category
+// @Accept json
+// @Produce json
+// @Router /client/category/get-enable/:enable [get]
 func (c *Category) GetCategoryByEnableForEdit(ctx *gin.Context) {
 	enableParam := ctx.Param("enable")
 	enable, err := strconv.Atoi(enableParam)
@@ -113,7 +146,13 @@ func (c *Category) GetCategoryByEnableForEdit(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, categories)
 }
 
-// CreateCategory Tạo mới category
+// CreateCategory godoc
+// @Summary create category
+// @Description create category
+// @Tags category
+// @Accept json
+// @Produce json
+// @Router /admin/category/create [post]
 func (c *Category) CreateCategory(ctx *gin.Context) {
 	// Lấy user hiện đang đăng nhập
 	currentUser := ctx.MustGet("currentUser")
@@ -167,7 +206,13 @@ func (c *Category) CreateCategory(ctx *gin.Context) {
 
 }
 
-// UpdateCategory Thực hiện cập nhật category
+// UpdateCategory godoc
+// @Summary update category
+// @Description create category
+// @Tags category
+// @Accept json
+// @Produce json
+// @Router /admin/category/update [put]
 func (c *Category) UpdateCategory(ctx *gin.Context) {
 	// Lấy user hiện tại đăng nhập
 	currentUser := ctx.MustGet("currentUser")
@@ -216,7 +261,13 @@ func (c *Category) UpdateCategory(ctx *gin.Context) {
 	})
 }
 
-// DeleteCategoryFirst Thực hiện chuyển enable về disable thông qua câu lệnh update
+// DeleteCategoryFirst godoc
+// @Summary delete category
+// @Description delete category
+// @Tags category
+// @Accept json
+// @Produce json
+// @Router /client/category/delete [patch]
 func (c *Category) DeleteCategoryFirst(ctx *gin.Context) {
 	// Lấy user hiện tại đăng nhập
 	currentUser := ctx.MustGet("currentUser")
@@ -264,7 +315,13 @@ func (c *Category) DeleteCategoryFirst(ctx *gin.Context) {
 	})
 }
 
-// DeleteCategorySecond Chỉ admin mới xóa được lần 2
+// DeleteCategorySecond godoc
+// @Summary delete category with admin
+// @Description delete category with admin
+// @Tags category
+// @Accept json
+// @Produce json
+// @Router /client/category/delete-second [delete]
 func (c *Category) DeleteCategorySecond(ctx *gin.Context) {
 	//currentUser := ctx.MustGet("currentUser")
 	var category model.Category
@@ -302,7 +359,13 @@ func (c *Category) DeleteCategorySecond(ctx *gin.Context) {
 
 }
 
-// ResolveCategory Khôi phục category đã xóa ( disable to enable)
+// ResolveCategory godoc
+// @Summary resolve category with admin
+// @Description resolve category with admin
+// @Tags category
+// @Accept json
+// @Produce json
+// @Router /client/category/resolve [patch]
 func (c *Category) ResolveCategory(ctx *gin.Context) {
 	currentUser := ctx.MustGet("currentUser")
 	var category model.Category

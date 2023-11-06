@@ -22,6 +22,13 @@ func NewUser(service service.IUser) *User {
 	return &User{service: service}
 }
 
+// GetAllUser godoc
+// @Summary get all user
+// @Description get all user item
+// @Tags users
+// @Accept json
+// @Produce json
+// @Router /client/get-all-user [get]
 func (u *User) GetAllUser(ctx *gin.Context) {
 	users, err := u.service.GetAllUser()
 
@@ -33,6 +40,13 @@ func (u *User) GetAllUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"users": users}})
 }
 
+// GetUserByRole godoc
+// @Summary get user role
+// @Description get user by role
+// @Tags users
+// @Accept json
+// @Produce json
+// @Router /client/get-user/role [get]
 func (u *User) GetUserByRole(ctx *gin.Context) {
 	var role string
 	data, err := u.service.GetUserByRole(role)
@@ -52,6 +66,13 @@ func (u *User) GetUserByRole(ctx *gin.Context) {
 
 }
 
+// FindUserByRole godoc
+// @Summary get user role
+// @Description get user by role
+// @Tags users
+// @Accept json
+// @Produce json
+// @Router /client/get-user-role [get]
 func (u *User) FindUserByRole(ctx *gin.Context) {
 	var role string
 	data, err := u.service.FindUserByRole(role)
@@ -69,6 +90,13 @@ func (u *User) FindUserByRole(ctx *gin.Context) {
 	})
 }
 
+// GetUserByEmail godoc
+// @Summary get user email
+// @Description get user by email
+// @Tags users
+// @Accept json
+// @Produce json
+// @Router /client/get-user/email [get]
 func (u *User) GetUserByEmail(ctx *gin.Context) {
 	var email string
 	data, err := u.service.GetUserByEmail(email)
@@ -86,6 +114,13 @@ func (u *User) GetUserByEmail(ctx *gin.Context) {
 	})
 }
 
+// GetUserByUsername godoc
+// @Summary get user
+// @Description get a new user item by username
+// @Tags users
+// @Accept json
+// @Produce json
+// @Router /client/get-user/username [get]
 func (u *User) GetUserByUsername(ctx *gin.Context) {
 	var username string
 	data, err := u.service.GetUserByUsername(username)
@@ -102,11 +137,18 @@ func (u *User) GetUserByUsername(ctx *gin.Context) {
 	})
 }
 
+// GetMeV2 godoc
+// @Summary get user
+// @Description get a new user item
+// @Tags users
+// @Accept json
+// @Produce json
+// @Router /client/get-user [get]
 func (u *User) GetMeV2(ctx *gin.Context) {
 	cookie, err := ctx.Cookie("access_token")
 
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": "You are not login!"})
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"status": "fail", "message": "You are not login!"})
 		return
 	}
 
@@ -143,11 +185,19 @@ func (u *User) GetMeV2(ctx *gin.Context) {
 	})
 }
 
+// UpdateUser godoc
+// @Summary login user
+// @Description update a new user item
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param user body model.User true "login user"
+// @Router /client/update [put]
 func (u *User) UpdateUser(ctx *gin.Context) {
 	cookie, err := ctx.Cookie("access_token")
 
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": "You are not login!"})
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"status": "fail", "message": "You are not login!"})
 		return
 	}
 
@@ -187,13 +237,13 @@ func (u *User) UpdateUser(ctx *gin.Context) {
 	})
 }
 
-// LoginWithUserName LoginUser godoc
+// LoginWithUserName godoc
 // @Summary login user
-// @Description Create a new user item
+// @Description login user with username
 // @Tags users
 // @Accept json
 // @Produce json
-// @Param user body model.User true "login user"
+// @Param user body model.UserRequest true "login user"
 // @Router /client/login/username [post]
 func (u *User) LoginWithUserName(ctx *gin.Context) {
 	// Lấy thông tin từ request
@@ -239,7 +289,7 @@ func (u *User) LoginWithUserName(ctx *gin.Context) {
 // @Tags users
 // @Accept json
 // @Produce json
-// @Param user body model.User true "login user"
+// @Param user body model.SignInInput true "login user"
 // @Router /client/login/email [post]
 func (u *User) LoginWithEmail(ctx *gin.Context) {
 	//  Lấy thông tin từ request
@@ -346,7 +396,6 @@ func (u *User) Register(ctx *gin.Context) {
 // @Tags users
 // @Accept json
 // @Produce json
-// @Param user body model.User true "refresh token user"
 // @Router /client/refresh [get]
 func (u *User) RefreshAccessToken(ctx *gin.Context) {
 	message := "could not fresh access token"

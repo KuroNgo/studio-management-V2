@@ -1,4 +1,14 @@
 definitions:
+  model.SignInInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
   model.User:
     properties:
       avatarUser:
@@ -38,6 +48,13 @@ definitions:
       who_updates:
         type: string
     type: object
+  model.UserRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
 host: localhost:8000/
 info:
   contact:
@@ -53,6 +70,182 @@ info:
   title: Cỏ Studio API
   version: "1.0"
 paths:
+  /admin/category/create:
+    post:
+      consumes:
+      - application/json
+      description: create category
+      produces:
+      - application/json
+      responses: {}
+      summary: create category
+      tags:
+      - category
+  /admin/category/update:
+    put:
+      consumes:
+      - application/json
+      description: create category
+      produces:
+      - application/json
+      responses: {}
+      summary: update category
+      tags:
+      - category
+  /client/category/delete:
+    patch:
+      consumes:
+      - application/json
+      description: delete category
+      produces:
+      - application/json
+      responses: {}
+      summary: delete category
+      tags:
+      - category
+  /client/category/delete-second:
+    delete:
+      consumes:
+      - application/json
+      description: delete category with admin
+      produces:
+      - application/json
+      responses: {}
+      summary: delete category with admin
+      tags:
+      - category
+  /client/category/get-all:
+    get:
+      consumes:
+      - application/json
+      description: get all categories
+      produces:
+      - application/json
+      responses: {}
+      summary: get all categories
+      tags:
+      - category
+  /client/category/get-enable/:enable:
+    get:
+      consumes:
+      - application/json
+      description: get category by update date
+      produces:
+      - application/json
+      responses: {}
+      summary: get category by update date
+      tags:
+      - category
+  /client/category/get-update-date/:update_date:
+    get:
+      consumes:
+      - application/json
+      description: get category by update date
+      produces:
+      - application/json
+      responses: {}
+      summary: get category by update date
+      tags:
+      - category
+  /client/category/get/:category_id:
+    get:
+      consumes:
+      - application/json
+      description: get category by id
+      produces:
+      - application/json
+      responses: {}
+      summary: get category by id
+      tags:
+      - category
+  /client/category/get2/:category_id:
+    get:
+      consumes:
+      - application/json
+      description: get category by id
+      produces:
+      - application/json
+      responses: {}
+      summary: get category by id
+      tags:
+      - category
+  /client/category/resolve:
+    patch:
+      consumes:
+      - application/json
+      description: resolve category with admin
+      produces:
+      - application/json
+      responses: {}
+      summary: resolve category with admin
+      tags:
+      - category
+  /client/get-all-user:
+    get:
+      consumes:
+      - application/json
+      description: get all user item
+      produces:
+      - application/json
+      responses: {}
+      summary: get all user
+      tags:
+      - users
+  /client/get-user:
+    get:
+      consumes:
+      - application/json
+      description: get a new user item
+      produces:
+      - application/json
+      responses: {}
+      summary: get user
+      tags:
+      - users
+  /client/get-user-role:
+    get:
+      consumes:
+      - application/json
+      description: get user by role
+      produces:
+      - application/json
+      responses: {}
+      summary: get user role
+      tags:
+      - users
+  /client/get-user/email:
+    get:
+      consumes:
+      - application/json
+      description: get user by email
+      produces:
+      - application/json
+      responses: {}
+      summary: get user email
+      tags:
+      - users
+  /client/get-user/role:
+    get:
+      consumes:
+      - application/json
+      description: get user by role
+      produces:
+      - application/json
+      responses: {}
+      summary: get user role
+      tags:
+      - users
+  /client/get-user/username:
+    get:
+      consumes:
+      - application/json
+      description: get a new user item by username
+      produces:
+      - application/json
+      responses: {}
+      summary: get user
+      tags:
+      - users
   /client/login/email:
     post:
       consumes:
@@ -64,7 +257,7 @@ paths:
         name: user
         required: true
         schema:
-          $ref: '#/definitions/model.User'
+          $ref: '#/definitions/model.SignInInput'
       produces:
       - application/json
       responses: {}
@@ -75,14 +268,14 @@ paths:
     post:
       consumes:
       - application/json
-      description: Create a new user item
+      description: login user with username
       parameters:
       - description: login user
         in: body
         name: user
         required: true
         schema:
-          $ref: '#/definitions/model.User'
+          $ref: '#/definitions/model.UserRequest'
       produces:
       - application/json
       responses: {}
@@ -105,13 +298,6 @@ paths:
       consumes:
       - application/json
       description: refresh token item
-      parameters:
-      - description: refresh token user
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/model.User'
       produces:
       - application/json
       responses: {}
@@ -134,6 +320,24 @@ paths:
       - application/json
       responses: {}
       summary: register user
+      tags:
+      - users
+  /client/update:
+    put:
+      consumes:
+      - application/json
+      description: update a new user item
+      parameters:
+      - description: login user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses: {}
+      summary: login user
       tags:
       - users
 swagger: "2.0"
