@@ -67,6 +67,9 @@
             </div>
             
         </div>
+        <div class=" ">
+
+        </div>
     </main>
 </template>
 
@@ -97,4 +100,12 @@ export default{
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+</style>

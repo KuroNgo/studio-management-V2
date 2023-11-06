@@ -3,69 +3,73 @@
     <div class="flex h-full w-3/4 mx-auto border border-solid border-gray-500">
       <div class="w-2/4 mt-auto mb-auto px-32">
         <h4 class="Heading4 uppercase text-center mb-11">ĐĂNG KÝ</h4>
-        <div class=" relative mb-8">
-          <input type="text" v-model="inputFullName.value" placeholder="Hãy điền họ và tên của bạn"
-            class="form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
-          <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Họ và tên</p>
-        </div>
-
-        <div class=" relative mb-3">
-          <input type="text" v-model="inputUserName.value" placeholder="Không chứa các ký tự *,#,&" pattern="^[^*#&]+$"
-            :class="{ ' outline-red-700': inputUserName.error }"
-            class="form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
-          <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Tên tài
-            khoản</p>
-          <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
-            Tên tài khoảng không chứa các ký tự *,#,&
+        <form method="get" onsubmit="return false;">
+          
+          <div class=" relative mb-8">
+            <input type="text" v-model="inputFullName.value" placeholder="Hãy điền họ và tên của bạn"
+              class="form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+            <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Họ và tên</p>
+          </div>
+  
+          <div class=" relative mb-3">
+            <input type="text" v-model="inputUserName.value" placeholder="Không chứa các ký tự *,#,&" pattern="^[^*#&]+$"
+              :class="{ ' outline-red-700 outline-2': inputUserName.error }"
+              class="form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+            <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Tên tài
+              khoản</p>
+            <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
+              Tên tài khoảng không chứa các ký tự *,#,&
+            </p>
+          </div>
+  
+          <div class=" relative mb-3">
+            <input type="email" v-model="inputEmail.value" pattern="^[a-zA-Z0-9._%+-]+@(gmail\.com|gmail\.com\.vn)$"
+              placeholder="Địa chỉ email của bạn" :class="{ ' outline-red-700 outline-2': inputEmail.error }"
+              class="form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+            <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2 left-3 ">Địa chỉ
+              email</p>
+            <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
+              Vui lòng cung cấp một địa chỉ email hợp lệ
+            </p>
+          </div>
+  
+          <div class=" relative mb-3">
+            <input type="text" v-model="inputPhoneNumber.value" placeholder="Số điện thoại của bạn" maxlength="10" pattern="^0\d{9,10}$"
+              :class="{ ' outline-red-700 outline-2': inputPhoneNumber.error }"
+              class="form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+            <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Số điện
+              thoại</p>
+            <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
+              Vui lòng cung cấp số điện thoại hợp lệ
+            </p>
+          </div>
+  
+          <div class=" relative mb-3">
+            <input type="text" v-model="inputPassword.value" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$"
+              placeholder="Chứa ít nhất 8 ký tự bao gồm ( chứ viết hoa, chữ số và một ký tự đặc biệt )"
+              :class="{ ' outline-red-700 outline-2': inputPassword.error }"
+              class=" form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+            <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Mật khẩu
+            </p>
+            <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
+              Chứa ít nhất 8 ký tự bao gồm ( chứ viết hoa, chữ số và một ký tự đặc biệt )
+            </p>
+          </div>
+  
+          <div class=" relative mb-3">
+            <input type="text" v-model="enterPassword.value" placeholder="Nhập lại mật khẩu bạn đã nhập"
+              :class="{ ' outline-red-700 outline-2': enterPassword.error }"
+              class="form-input mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
+            <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Nhập lại
+              mật khẩu</p>
+          </div>
+          <p class=" Body2 text-center text-pink-600 pl-3 mb-3" v-if="RoleRegister.error">
+            Tài khoảng tồn tại
           </p>
-        </div>
-
-        <div class=" relative mb-3">
-          <input type="email" v-model="inputEmail.value" pattern="^[a-zA-Z0-9._%+-]+@(gmail\.com|gmail\.com\.vn)$"
-            placeholder="Địa chỉ email của bạn" :class="{ ' outline-red-700': inputEmail.error }"
-            class="form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
-          <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2 left-3 ">Địa chỉ
-            email</p>
-          <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
-            Vui lòng cung cấp một địa chỉ email hợp lệ
-          </p>
-        </div>
-
-        <div class=" relative mb-3">
-          <input type="text" v-model="inputPhoneNumber.value" placeholder="Số điện thoại của bạn" maxlength="10" pattern="^0\d{9,10}$"
-            :class="{ ' outline-red-700': inputPhoneNumber.error }"
-            class="form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
-          <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Số điện
-            thoại</p>
-          <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
-            Vui lòng cung cấp số điện thoại hợp lệ
-          </p>
-        </div>
-
-        <div class=" relative mb-3">
-          <input type="text" v-model="inputPassword.value" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$"
-            placeholder="Chứa ít nhất 8 ký tự bao gồm ( chứ viết hoa, chữ số và một ký tự đặc biệt )"
-            :class="{ ' outline-red-700': inputPassword.error }"
-            class=" form-input peer mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
-          <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Mật khẩu
-          </p>
-          <p class="invisible peer-invalid:visible text-pink-600 Caption pl-3">
-            Chứa ít nhất 8 ký tự bao gồm ( chứ viết hoa, chữ số và một ký tự đặc biệt )
-          </p>
-        </div>
-
-        <div class=" relative mb-3">
-          <input type="text" v-model="enterPassword.value" placeholder="Nhập lại mật khẩu bạn đã nhập"
-            :class="{ ' outline-red-700': enterPassword.error }"
-            class="form-input mb-2 placeholder:text-gray-400 placeholder:Caption  outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full">
-          <p class="label-input Overline text-gray-400 absolute top-1/2 transform -translate-y-1/2  left-3 ">Nhập lại
-            mật khẩu</p>
-        </div>
-        <p class=" Body2 text-center text-pink-600 pl-3 mb-3" v-if="RoleRegister.error">
-          Tài khoảng tồn tại
-        </p>
-        <button @click="Run()" class=" text-DomlantColor Button p-3 bg-AccentColor w-full rounded-xl mb-11">Đăng
-          ký</button>
+        
+          <button @click="Run()" type="submit" class=" text-DomlantColor Button p-3 bg-AccentColor w-full rounded-xl mb-11">Đăng
+            ký</button>
+        </form>
         <p class="Body2 text-center ">Đã có tài khoản ? <RouterLink to="/login"><strong
               class=" underline text-SecondColor">Đăng nhập</strong> </RouterLink>
         </p>

@@ -87,10 +87,10 @@ export default {
     scroll-snap-type: x mandatory;
     scrollbar-width: 0;
     height: 90vh;
+    transition: 2s ease-in;
 }
 
 .dragging {
-    cursor: grab;
     user-select: none;
     scroll-behavior: auto;
     scroll-snap-type: none;
