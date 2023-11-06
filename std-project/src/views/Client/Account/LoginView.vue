@@ -41,7 +41,7 @@
                 </g>
               </g>
             </svg>
-            <p class="Button">Đăng nhập với Google</p>
+            <p @click="LogOut" class="Button">Đăng nhập với Google</p>
           </div>
         </button>
         <p class="Caption text-center text-gray-400 mb-12">Hoặc đăng nhập với</p>
@@ -49,6 +49,7 @@
           <input
             type="text"
             placeholder="Nhập email hoặc số điện thoại của bạn"
+            v-model="email"
             class="form-input placeholder:text-gray-400 placeholder:Caption transition duration-200 ease outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full" />
           <p
             class="label-input Subtitle2 text-gray-400 absolute top-1/2 transform -translate-y-1/2 focus:top-0.5 focus:transform left-3">
@@ -59,6 +60,7 @@
           <input
             type="text"
             placeholder="Nhập mật khẩu của bạn"
+            v-model="passWord"
             class="form-input placeholder:text-gray-400 placeholder:Caption transition duration-200 ease outline outline-1 outline-SupportColor2 rounded-xl p-3 w-full" />
           <p
             class="label-input Subtitle2 text-gray-400 absolute transform -translate-y-1/2 focus:top-0.5 focus:transform left-3">
@@ -73,7 +75,9 @@
           <p class="Overline text-SupportColor2 underline">Quên mật khẩu ?</p>
         </div>
 
-        <button class="text-DomlantColor Button p-3 bg-AccentColor w-full rounded-xl mb-3">Đăng nhập</button>
+        <button @click="Run()" class="text-DomlantColor Button p-3 bg-AccentColor w-full rounded-xl mb-3">
+          Đăng nhập
+        </button>
 
         <p class="Body2 text-center">
           Không có tài khoản ?
@@ -86,6 +90,47 @@
 
 <script>
   import { RouterLink } from 'vue-router';
+  import { useUserStore } from '../../../stores/Account.stores';
+  export default {
+    data() {
+      return {
+        email: '',
+        passWord: '',
+        statusLogin: {
+          status: false,
+        },
+      };
+    },
+    methods: {
+      async LoginUserName() {
+        const loginUserName = await useUserStore().LoginUserName(this.email, this.passWord);
+        return loginUserName;
+      },
+      async LoginUserName() {
+        const loginEmail = await useUserStore().LoginUserEmail(this.email, this.passWord);
+        return loginEmail;
+      },
+      async CheckInputPhoneNumberLogin() {
+        const loginEmail = await this.loginEmail();
+        const loginUserName = await this.loginUserName();
+        if (loginEmail == true || loginUserName == true) {
+          this.statusLogin.status = true;
+          console.log('OKE');
+        } else {
+          console.log('sai tk');
+        }
+      },
+
+      async Run() {
+        await this.loginUserName();
+        await this.loginEmail();
+        await this.CheckInputPhoneNumberLogin();
+      },
+      async LogOut() {
+        await useUserStore().LogOut();
+      },
+    },
+  };
 </script>
 
 <style scoped>

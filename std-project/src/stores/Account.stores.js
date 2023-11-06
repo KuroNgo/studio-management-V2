@@ -59,5 +59,70 @@ export const useUserStore = defineStore('AccountStores', {
         console.log(error);
       }
     },
+    async LoginUserName(userName, passWord) {
+      try {
+        const res = await fetch(`${this.host}/api/client/v1/login/username`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userName,
+            passWord,
+          }),
+        });
+        if (!res.ok) {
+          console.log('success,name');
+          return false;
+        } else {
+          console.log('false,name');
+          return true;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async LoginUserEmail(email, passWord) {
+      try {
+        const res = await fetch(`${this.host}/api/client/v1/login/email`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            passWord,
+          }),
+        });
+        if (!res.ok) {
+          console.log('success,email');
+          return false;
+        } else {
+          console.log('false,name');
+          return true;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async LogOut() {
+      try {
+        const res = await fetch(`${this.host}/api/client/v1/logout`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!res.ok) {
+          console.log('false,name');
+          return false;
+        } else {
+          console.log('success,email');
+          return true;
+        }
+      } catch (error) {
+        console.log('Lỗi khi đăng xuất:', error);
+      }
+    },
   },
 });
