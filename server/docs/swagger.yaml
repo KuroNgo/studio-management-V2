@@ -64,9 +64,6 @@ info:
   description: |-
     Đây là API của Cỏ Studio,
     Việc sử dụng API này phải có sự đồng ý của Mr. Phong
-    Swagger chỉ phục vụ cho việc hiển thị các API được phép sử dụng
-    Nếu bạn muốn sử dụng phải thực hiện trên postman
-    Để có file test postman, bạn cần liên hệ người quản lý API
   title: Cỏ Studio API
   version: "1.0"
 paths:
@@ -92,6 +89,83 @@ paths:
       summary: update category
       tags:
       - category
+  /admin/product/create:
+    post:
+      consumes:
+      - application/json
+      description: create product
+      produces:
+      - application/json
+      responses: {}
+      summary: create product
+      tags:
+      - products
+  /admin/product/enable:
+    patch:
+      consumes:
+      - application/json
+      description: update enable product
+      produces:
+      - application/json
+      responses: {}
+      summary: update enable product
+      tags:
+      - products
+  /admin/product/get-update-date:
+    get:
+      consumes:
+      - application/json
+      description: get product by updates date
+      produces:
+      - application/json
+      responses: {}
+      summary: get product by updates date
+      tags:
+      - products
+  /admin/product/get-who-update:
+    get:
+      consumes:
+      - application/json
+      description: get product by who updates
+      produces:
+      - application/json
+      responses: {}
+      summary: get product by who updates
+      tags:
+      - products
+  /admin/product/remove-first:
+    patch:
+      consumes:
+      - application/json
+      description: update product
+      produces:
+      - application/json
+      responses: {}
+      summary: update product
+      tags:
+      - products
+  /admin/product/update:
+    post:
+      consumes:
+      - application/json
+      description: update product
+      produces:
+      - application/json
+      responses: {}
+      summary: update product
+      tags:
+      - products
+  /admin/product/update-enable:
+    patch:
+      consumes:
+      - application/json
+      description: update product
+      produces:
+      - application/json
+      responses: {}
+      summary: update-enable product
+      tags:
+      - products
   /client/category/delete:
     patch:
       consumes:
@@ -293,6 +367,50 @@ paths:
       summary: logout user
       tags:
       - users
+  /client/product/get-all:
+    get:
+      consumes:
+      - application/json
+      description: get all products
+      produces:
+      - application/json
+      responses: {}
+      summary: get all products
+      tags:
+      - products
+  /client/product/get-id:
+    get:
+      consumes:
+      - application/json
+      description: get product by id
+      produces:
+      - application/json
+      responses: {}
+      summary: get product by id
+      tags:
+      - products
+  /client/product/get-name:
+    get:
+      consumes:
+      - application/json
+      description: get product by name
+      produces:
+      - application/json
+      responses: {}
+      summary: get product by name
+      tags:
+      - products
+  /client/product/get-price:
+    get:
+      consumes:
+      - application/json
+      description: get product by price
+      produces:
+      - application/json
+      responses: {}
+      summary: get product by price
+      tags:
+      - products
   /client/refresh:
     get:
       consumes:

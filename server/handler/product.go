@@ -24,6 +24,13 @@ func NewProduct(product service.IProduct, user service.IUser) *Product {
 	}
 }
 
+// GetAllProductForView godoc
+// @Summary get all products
+// @Description get all products
+// @Tags products
+// @Accept json
+// @Produce json
+// @Router /client/product/get-all [get]
 func (p *Product) GetAllProductForView(ctx *gin.Context) {
 	product, err := p.productService.GetAllProductForView()
 	if err != nil {
@@ -41,6 +48,13 @@ func (p *Product) GetAllProductForView(ctx *gin.Context) {
 
 }
 
+// GetProductByCategoryIDForView godoc
+// @Summary get product by id
+// @Description get product by id
+// @Tags products
+// @Accept json
+// @Produce json
+// @Router /client/product/get-id [get]
 func (p *Product) GetProductByCategoryIDForView(ctx *gin.Context) {
 	categoryID := ctx.Param("categoryid_id")
 	product, err := p.productService.GetProductByCategoryForView(categoryID)
@@ -58,6 +72,13 @@ func (p *Product) GetProductByCategoryIDForView(ctx *gin.Context) {
 
 }
 
+// GetProductByNameForView godoc
+// @Summary get product by name
+// @Description get product by name
+// @Tags products
+// @Accept json
+// @Produce json
+// @Router /client/product/get-name [get]
 func (p *Product) GetProductByNameForView(ctx *gin.Context) {
 	nameProduct := ctx.Param("product_name")
 	product, err := p.productService.GetProductByNameForView(nameProduct)
@@ -74,6 +95,13 @@ func (p *Product) GetProductByNameForView(ctx *gin.Context) {
 	})
 }
 
+// GetProductByPriceForView godoc
+// @Summary get product by price
+// @Description get product by price
+// @Tags products
+// @Accept json
+// @Produce json
+// @Router /client/product/get-price [get]
 func (p *Product) GetProductByPriceForView(ctx *gin.Context) {
 	var minPrice, maxPrice int32
 	if err := ctx.ShouldBindJSON(&struct {
@@ -100,6 +128,13 @@ func (p *Product) GetProductByPriceForView(ctx *gin.Context) {
 	})
 }
 
+// GetProductByWhoUpdateForView godoc
+// @Summary get product by who updates
+// @Description get product by who updates
+// @Tags products
+// @Accept json
+// @Produce json
+// @Router /admin/product/get-who-update [get]
 func (p *Product) GetProductByWhoUpdateForView(ctx *gin.Context) {
 	var whoUpdate string
 	if err := ctx.ShouldBindJSON(&whoUpdate); err != nil {
@@ -124,6 +159,13 @@ func (p *Product) GetProductByWhoUpdateForView(ctx *gin.Context) {
 	})
 }
 
+// GetProductByUpdateDateForView godoc
+// @Summary get product by updates date
+// @Description get product by updates date
+// @Tags products
+// @Accept json
+// @Produce json
+// @Router /admin/product/get-update-date [get]
 func (p *Product) GetProductByUpdateDateForView(ctx *gin.Context) {
 	var updateDate time.Time
 	if err := ctx.ShouldBindJSON(&updateDate); err != nil {
@@ -147,7 +189,13 @@ func (p *Product) GetProductByUpdateDateForView(ctx *gin.Context) {
 	})
 }
 
-// CreateProduct đã khởi tạo nhưng chưa thực hiện test
+// CreateProduct godoc
+// @Summary create product
+// @Description create product
+// @Tags products
+// @Accept json
+// @Produce json
+// @Router /admin/product/create [post]
 func (p *Product) CreateProduct(ctx *gin.Context) {
 	currentUser := ctx.MustGet("currentUser")
 
@@ -213,7 +261,13 @@ func (p *Product) CreateProduct(ctx *gin.Context) {
 	})
 }
 
-// UpdateProduct Đã khởi tạo nhưng chưa test
+// UpdateProduct godoc
+// @Summary update product
+// @Description update product
+// @Tags products
+// @Accept json
+// @Produce json
+// @Router /admin/product/update [post]
 func (p *Product) UpdateProduct(ctx *gin.Context) {
 	currentUser := ctx.MustGet("currentUser")
 	var product model.Product
@@ -286,6 +340,13 @@ func (p *Product) UpdateProduct(ctx *gin.Context) {
 	})
 }
 
+// UpdateEnable godoc
+// @Summary update-enable product
+// @Description update product
+// @Tags products
+// @Accept json
+// @Produce json
+// @Router /admin/product/update-enable [patch]
 func (p *Product) UpdateEnable(ctx *gin.Context) {
 	var enable int
 	if err := ctx.ShouldBindJSON(enable); err != nil {
@@ -309,6 +370,13 @@ func (p *Product) UpdateEnable(ctx *gin.Context) {
 	})
 }
 
+// Disable godoc
+// @Summary update product
+// @Description update product
+// @Tags products
+// @Accept json
+// @Produce json
+// @Router /admin/product/remove-first [patch]
 func (p *Product) Disable(ctx *gin.Context) {
 	result := p.productService.Disable()
 	if result != nil {
@@ -324,6 +392,13 @@ func (p *Product) Disable(ctx *gin.Context) {
 	})
 }
 
+// Enable godoc
+// @Summary update enable product
+// @Description update enable product
+// @Tags products
+// @Accept json
+// @Produce json
+// @Router /admin/product/enable [patch]
 func (p *Product) Enable(ctx *gin.Context) {
 	result := p.productService.Enable()
 	if result != nil {

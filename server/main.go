@@ -13,9 +13,6 @@ import (
 // @version  1.0
 // @description Đây là API của Cỏ Studio,
 // @description Việc sử dụng API này phải có sự đồng ý của Mr. Phong
-// @description Swagger chỉ phục vụ cho việc hiển thị các API được phép sử dụng
-// @description Nếu bạn muốn sử dụng phải thực hiện trên postman
-// @description Để có file test postman, bạn cần liên hệ người quản lý API
 
 // @contact.name Ngô Hoài Phong
 // @contact.url http://www.swagger.io/support

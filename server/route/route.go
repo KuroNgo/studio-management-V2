@@ -75,8 +75,10 @@ func NewService() *Service {
 
 	clientV1 := route.Group("api/v1/client")
 	{
-		clientV1.Use(middleware.CORSMiddleware())
-		clientV1.Use(middleware.RateLimiter())
+		clientV1.Use(
+			middleware.CORSMiddleware(),
+			middleware.RateLimiter(),
+		)
 
 		// auth
 		clientV1.POST("/login/username", user.LoginWithUserName)
@@ -93,7 +95,10 @@ func NewService() *Service {
 		clientV1.GET("/category/get/:category_id", category.GetCategoryByIDForView)
 
 		// product
-		clientV1.GET("/product-getall", product.GetAllProductForView)
+		clientV1.GET("/product/get-all", product.GetAllProductForView)
+		clientV1.GET("/product/get-name", product.GetProductByNameForView)
+		clientV1.GET("/product/get-id", product.GetProductByCategoryIDForView)
+		clientV1.GET("/product/get-price", product.GetProductByPriceForView)
 
 		// image
 		clientV1.GET("/image/get", util.GetUploadedFile)
@@ -130,10 +135,6 @@ func NewService() *Service {
 		adminV1.PATCH("/category/resolve", category.ResolveCategory)
 
 		// product
-		adminV1.GET("/product/get-all", product.GetAllProductForView)
-		adminV1.GET("/product/get-name", product.GetProductByNameForView)
-		adminV1.GET("/product/get-id", product.GetProductByCategoryIDForView)
-		adminV1.GET("/product/get-price", product.GetProductByPriceForView)
 		adminV1.GET("/product/get-who_update", product.GetProductByWhoUpdateForView)
 		adminV1.GET("/product/get-update_date", product.GetProductByUpdateDateForView)
 		adminV1.POST("/product/create", product.CreateProduct)

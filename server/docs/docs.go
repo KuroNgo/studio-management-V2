@@ -51,6 +51,118 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/admin/product/create": {
+            "post": {
+                "description": "create product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "create product",
+                "responses": {}
+            }
+        },
+        "/admin/product/enable": {
+            "patch": {
+                "description": "update enable product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "update enable product",
+                "responses": {}
+            }
+        },
+        "/admin/product/get-update-date": {
+            "get": {
+                "description": "get product by updates date",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "get product by updates date",
+                "responses": {}
+            }
+        },
+        "/admin/product/get-who-update": {
+            "get": {
+                "description": "get product by who updates",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "get product by who updates",
+                "responses": {}
+            }
+        },
+        "/admin/product/remove-first": {
+            "patch": {
+                "description": "update product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "update product",
+                "responses": {}
+            }
+        },
+        "/admin/product/update": {
+            "post": {
+                "description": "update product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "update product",
+                "responses": {}
+            }
+        },
+        "/admin/product/update-enable": {
+            "patch": {
+                "description": "update product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "update-enable product",
+                "responses": {}
+            }
+        },
         "/client/category/delete": {
             "patch": {
                 "description": "delete category",
@@ -345,6 +457,70 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/client/product/get-all": {
+            "get": {
+                "description": "get all products",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "get all products",
+                "responses": {}
+            }
+        },
+        "/client/product/get-id": {
+            "get": {
+                "description": "get product by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "get product by id",
+                "responses": {}
+            }
+        },
+        "/client/product/get-name": {
+            "get": {
+                "description": "get product by name",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "get product by name",
+                "responses": {}
+            }
+        },
+        "/client/product/get-price": {
+            "get": {
+                "description": "get product by price",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "get product by price",
+                "responses": {}
+            }
+        },
         "/client/refresh": {
             "get": {
                 "description": "refresh token item",
@@ -510,7 +686,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Cỏ Studio API",
-	Description:      "Đây là API của Cỏ Studio,\nViệc sử dụng API này phải có sự đồng ý của Mr. Phong\nSwagger chỉ phục vụ cho việc hiển thị các API được phép sử dụng\nNếu bạn muốn sử dụng phải thực hiện trên postman\nĐể có file test postman, bạn cần liên hệ người quản lý API",
+	Description:      "Đây là API của Cỏ Studio,\nViệc sử dụng API này phải có sự đồng ý của Mr. Phong",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",
