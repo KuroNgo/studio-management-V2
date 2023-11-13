@@ -4,9 +4,10 @@ import (
 	"co-studio-e-commerce/conf"
 	"co-studio-e-commerce/route"
 	"fmt"
-
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"net/http"
+	_ "net/http/pprof"
 )
 
 // @title   Cỏ Studio API
@@ -36,6 +37,15 @@ func main() {
 		ginSwagger.DeepLinking(true),
 		ginSwagger.PersistAuthorization(true),
 	)
+
+	// Save pprof handlers first.
+	pprofMux := http.DefaultServeMux
+	http.DefaultServeMux = http.NewServeMux()
+
+	// Pprof server.
+	go func() {
+		fmt.Println(http.ListenAndServe("localhost:8000", pprofMux))
+	}()
 }
 
 //docker run -d -e POSTGRES_HOST=localhost -e POSTGRES_DB=kurodev -e POSTGRES_PASSWORD=01012002Phong.

@@ -33,11 +33,17 @@ func (u *User) GetAllUser(ctx *gin.Context) {
 	users, err := u.service.GetAllUser()
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "error",
+			"message": err.Error(),
+		})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"users": users}})
+	ctx.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   gin.H{"users": users},
+	})
 }
 
 // GetUserByRole godoc
@@ -148,7 +154,10 @@ func (u *User) GetMeV2(ctx *gin.Context) {
 	cookie, err := ctx.Cookie("access_token")
 
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"status": "fail", "message": "You are not login!"})
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"status":  "fail",
+			"message": "You are not login!",
+		})
 		return
 	}
 
@@ -156,7 +165,10 @@ func (u *User) GetMeV2(ctx *gin.Context) {
 
 	sub, err := util.ValidateToken(cookie, cfg.AccessTokenPublicKey)
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": err.Error()})
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
 		return
 	}
 
@@ -175,7 +187,10 @@ func (u *User) GetMeV2(ctx *gin.Context) {
 	}
 
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": string(resultString) + "the user belonging to this token no logger exists"})
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{
+			"status":  "fail",
+			"message": string(resultString) + "the user belonging to this token no logger exists",
+		})
 		return
 	}
 
@@ -197,7 +212,10 @@ func (u *User) UpdateUser(ctx *gin.Context) {
 	cookie, err := ctx.Cookie("access_token")
 
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"status": "fail", "message": "You are not login!"})
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"status":  "fail",
+			"message": "You are not login!",
+		})
 		return
 	}
 
@@ -227,7 +245,10 @@ func (u *User) UpdateUser(ctx *gin.Context) {
 	userResponse.Password, err = util.HashPassword(userResponse.Password)
 	result2, err := u.service.UpdateUser(userResponse)
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": string(resultString) + "the user belonging to this token no logger exists"})
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{
+			"status":  "fail",
+			"message": string(resultString) + "the user belonging to this token no logger exists",
+		})
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{
@@ -247,16 +268,22 @@ func (u *User) UpdateUser(ctx *gin.Context) {
 // @Router /client/login/username [post]
 func (u *User) LoginWithUserName(ctx *gin.Context) {
 	// Lấy thông tin từ request
-	userRequest := model.UserRequest{}
+	userRequest := model.SignInWithUsername{}
 
 	if err := ctx.ShouldBindJSON(&userRequest); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": err.Error(),
+		})
 		return
 	}
 
 	data, err := u.service.LoginUserByUsername(userRequest)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "error",
+			"message": err.Error(),
+		})
 		return
 	}
 
@@ -265,13 +292,19 @@ func (u *User) LoginWithUserName(ctx *gin.Context) {
 	// Generate token
 	accessToken, err := util.CreateToken(cfg.AccessTokenExpiresIn, data.ID, cfg.AccessTokenPrivateKey)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
 		return
 	}
 
 	refreshToken, err := util.CreateToken(cfg.RefreshTokenExpiresIn, data.ID, cfg.RefreshTokenPrivateKey)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": err.Error(),
+		})
 		return
 	}
 
@@ -280,7 +313,11 @@ func (u *User) LoginWithUserName(ctx *gin.Context) {
 	ctx.SetCookie("logged_in", "true", cfg.AccessTokenMaxAge*60, "/", "localhost", false, false)
 
 	// Trả về thông báo login thành công
-	ctx.JSON(http.StatusOK, gin.H{"status": "success", "message": "Login successful", "user": data})
+	ctx.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Login successful",
+		"user":    data,
+	})
 }
 
 // LoginWithEmail godoc
@@ -293,17 +330,23 @@ func (u *User) LoginWithUserName(ctx *gin.Context) {
 // @Router /client/login/email [post]
 func (u *User) LoginWithEmail(ctx *gin.Context) {
 	//  Lấy thông tin từ request
-	userRequest := model.SignInInput{}
+	userRequest := model.SignInWithEmail{}
 
 	if err := ctx.ShouldBindJSON(&userRequest); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": err.Error()},
+		)
 		return
 	}
 
 	data, err := u.service.LoginUserByEmail(userRequest)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "error",
+			"message": err.Error()},
+		)
 		return
 	}
 
@@ -312,13 +355,19 @@ func (u *User) LoginWithEmail(ctx *gin.Context) {
 	// Generate token
 	accessToken, err := util.CreateToken(cfg.AccessTokenExpiresIn, data.ID, cfg.AccessTokenPrivateKey)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": err.Error()},
+		)
 		return
 	}
 
 	refreshToken, err := util.CreateToken(cfg.RefreshTokenExpiresIn, data.ID, cfg.RefreshTokenPrivateKey)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "fail",
+			"message": err.Error()},
+		)
 		return
 	}
 
@@ -339,7 +388,7 @@ func (u *User) LoginWithEmail(ctx *gin.Context) {
 // @Param user body model.User true "register user"
 // @Router /client/register [post]
 func (u *User) Register(ctx *gin.Context) {
-	var user model.User
+	var user model.SignUpInput
 	if err := ctx.ShouldBindJSON(&user); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
@@ -349,25 +398,37 @@ func (u *User) Register(ctx *gin.Context) {
 	}
 
 	if !util.EmailValid(user.Email) {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Email không hợp lệ !"})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": "Email không hợp lệ !",
+		})
 		return
 	}
 
 	if !util.PhoneValid(user.Phone) {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Số điện thoại không đúng chuẩn"})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": "Số điện thoại không đúng chuẩn",
+		})
 		return
 	}
 
 	// Bên phía client sẽ phải so sánh password thêm một lần nữa đã đúng chưa
 	if !util.PasswordStrong(user.Password) {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số !"})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số !",
+		})
 		return
 	}
 
 	// Băm mật khẩu
 	hashedPassword, err := util.HashPassword(user.Password)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": err.Error()},
+		)
 		return
 	}
 
@@ -376,18 +437,58 @@ func (u *User) Register(ctx *gin.Context) {
 	user.Username = util.Santize(user.Username)
 	user.Email = util.Santize(user.Email)
 	user.Email = strings.ToLower(user.Email)
-	user.UpdatedAt = time.Now()
-	user.CreatedAt = time.Now()
+
+	// Generate Verification Code
+	//code := randstr.String(8)
+	//verificationCode := util.Encode(code)
+
+	newUser := model.User{
+		FullName: user.FullName,
+		Username: user.Username,
+		Email:    user.Email,
+		Password: user.Password,
+		Phone:    user.Phone,
+		Role:     "user",
+		//VerificationCode: verificationCode,
+		Verified:   false,
+		Provider:   "Cỏ Studio",
+		WhoUpdates: user.FullName,
+		CreatedAt:  time.Now(),
+		UpdatedAt:  time.Now(),
+		Enable:     1,
+	}
 
 	// thực hiện đăng ký người dùng
-	userResponse, err := u.service.RegisterUser(user)
+	userResponse, err := u.service.RegisterUser(newUser)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": err.Error()},
+		)
 		return
 	}
 
-	// Trả về phản hồi thành công
-	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"user": userResponse}})
+	//var firstName = newUser.FullName
+	//if strings.Contains(firstName, "") {
+	//	firstName = strings.Split(firstName, " ")[0]
+	//}
+	//
+	//config, _ := conf.LoadConfig(".")
+	//
+	//emailData := util.EmailData{
+	//	URL:       config.ClientOrigin + "/verify_email/" + code,
+	//	FirstName: firstName,
+	//	Subject:   "Your account verification code",
+	//}
+	//
+	//util.SendEmail(&newUser, &emailData, "*/verificationCode.html")
+	//message := "We sent an email with a verification code to " + newUser.Email
+	//// Trả về phản hồi thành công
+	ctx.JSON(http.StatusCreated, gin.H{
+		"status": "success",
+		//"message": message,
+		"data": userResponse,
+	})
 }
 
 // RefreshAccessToken godoc
@@ -403,7 +504,10 @@ func (u *User) RefreshAccessToken(ctx *gin.Context) {
 	cookie, err := ctx.Cookie("refresh_token")
 
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": message})
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{
+			"status":  "fail",
+			"message": message},
+		)
 		return
 	}
 
@@ -411,7 +515,10 @@ func (u *User) RefreshAccessToken(ctx *gin.Context) {
 
 	sub, err := util.ValidateToken(cookie, cfg.RefreshTokenPublicKey)
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": err.Error()})
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{
+			"status":  "fail",
+			"message": err.Error()},
+		)
 		return
 	}
 
@@ -419,13 +526,19 @@ func (u *User) RefreshAccessToken(ctx *gin.Context) {
 	resultString, err := json.Marshal(result)
 
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": string(resultString) + "the user belonging to this token no logger exists"})
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{
+			"status":  "fail",
+			"message": string(resultString) + "the user belonging to this token no logger exists"},
+		)
 		return
 	}
 
 	accessToken, err := util.CreateToken(cfg.AccessTokenExpiresIn, result.ID, cfg.AccessTokenPrivateKey)
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": err.Error()})
+		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{
+			"status":  "fail",
+			"message": err.Error()},
+		)
 		return
 	}
 
@@ -451,4 +564,15 @@ func (u *User) LogoutUser(ctx *gin.Context) {
 	ctx.SetCookie("logged_in", "", -1, "/", "localhost", false, false)
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
+}
+
+// ResolvePassword godoc
+// @Summary resolve password of user
+// @Description resolve password of user
+// @Tags users
+// @Accept json
+// @Produce json
+// @Router /client/logout [get]
+func (u *User) ResolvePassword(ctx *gin.Context) {
+
 }

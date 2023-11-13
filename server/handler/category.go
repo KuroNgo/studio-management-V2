@@ -156,7 +156,9 @@ func (c *Category) GetCategoryByEnableForEdit(ctx *gin.Context) {
 func (c *Category) CreateCategory(ctx *gin.Context) {
 	// Lấy user hiện đang đăng nhập
 	currentUser := ctx.MustGet("currentUser")
-	var category model.Category
+
+	// Thực hiện tạo input cho người dùng
+	var category model.CategoryForCreate
 	if err := ctx.ShouldBindJSON(&category); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "error",
@@ -175,19 +177,16 @@ func (c *Category) CreateCategory(ctx *gin.Context) {
 		return
 	}
 
-	category.UpdatedAt = time.Now()
-	category.CreatedAt = time.Now()
-
 	// Thực hiện thêm category
 	newCategory := model.Category{
 		CategoryName: category.CategoryName,
 		Description:  category.Description,
 		Enable:       1,
-		IsUpdate:     category.IsUpdate,
-		UpdatedAt:    category.UpdatedAt,
-		//WhoUpdate:    fmt.Sprint(currentUser),
-		WhoUpdate: userName.FullName,
-		IsDelete:  0,
+		IsUpdate:     0,
+		UpdatedAt:    time.Now(),
+		CreatedAt:    time.Now(),
+		WhoUpdate:    userName.FullName,
+		IsDelete:     0,
 	}
 
 	categoryResponse, err := c.categoryService.CreateCategory(newCategory)
@@ -216,7 +215,7 @@ func (c *Category) CreateCategory(ctx *gin.Context) {
 func (c *Category) UpdateCategory(ctx *gin.Context) {
 	// Lấy user hiện tại đăng nhập
 	currentUser := ctx.MustGet("currentUser")
-	var category model.Category
+	var category model.CategoryForUpdate
 	if err := ctx.ShouldBindJSON(&category); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "fail",
@@ -235,14 +234,13 @@ func (c *Category) UpdateCategory(ctx *gin.Context) {
 		return
 	}
 
-	category.UpdatedAt = time.Now()
 	updateCategory := model.Category{
 		CategoryName: category.CategoryName,
 		Description:  category.Description,
 		Enable:       category.Enable,
 		IsUpdate:     1,
 		WhoUpdate:    userName.FullName,
-		UpdatedAt:    category.UpdatedAt,
+		UpdatedAt:    time.Now(),
 		IsDelete:     0,
 	}
 

@@ -2,6 +2,7 @@ package model
 
 import (
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 	"time"
 )
 
@@ -12,12 +13,22 @@ type Product struct {
 	Description string    `json:"description"`
 	AvatarURL   string    `json:"image_url"`
 	Enable      int       `json:"enable"`
+	CreatedAt   time.Time `gorm:"not null;autoCreateTime;default:CURRENT_TIMESTAMP" json:"createdAt"`
+	UpdatedAt   time.Time `gorm:"not null;autoUpdateTime;default:CURRENT_TIMESTAMP" json:"updatedAt"`
+	DeleteAt    gorm.DeletedAt
 	IsUpdate    int       `json:"is_update"`
-	WhoUpdate   string    `json:"who_update"`
-	UpdateDate  time.Time `json:"update_date"`
 	IsDelete    int       `json:"is_delete"`
+	WhoUpdates  string    `gorm:"not null;default:user" json:"who_updates"`
 	CategoryID  uuid.UUID `json:"category_id" gorm:"type:uuid"`
 	Categories  Category  `gorm:"foreignKey:CategoryID"`
+}
+
+type ProductForEdit struct {
+	ProductName string    `gorm:"unique" json:"product_name"`
+	Price       int       `json:"price"`
+	Description string    `json:"description"`
+	AvatarURL   string    `json:"image_url"`
+	CategoryID  uuid.UUID `json:"category_id" gorm:"type:uuid"`
 }
 
 type Image struct {

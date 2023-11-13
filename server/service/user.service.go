@@ -23,8 +23,8 @@ type IUser interface {
 	GetUserByRole(role string) (*[]model.User, error)
 	GetUserByAddress(address string) (*[]model.User, error)
 	GetUserCreateUser(createdAt time.Time) (*[]model.User, error)
-	LoginUserByEmail(UserRequest model.SignInInput) (userResponse *model.User, err error)
-	LoginUserByUsername(UserRequest model.UserRequest) (UserResponse *model.User, err error)
+	LoginUserByEmail(UserRequest model.SignInWithEmail) (userResponse *model.User, err error)
+	LoginUserByUsername(UserRequest model.SignInWithUsername) (UserResponse *model.User, err error)
 	UpdateUser(currentUser model.User) (*model.User, error)
 	RegisterUser(userRegister model.User) (userResponse model.User, err error)
 }
@@ -99,7 +99,7 @@ func (u *User) GetUserCreateUser(createdAt time.Time) (*[]model.User, error) {
 }
 
 // LoginUserByEmail Đăng nhập theo email và password
-func (u *User) LoginUserByEmail(UserRequest model.SignInInput) (userResponse *model.User, err error) {
+func (u *User) LoginUserByEmail(UserRequest model.SignInWithEmail) (userResponse *model.User, err error) {
 	user, err := u.repo.GetUserEmail(UserRequest.Email)
 	if err != nil {
 		return &model.User{}, err
@@ -114,7 +114,7 @@ func (u *User) LoginUserByEmail(UserRequest model.SignInInput) (userResponse *mo
 }
 
 // LoginUserByUsername Đăng nhập theo username
-func (u *User) LoginUserByUsername(UserRequest model.UserRequest) (UserResponse *model.User, err error) {
+func (u *User) LoginUserByUsername(UserRequest model.SignInWithUsername) (UserResponse *model.User, err error) {
 	user, err := u.repo.GetUserByUsername(UserRequest.Username)
 	if err != nil {
 		return &model.User{}, err
@@ -140,16 +140,11 @@ func (u *User) UpdateUser(currentUser model.User) (*model.User, error) {
 // RegisterUser Đăng ký tài khoản
 func (u *User) RegisterUser(userRegister model.User) (userResponse model.User, err error) {
 	userRequest := model.User{
-		FullName:   userRegister.FullName,
-		Username:   userRegister.Username,
-		Email:      strings.ToLower(userRegister.Email),
-		Password:   userRegister.Password,
-		Phone:      userRegister.Phone,
-		Role:       userRegister.Role,
-		Provider:   userRegister.Provider,
-		AvatarUser: userRegister.AvatarUser,
-		Photo:      userRegister.Photo,
-		Enable:     userRegister.Enable,
+		FullName: userRegister.FullName,
+		Username: userRegister.Username,
+		Email:    strings.ToLower(userRegister.Email),
+		Password: userRegister.Password,
+		Phone:    userRegister.Phone,
 	}
 	user, err := u.repo.CreateUser(userRequest)
 	if err != nil {

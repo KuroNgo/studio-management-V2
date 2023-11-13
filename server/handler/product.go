@@ -209,6 +209,7 @@ func (p *Product) CreateProduct(ctx *gin.Context) {
 		return
 	}
 
+	// Thực hiện kiểm tra có phải là file image
 	if !util.IsImageFile(file.Filename) {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status":  "fail",
@@ -245,7 +246,7 @@ func (p *Product) CreateProduct(ctx *gin.Context) {
 	}
 
 	product.AvatarURL = filePath
-	product.WhoUpdate = userName.WhoUpdates
+	product.WhoUpdates = userName.WhoUpdates
 	data, err := p.productService.CreateProduct(product)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -320,8 +321,8 @@ func (p *Product) UpdateProduct(ctx *gin.Context) {
 		AvatarURL:   filePath,
 		Enable:      product.Enable,
 		IsUpdate:    1,
-		WhoUpdate:   userName.WhoUpdates,
-		UpdateDate:  time.Now(),
+		WhoUpdates:  userName.WhoUpdates,
+		UpdatedAt:   time.Now(),
 		IsDelete:    1,
 		CategoryID:  product.CategoryID,
 	}

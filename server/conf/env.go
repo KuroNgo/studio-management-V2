@@ -29,7 +29,14 @@ type Config struct {
 	AccessTokenMaxAge      int           `mapstructure:"ACCESS_TOKEN_MAX_AGE"`
 	RefreshTokenMaxAge     int           `mapstructure:"REFRESH_TOKEN_MAX_AGE"`
 
-	Url_HTTPS string `mapstructure:"URL_CLOUDINARY_WITH_HTTPS"`
+	ClientOrigin string `mapstructure:"CLIENT_ORIGIN"`
+	Url_HTTPS    string `mapstructure:"URL_CLOUDINARY_WITH_HTTPS"`
+
+	EmailFrom string `mapstructure:"EMAIL_FROM"`
+	SMTPHost  string `mapstructure:"SMTP_HOST"`
+	SMTPPass  string `mapstructure:"SMTP_PASS"`
+	SMTPPort  int    `mapstructure:"SMTP_PORT"`
+	SMTPUser  string `mapstructure:"SMTP_USER"`
 }
 
 var Cfg Config

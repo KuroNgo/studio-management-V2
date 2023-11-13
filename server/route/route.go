@@ -61,6 +61,9 @@ func NewService() *Service {
 	// option method to fix preflight request
 	route.OPTIONS("/*path", middleware.OptionMessage)
 
+	// Thêm endpoint pprof
+	route.GET("/debug/pprof/*any", gin.WrapH(http.DefaultServeMux))
+
 	v1User := route.Group("api/v1/user")
 	{
 
